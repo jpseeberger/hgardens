@@ -1,6 +1,20 @@
 var http = require('http');
 var express = require('express');
+var swig = require('swig');
+
 var app = express();
+
+
+var tpl = swig.compileFile('views/home.swig');
+var tplLogin = swig.compileFile('views/login.swig');
+
+app.get('/', function (req, res) {
+    res.send(tpl());
+});
+
+app.get('/login', function (req, res) {
+    res.send(tplLogin());
+});
 
 // Setup static file serving
 app.use(express.static('public'));
