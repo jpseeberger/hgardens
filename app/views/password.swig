@@ -9,10 +9,10 @@
 
         <ul class="login-tabs primary">
 	  <li class="login-tabs__tab is-active">
-	    <a href="../hg_login.html" class="login-tabs__tab-link">Log in </a>
+	    <a href="/login" class="login-tabs__tab-link">Log in </a>
 	  </li>
 	  <li class="login-tabs__tab">
-	    <a href="hg_new_pwd.html" class="login-tabs__tab-link is-active active">Request new password<span class="element-invisible">(active tab)</span></a>
+	    <a href="login/password" class="login-tabs__tab-link is-active active">Request new password<span class="element-invisible">(active tab)</span></a>
 	  </li>
         </ul>
       </section>
