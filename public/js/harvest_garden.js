@@ -10,12 +10,12 @@ function highlight(ev) {
 
 function increaseFont(ev) {
     $(this).animate({fontSize: "1.1em"}, 100);
-    $(this).toggleClass('highlighted');  
+//    $(this).toggleClass('highlighted');  
 }
 
 function decreaseFont(ev) {
     $(this).animate({fontSize: "1em"}, 100);
-    $(this).toggleClass('highlighted');  
+//    $(this).toggleClass('highlighted');  
 }
 
 function buttonClick()
@@ -26,21 +26,33 @@ function buttonClick()
     var buttonName = $(this).html();
     var headerInfo = $('<div class="dialogue"><h3>' + buttonName + '</h3></div>');
 
+//    var headerInfo = $('<div class="dialogue"><h3>' + buttonName + '</h3></div>');
     // Append the info from .dialogue.
-    a.append(  headerInfo.fadeIn('slow') );
+//    a.append(  headerInfo.fadeIn('slow') );
         
     // Append the info from .dialogue.
-    $('.dialogue').on('click', buttonClickRemove); 
+//    $('.dialogue').on('click', buttonClickRemove); 
 }
 
 
 
 $(document).on('ready', function(ev)
 {
-    $('.rounded-button').on('click', buttonClick) 
+    $('.navigation').on('click', buttonClick) 
                         .on('mouseover', increaseFont)
                         .on('mouseleave', decreaseFont);
 //    $('.rounded-button').on('mouseover mouseleave', highlight);
+    
+    var wrap = $('.fix-header);
+    
+    wrap.on('scroll', function(err) {
+      if (this.scrollTop > 100) {
+        wrap.addClass("fix-search");
+      } else {
+        wrap.removeClass("fix-search");
+      }
+    });
+            
 });
 
 // Short hand way to write document ready--just pass in the handler function 

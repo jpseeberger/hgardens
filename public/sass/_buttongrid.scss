@@ -1,0 +1,30 @@
+// _buttongrid.scss
+// ==============
+
+.button-grid {
+  margin: 0 auto;
+
+  li {
+    float: left;
+    margin: 1%;
+    padding: 1%;
+    width: 28%;
+    border-radius: 10px;
+    background-color: $buttonGridBackground;
+  }
+}
+
+.rounded-button {
+  font-family: $buttonFont;
+  font-weight:normal;
+  margin: 1% 25%;
+  padding: 0.5em;
+  border-radius: 10px;
+  border: 1px solid $buttonBorderColor;
+  border-bottom: 4px solid $buttonBorderColor;
+  background-color: $buttonBackground;
+}
+
+.highlighted {
+  background-color: $buttonHighlightedColor;
+}

@@ -1,5 +1,11 @@
 {
+  "name": "harvest_gardens",
+  "version": "0.0.1",
+  "djescription": "landing page for harvest gardens",
   "dependencies": {
     "express": "latest"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0"
   }
 }

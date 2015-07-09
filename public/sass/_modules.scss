@@ -1,0 +1,100 @@
+// _modules.scss
+// ============
+
+/*hero styles*/
+#hero {
+    background-image: url(../images/harvest_road.JPG);
+    background-repeat: no-repeat;
+    opacity: 1.0;
+    position: relative;
+    background-attachment: fixed;
+    height: 650px;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    margin-bottom: -10px;
+    z-index: -1;
+
+    h2 {
+      color: rgba(173, 169, 130, 0.9);
+      font-size: 2em;
+      padding-left: 0.5em;
+      padding-top: 600px;
+  }
+}
+
+#our-produce {
+  padding: 10px;
+  background-color: $bodyBackground;
+  height: 120px;
+  text-align: center;
+  border-bottom: 4px groove antiquewhite;
+}
+
+.slide{
+	background-attachment: fixed;
+	width:100%;
+	position: relative;
+	padding: 0 0 30px 0;
+}
+
+#anti-hero {
+    background-image: url(../images/squash_leaf.JPG);
+    background-repeat: no-repeat;
+    opacity: 1.0;
+    background-attachment: fixed;
+    background-size:cover;
+    height: 200px;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    margin-top: 10px;
+    margin-bottom: -10px;
+    z-index: -1;
+}
+
+/*sticky footer from CSS tricks*/
+.page-wrapper {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: 100px;
+}
+.page-wrapper:after {
+  content: "";
+  display: block;
+}
+.sticky-footer, .page-wrapper:after {
+  height: 100px;
+}
+
+
+.dialogue {
+  position: fixed;
+  margin-left: -200px;
+  margin-top: -200px;
+  top: 50%;
+  left: 50%;
+  height: 400px;
+  width: 400px;
+  font-weight: normal;
+  background-color: $buttonHighlightedColor;
+  border: 2px solid #1d1c1e;
+  border-radius: 10px;
+
+  h3 {
+    font-family: $buttonFont;
+    text-align: center;
+    height: 2em;
+    background-color: $buttonGridBackground;
+    border-bottom: 1px solid #1d1c1e;
+    border-radius: 10px 10px 0 0;
+  }
+
+  p {
+    text-align: left;
+    height: 1em;
+  }
+}
+

@@ -7,6 +7,7 @@ var app = express();
 
 var tpl = swig.compileFile('views/home.swig');
 var tplLogin = swig.compileFile('views/login.swig');
+var tplPassword = swig.compileFile('views/password.swig');
 
 app.get('/', function (req, res) {
     res.send(tpl());
@@ -16,6 +17,9 @@ app.get('/login', function (req, res) {
     res.send(tplLogin());
 });
 
+app.get('/login/password', function (req, res) {
+    res.send(tplPassword());
+});
 // Setup static file serving
 app.use(express.static('public'));
 

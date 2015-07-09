@@ -1,0 +1,75 @@
+// _base.scss
+/*html5 display rule*/
+
+/* NOTE:  rgb(173, 169, 130) = #ada982  */
+
+address, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, nav, menu, section, summary {
+display: block;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+  background-color: lighten($bodyBackground, 10%);
+  font-family: $bodyFont;
+  font-size: 1.1em;
+  margin: 0 auto;
+  overflow: auto;
+  box-sizing: border-box;
+}
+ 
+#main::before, #header::before, #main::after, #header::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+#main {
+  position: relative;
+  padding-top: 0px;
+  h1 {
+    line-height: 100px;
+    font-size: 2em;
+    font-weight: bold;
+    padding-left: 0.5em;
+    color: lighten($buttonBackground, 10%);
+  }
+}
+
+/*list styles*/
+ul li {
+    list-style: none;
+}
+
+
+    
+/* Content region styles -------------------*/
+
+/*header styles*/
+#header
+{
+  background-color: $headerBackground;
+  border-bottom: 0.5em solid $headerBorderColor;
+  padding:  0px;
+  width: 100%;
+  min-height: $headerMinHeight;
+  position: fixed;
+}
+
+/*footer styles*/
+
+footer {
+  color: #f7f5e1;
+  background-color: $bodyBackground;
+  text-align: right;
+  padding: 15px 0px 15px 0px;
+}
+
+footer .bottom-border {
+  border-bottom: 3px solid blueviolet;
+  border-bottom: 3px solid #a09aab;
+}
+
