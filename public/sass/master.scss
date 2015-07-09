@@ -1,17 +1,11 @@
 // main.scss
 // ==============
  
-//Compass imports
-@import "compass";
-@import "compass/css3/box-shadow";
  
 //Core partials
-@import "variables";
-@import "mixins";
 @import "base";
+@import "buttongrid";
+@import "login";
 @import "modules";
+@import "variables";
  
-// JS partials
-@import "js";
-@import "pixgrid";
-@import "rclick";

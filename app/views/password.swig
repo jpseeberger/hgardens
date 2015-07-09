@@ -17,16 +17,15 @@
         </ul>
       </section>
 
-
       <form action="/user/password" method="post" id="user-pass" accept-charset="UTF-8">
  
         <div class="form-item form-type-textfield form-item-name"> 
           <label for="edit-name">Username or e-mail address <span class="form-required" title="This field is required.">*</span></label> 
-          <input type="text" id="edit-name" name="name" value="" size="60" maxlength="254" class="form-text required" />
+          <input type="text" name="pwd"/>
         </div>
 
 	<div class="form-actions form-wrapper" id="edit-actions">
-	  <input type="submit" id="edit-submit" name="op" value="E-mail new password" class="form-submit" />
+	  <input type="submit" name="Go" value="E-mail new password" />
 	</div>
       </form>
     </div>

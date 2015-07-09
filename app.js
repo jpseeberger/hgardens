@@ -1,13 +1,17 @@
 var http = require('http');
-var express = require('express');
+var express = require('express'),
+  router = express.Router();
 var swig = require('swig');
+var bodyParser = require('body-parser');
 
 var app = express();
 
 
-var tpl = swig.compileFile('views/home.swig');
-var tplLogin = swig.compileFile('views/login.swig');
-var tplPassword = swig.compileFile('views/password.swig');
+
+var tpl = swig.compileFile('app/views/home.swig');
+var tplLogin = swig.compileFile('app/views/login.swig');
+var tplPassword = swig.compileFile('app/views/password.swig');
+
 
 app.get('/', function (req, res) {
     res.send(tpl());
@@ -18,8 +22,26 @@ app.get('/login', function (req, res) {
 });
 
 app.get('/login/password', function (req, res) {
-    res.send(tplPassword());
+    res.send(tplPassword({ title: "Request New Password", fullName: req.params['newlp'] }));
 });
+
+
+//router.get('/login/password', function (req, res) {
+//    res.send(tplPassword({ title: "Request New Password", fullName: req.params['newlp'] }));
+//});
+
+
+//modules.exports = function(req,res) {
+//    res.send
+//}
+
+// Use the Body parser for POST data
+//app.use(bodyParser.urlencoded({ extended: true }));
+
+//app.post('/login/password', function(req, res) {
+//  res.send(tplPassword({ title: "Password request", fullName: req.body.newlp }));
+//});
+
 // Setup static file serving
 app.use(express.static('public'));
 
