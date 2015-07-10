@@ -3,9 +3,7 @@
   "version": "0.0.1",
   "djescription": "landing page for harvest gardens",
   "dependencies": {
-    "express": "latest"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.0"
+    "express": "latest",
+    "semantic-ui": "^2.0.2"
   }
 }
