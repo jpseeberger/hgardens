@@ -2,10 +2,6 @@
 
 {% block content %}
 
-    <div id="hero">
-      <h2>Providing direct access to local, small batch farms</h2>
-    </div>
-
     <div class="page-wrapper">
       <div id="hero">
         <h2>Providing direct access to local, small batch farms</h2>
@@ -14,35 +10,20 @@
       <section>
         <!-- NAVIGATION -->
         <div class="fix-header">
-          <nav id="nav">
-            <div class="col-md-5">
-              <a href="#home" class="nav-home">
-                <i class="fa fa-leaf">Home</i>
-              </a>
-            </div>
-            
-            <div class="col-lg-7 visible-lg">
-              <a href="#available-now">Available Now</a>
-              <a href="#available-next-week">Available Next Week</a>
-              <a href="#full-list">Our Full List</a>
-            </div>
-          </nav>
-          <div class="navigation-wrapper">
-            <ul class="navigation">
-              <li>
-                <a href="#home">Home</a>
-              </li>
-              <li>
+          <nav class="fluid ui big buttons">
+              <button class="ui button">
+                <a href="#home"><i class="fa fa-leaf">Home</i></a>
+              </button>
+              <button class="ui button">
                 <a href="#available-now">Available Now</a>
-              </li>
-              <li>
+              </button>
+              <button class="ui button">
                 <a href="#available-next-week">Available Next Week</a>
-              </li>
-              <li>
+              </button>
+              <button class="ui button">
                 <a href="#full-list">Our Full List</a>
-              </li>
-            </ul>
-          </div>
+              </button>
+          </nav>
         </div>
       </section>
 
