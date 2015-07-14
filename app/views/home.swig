@@ -69,7 +69,7 @@
            <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
          </div>
          <div class="six wide right floated column">
-           <img src="../../public/images/thistle.JPG" class="ui large bordered rounded image">
+           <img src="../images/thistle.JPG" class="ui large bordered rounded image">
          </div>
        </div>
      </div>
