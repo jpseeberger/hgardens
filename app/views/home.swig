@@ -50,7 +50,7 @@
        <h1 class="ui inverted header">
          Harvest Lane Gardens
        </h1>
-       <h2>Providing direct access to local, small batch farms.</h2>
+       <h2>Providing direct access to local, small batch farms</h2>
        <a href="#available-now" class="ui huge inverted basic button">
          Available Now
        </a>
@@ -63,7 +63,7 @@
      <div class="ui middle aligned stackable grid container">
        <div class="row">
          <div class="eight wide column">
-           <h3 class="ui header">Produce from a garden near you</h3>
+           <h3 class="ui header">Produce From a Garden Near You</h3>
            <p>We grow and harvest our produce just outside Iowa City, without the use of chemicals or pesticides. By eating locally grown produce, you're investing in eating the way nature intended. We don't stress water supplies in parched parts of the country, and we don't waste fuel getting it to you.</p>
            <h3 class="ui header">We Make </h3>
            <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
@@ -81,35 +81,16 @@
        <div class="row">
          <div class="column">
            <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/icons/paint.png">
-             Veg 1
+             <img class="ui icon image" src="/images/tomatoes-659065_640.jpg">
+             Tomatoes
            </h2>
            <p>veg1</p>
            <a class="ui large button" href="/usage/theming.html">veg 1</a>
          </div>
          <div class="column">
            <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/icons/book.png">
-             Veg 2
-           </h2>
-           <p>veg2</p>
-           <div class="ui view-ui large button">veg 2
-           </div>
-         </div>
-         <div class="column">
-           <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/icons/lab.png">
-             Veg 3
-           </h2>
-           <p>
-             veg3
-           </p>
-           <a href="/" class="ui large button">Veg3 </a>
-         </div>
-         <div class="column">
-           <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/icons/lab.png">
-             Veg 4
+             <img class="ui icon image" src="/images/radishes-322831_640.jpg">
+             Radishes
            </h2>
            <p>
              veg4
@@ -118,13 +99,32 @@
          </div>
          <div class="column">
            <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/icons/lab.png">
-             Veg 5
+             <img class="ui icon image" src="/images/zucchini-572542_640.jpg">
+             Zucchini
            </h2>
            <p>
              veg5
            </p>
            <a href="/" class="ui large button">Veg5 </a>
+         </div>
+         <div class="column">
+           <h2 class="ui icon header">
+             <img class="ui icon image" src="/images/red-peppers-356099_640.jpg">
+             Red Peppers
+           </h2>
+           <p>veg2</p>
+           <div class="ui view-ui large button">veg 2
+           </div>
+         </div>
+         <div class="column">
+           <h2 class="ui icon header">
+             <img class="ui icon image" src="/images/beets-356119_640.jpg">
+             Beets
+           </h2>
+           <p>
+             veg3
+           </p>
+           <a href="/" class="ui large button">Veg3 </a>
          </div>
        </div>
     </div>
@@ -145,7 +145,7 @@
           <ul>
               <li>Baby Bok Choy</li>
               <li>Beets</li>
-              <li>Zuchini</li>
+              <li>Zucchini</li>
           </ul>
         </div>
         <div class="column">

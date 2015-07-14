@@ -1,34 +1,7 @@
-// _variables.scss
-// =================
-@import "http://fonts.googleapis.com/css?family=Raleway";
-@import "http://fonts.googleapis.com/css?family=Kaushan+Script";
-
-@import "http://fonts.googleapis.com/css?family=Patua+One|Inika";
-
-//$headFont : 'Patua One', sans-serif;
-$bodyFont   : 'Raleway', Arial, sans-serif;
-$headFont   : $bodyFont;
-$buttonFont : 'Kaushan Script', serif;
+$mastheadBackground     : #000;
+$buttonGridBackground   : #00B5AD;
 
 
-//header colors
-$headerBackground  : #646266;
-$headerBorderColor : #bfbfb9;
-
-//body colors
-$bodyBackground : #8f8a5f;
-
-//button colors
-$buttonBackground       : #ada982;
-$buttonBorderColor      : #000;
-$buttonGridBackground   : #cecbac;
-$buttonHighlightedColor : #fefce8;
-
-
-//header dimensions
-$headerMinHeight   : 100px;
-$footerHeight   : 100px;
-$mainWrapperHeight : $headerMinHeight * 1.05;
  
 
 
