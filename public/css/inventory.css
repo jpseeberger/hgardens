@@ -1,0 +1,16 @@
+    body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .column {
+      max-width: 650px;
+    }
+    
+    .ui.form input[type="number"],
+    .ui.form input[type="text"] {
+      line-height: 1.2142em;
+      padding: 0.27861429em .5em;
+      font-size: 0.8em;
+    }

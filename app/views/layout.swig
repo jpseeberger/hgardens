@@ -9,10 +9,11 @@
   <title>Homepage - Harvest Lane Gardens</title>
     
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="/semantic.min.css">
   <link rel="stylesheet" type="text/css" href="/css/harvest_gardens.css" media="screen">
 
 </head>
+
 <body class="index" ontouchstart="">
 
     
@@ -45,11 +46,9 @@
           </div>
         </div>
       </div>
-    </div>
-</div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="/js/semantic.min.js"></script>
+  <script src="/semantic.min.js"></script>
   <script src="/js/harvest_gardens.js"></script>
 </body>
 

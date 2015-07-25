@@ -31,6 +31,11 @@ ul li {
 .ui.vertical.stripe .horizontal.divider {
   margin: 3em 0em; }
 
+.ui.dividing.header {
+  padding-bottom: 0.2em;
+  border-bottom: 1px solid #000;
+}
+
 .quote.stripe.segment {
   padding: 0em; }
 

@@ -1,40 +1,101 @@
-{% extends 'layout.swig' %}
 
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <div class="main-login-page">
-      <section class="login-page">
-        <h2 id="manage-inventory">Manage Inventory</h2>
+  <title>Homepage - Harvest Lane Gardens</title>
+    
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/harvest_gardens.css" media="screen">
 
-        <ul class="login-tabs primary">
-	  <li class="login-tabs__tab is-active">
-	    <a href="/login" class="login-tabs__tab-link is-active active">Log in <span class="element-invisible">(active tab)</span></a>
-	  </li>
-	  <li class="login-tabs__tab">
-	    <a href="/login/password" class="pwd-tabs__tab-link">Request new password</a>
-	  </li>
-        </ul>
-      </section>
+  <style type="text/css">
+    body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: -100px;
+    }
+    .column {
+      max-width: 450px;
+    }
+  </style>
+  <script src="/js/login.js"></script>
+</head>
+<body>
 
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <div class="content">
+        Administrative Log-in
+      </div>
+    </h2>
 
-      <form action="/user" method="post" id="user-login" accept-charset="UTF-8">
- 
-        <div class="form-item form-type-textfield form-item-name"> 
-          <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label> 
-          <input type="text" id="edit-name" name="name" value="" size="60" maxlength="60" class="form-text required" />
-          <div class="description">Enter username.</div>
+    <form class="ui large form">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="email" placeholder="E-mail address">
+          </div>
         </div>
-
-        <div class="form-item form-type-password form-item-pass"> 
-          <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label> 
-          <input type="password" id="edit-pass" name="pwd" size="60" maxlength="128" class="form-text required" />
-          <div class="description">Enter your password.</div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="Password">
+          </div>
         </div>
+        <div class="ui fluid large teal submit button">Login</div>
+      </div>
 
-        <div class="form-actions" id="edit-actions">
-          <input type="submit" id="edit-submit" value="Log in" />
+
+
+
+      <div class="ui error message"></div>
+
+    </form>
+
+  </div>
+</div>
+
+
+      <div class="ui inverted vertical footer segment">
+        <div class="ui container">
+          <div class="ui stackable inverted divided equal height stackable grid">
+            <div class="three wide column">
+              <h4 class="ui inverted header">About</h4>
+              <div class="ui inverted link list">
+                <a href="#" class="item">Sitemap</a>
+                <a href="#" class="item">Contact Us</a>
+              </div>
+            </div>
+            <div class="three wide column">
+              <h4 class="ui inverted header">Services</h4>
+              <div class="ui inverted link list">
+                <a href="#" class="item">Banana Pre-Order</a>
+                <a href="#" class="item">How To Access</a>
+              </div>
+            </div>
+            <div class="seven wide column">
+              <h4 class="ui inverted header">Footer Header</h4>
+              <p>Extra space for a call to action inside the footer.</p>
+            </div>
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
 
-{% endblock %}
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/semantic.min.js"></script>
+  <script src="/js/harvest_gardens.js"></script>
+</body>
+
+</html>
+

@@ -76,8 +76,27 @@
    </div>
     
    <h4 class="ui horizontal header divider">Available Now</h4>
+   
+<div class="ui vertical stripe quote segment">
+    <div class="ui equal width stackable internally celled grid">
+      <div class="center aligned row">
+        <div class="column">
+          <h3>"What a Company"</h3>
+          <p>That is what they all say about us</p>
+        </div>
+        <div class="column">
+          <h3>"I shouldn't have gone with their competitor."</h3>
+          <p>
+            <img src="assets/images/avatar/nan.jpg" class="ui avatar image"> <b>Nan</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+   
+   
    <div class="ui vertical stripe segment" id="available-now">
-     <div class="ui three column center aligned divided relaxed stackable grid container">
+     <div class="ui column center aligned divided relaxed stackable grid container">
        <div class="row">
          <div class="column">
            <h2 class="ui icon header">

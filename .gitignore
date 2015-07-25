@@ -44,3 +44,5 @@ semantic.json
 
 .sass-cache/
 public/css/*.map
+
+/data
