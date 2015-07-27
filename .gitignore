@@ -46,3 +46,4 @@ semantic.json
 public/css/*.map
 
 /data
+/public/images

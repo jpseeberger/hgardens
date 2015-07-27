@@ -75,82 +75,28 @@
      </div>
    </div>
     
-   <h4 class="ui horizontal header divider">Available Now</h4>
+   <h3 class="ui horizontal header divider">Available Now</h3>
    
-<div class="ui vertical stripe quote segment">
-    <div class="ui equal width stackable internally celled grid">
-      <div class="center aligned row">
-        <div class="column">
-          <h3>"What a Company"</h3>
-          <p>That is what they all say about us</p>
-        </div>
-        <div class="column">
-          <h3>"I shouldn't have gone with their competitor."</h3>
-          <p>
-            <img src="assets/images/avatar/nan.jpg" class="ui avatar image"> <b>Nan</b>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-   
-   
+
    <div class="ui vertical stripe segment" id="available-now">
-     <div class="ui column center aligned divided relaxed stackable grid container">
+     <div class="ui column divided relaxed stackable grid container">
        <div class="row">
-         <div class="column">
-           <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/tomatoes-659065_640.jpg">
-             Tomatoes
-           </h2>
-           <p>veg1</p>
-           <a class="ui large button" href="/usage/theming.html">veg 1</a>
-         </div>
-         <div class="column">
-           <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/radishes-322831_640.jpg">
-             Radishes
-           </h2>
-           <p>
-             veg4
-           </p>
-           <a href="/" class="ui large button">Veg4 </a>
-         </div>
-         <div class="column">
-           <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/zucchini-572542_640.jpg">
-             Zucchini
-           </h2>
-           <p>
-             veg5
-           </p>
-           <a href="/" class="ui large button">Veg5 </a>
-         </div>
-         <div class="column">
-           <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/red-peppers-356099_640.jpg">
-             Red Peppers
-           </h2>
-           <p>veg2</p>
-           <div class="ui view-ui large button">veg 2
+         <div class="four wide column">
+           <div class="ui vertical menu">
+             <div id="productMenu"></div>
            </div>
          </div>
-         <div class="column">
-           <h2 class="ui icon header">
-             <img class="ui icon image" src="/images/beets-356119_640.jpg">
-             Beets
-           </h2>
-           <p>
-             veg3
-           </p>
-           <a href="/" class="ui large button">Veg3 </a>
+         <div class="eight wide column">
+           <div id="existingInventory"></div>
+         </div>
+         <div class="four wide column">
          </div>
        </div>
     </div>
   </div>
 
   <h4 class="ui horizontal header divider">Next Week</h4>
-  <div class="ui vertical stripe quote segment" id="available-next-week">
+  <div class="ui vertical stripe segment" id="available-next-week">
     <div class="ui center aligned grid container">
       <div class="column">
         <p>Weather and other conditions permitting, we expect to have the following items available next week.</p>

@@ -49,6 +49,7 @@
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="/semantic.min.js"></script>
+  <script src="/js/sort_function.js"></script>
   <script src="/js/harvest_gardens.js"></script>
 </body>
 

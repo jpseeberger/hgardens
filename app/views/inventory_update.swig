@@ -11,7 +11,6 @@
     
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/harvest_gardens.css" media="screen">
   <link rel="stylesheet" type="text/css" href="/css/inventory.css" media="screen">
 </head>
 <body>
@@ -27,12 +26,12 @@
 
     <div class="ui grid">
       <div class="eight column row">
+        <div class="two wide column">Class</div>
         <div class="two wide column">Category</div>
         <div class="three wide column">Subcategory</div>
         <div class="two wide column">Price</div>
         <div class="two wide column">Unit</div>
         <div class="two wide column">Available</div>
-        <div class="two wide column">Class</div>
         <div class="two wide column">Grower</div>
         <div class="one wide column">Photo</div>
       </div>
@@ -40,9 +39,16 @@
 
     <form class="ui form">
       <div class="field">
-        <div id="existing-inventory"></div>
+        <div id="existingInventory"></div>
       </div>
-      <div class="ui teal submit button">Add Item</div>
+      <button class="ui teal button" id="showForm">Add New Item</button>
+      <form class="ui form">
+        <div class="field">
+          <div class="fields">
+            <div id="newInventoryItem"></div>
+          </div>
+        </div>
+      </form>
 
       <h4 class="ui dividing header">Submit Inventory Updates</h4>
       <div class="field">
@@ -65,6 +71,7 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="/semantic.min.js"></script>
+<script src="/js/sort_function.js"></script>
 <script src="/js/inventory.js"></script>
 </body>
 </html>
