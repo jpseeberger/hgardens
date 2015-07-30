@@ -56,12 +56,15 @@ app.get('/inventory', function (req, res) {
 });
 
 app.get('/inventory/new', function (req, res) {
-    var body = "This would show form for creating a new Inventory item<br /><form method=post action=/inventory><input t type=submit /></form>";
+    var body = "This would show form for creating a new Inventory item<br /><form method=post action=/inventory>Price: <input type=text name=price /><br /><input type=submit /></form>";
     res.send(body);
 });
 
 app.post('/inventory', function (req, res) {
-    console.log('I would create an inventory item here');
+    console.log('I would create an inventory item here with params ' + JSON.stringify(req.body));
+    
+    // append req.body to the file and save it
+    
     res.redirect('/inventory');
 });
 
