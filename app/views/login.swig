@@ -11,22 +11,7 @@
     
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/harvest_gardens.css" media="screen">
-
-  <style type="text/css">
-    body {
-      background-color: #DADADA;
-    }
-    body > .grid {
-      height: 100%;
-    }
-    .image {
-      margin-top: -100px;
-    }
-    .column {
-      max-width: 450px;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="/css/login.css" media="screen">
   <script src="/js/login.js"></script>
 </head>
 <body>
@@ -35,11 +20,11 @@
   <div class="column">
     <h2 class="ui teal image header">
       <div class="content">
-        Administrative Log-in
+        Inventory Administrative Log-in
       </div>
     </h2>
 
-    <form class="ui large form">
+    <form class="ui large form" method="POST" >
       <div class="ui stacked segment">
         <div class="field">
           <div class="ui left icon input">
@@ -53,7 +38,7 @@
             <input type="password" name="password" placeholder="Password">
           </div>
         </div>
-        <div class="ui fluid large teal submit button">Login</div>
+        <button type="submit" class="ui fluid large teal submit button">Login</button>
       </div>
 
 
