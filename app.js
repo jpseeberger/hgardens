@@ -14,11 +14,17 @@ var data = require('./data/users.json');
 // Configure our HTTP server 
 var app = express();
 
+// Setup Swig as the Template Engine
+app.engine('swig', swig.renderFile);
+app.set('views', './app/views');
+app.set('view engine', 'swig');
+
+/*
 var tpl = swig.compileFile('app/views/home.swig');
 var tplLogin = swig.compileFile('app/views/login.swig');
 var tplPassword = swig.compileFile('app/views/password.swig');
 var tplInventory = swig.compileFile('app/views/inventory_update.swig');
-
+*/
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,11 +38,11 @@ app.use(session({
 }));
 
 app.get('/', function (req, res) {
-    res.send(tpl());
+    res.render('home', {});
 });
 
 app.get('/login', function (req, res) {
-    res.send(tplLogin());
+    res.render('login', {});
 });
 
 app.post('/login', function (req, res) {
@@ -52,7 +58,7 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/inventory', function (req, res) {
-    res.send(tplInventory({ title: "Update Inventory" }));
+    res.render('inventory_update', { title: "Update Inventory" });
 });
 
 app.get('/inventory/new', function (req, res) {
