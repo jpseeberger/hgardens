@@ -55,6 +55,38 @@ app.get('/inventory', function (req, res) {
     res.send(tplInventory({ title: "Update Inventory" }));
 });
 
+app.get('/inventory/new', function (req, res) {
+    var body = "This would show form for creating a new Inventory item<br /><form method=post action=/inventory><input t type=submit /></form>";
+    res.send(body);
+});
+
+app.post('/inventory', function (req, res) {
+    console.log('I would create an inventory item here');
+    res.redirect('/inventory');
+});
+
+app.get('/inventory/:id', function (req, res) {
+    var body = "This would show a form for udpating Inventory #" + req.params.id + "<br /><form method=post action=/inventory/" + req.params.id + "><input type=submit /></form>";
+    res.send(body);
+});
+
+app.post('/inventory/:id', function (req, res) {
+    console.log('I would update inventory item #' + req.params.id);
+    res.redirect('/inventory');
+});
+
+app.get('/inventory/:id/delete', function (req, res) {
+    var body = "This would show a form to confirm deletion of Inventory #" + req.params.id + "<br /><form method=post action=/inventory/" + req.params.id + "/delete><input type=submit /></form>";
+    res.send(body);
+});
+
+app.post('/inventory/:id/delete', function (req, res) {
+    console.log('I would delete inventory item #' + req.params.id);
+    res.redirect('/inventory');
+});
+
+
+
 
 // Setup static file serving
 app.use(express.static('public'));
