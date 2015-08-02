@@ -58,7 +58,7 @@
       <th></th>
       <th colspan="8">
         <div class="ui right floated small primary labeled icon button">
-          <i class="user icon"></i> Add User
+          <i class="user icon"></i> Add New Inventory Item
         </div>
         <div class="ui small button">
           Edit Selected Item
