@@ -19,54 +19,58 @@
   <div class="column">
     <h2 class="ui teal header">
       <div class="content">
-        Inventory Entry and Update
+        Inventory Control
       </div>
     </h2>
     <h4 class="ui dividing header">Current Inventory</h4>
-
-    <div class="ui grid">
-      <div class="eight column row">
-        <div class="two wide column">Class</div>
-        <div class="two wide column">Category</div>
-        <div class="three wide column">Subcategory</div>
-        <div class="two wide column">Price</div>
-        <div class="two wide column">Unit</div>
-        <div class="two wide column">Available</div>
-        <div class="two wide column">Grower</div>
-        <div class="one wide column">Photo</div>
-      </div>
-    </div>
-
-    <form class="ui form">
-      <div class="field">
-        <div id="existingInventory"></div>
-      </div>
-      <button class="ui teal button" id="showForm">Add New Item</button>
-      <form class="ui form">
-        <div class="field">
-          <div class="fields">
-            <div id="newInventoryItem"></div>
-          </div>
-        </div>
-      </form>
-
-      <h4 class="ui dividing header">Submit Inventory Updates</h4>
-      <div class="field">
-        <div class="fields">
-          <div class="four wide field">
-            <div class="ui checkbox inline">
-              <input type="checkbox" name="receipt" tabindex="0" class="hidden">
-              <label>Send Copy of Update To:</label>
+<table class="ui compact celled definition table">
+  <thead>
+    <tr>
+      <th>Edit</th>
+      <th>Class</th>
+      <th>Category</th>
+      <th>Subcategory</th>
+      <th>Price</th>
+      <th>Unit</th>
+      <th>Available</th>
+      <th>Grower</th>
+      <th>Photo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for y in arr %}
+      {% for x in  y %}
+        {% if loop.first %}
+          <tr>
+          <td class="collapsing">
+            <div class="ui radio checkbox">
+            <input type="checkbox"> <label></label>
             </div>
-          </div>
-          <div class="twelve wide field">
-            <input type="email" placeholder="roxane-mitten@uiowa.edu">
-          </div>
+          </td>
+        {% endif %}
+        <td>{{ x }}</td>
+      {% if loop.last %}</tr>{% endif %}
+    {% endfor %}
+  {% endfor %}
+  </tbody>
+  <tfoot class="full-width">
+    <tr>
+      <th></th>
+      <th colspan="8">
+        <div class="ui right floated small primary labeled icon button">
+          <i class="user icon"></i> Add User
         </div>
-      </div>
-      <div class="ui fluid large teal submit button">Submit Updates to Database</div>
-    </form>
-  </div>
+        <div class="ui small button">
+          Edit Selected Item
+        </div>
+        <div class="ui small  disabled button">
+          Delete Selected Item
+        </div>
+      </th>
+    </tr>
+  </tfoot>
+</table>
+</div>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

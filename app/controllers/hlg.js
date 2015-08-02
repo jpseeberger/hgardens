@@ -1,108 +1,125 @@
-var express = require('express');
+// From sugar js website
+function capitalize(str, all) {
+    var lastResponded;
+    return str.toLowerCase().replace(all ? /[^']/g : /^\S/, function(lower) {
+      var upper = lower.toUpperCase(), result;
+      result = lastResponded ? lower : upper;
+      lastResponded = upper !== lower;
+      return result;
+    });
+}
 
-var swig = require('swig');
-var util = require('util');
-var fs = require('fs');
-var path = require('path');
-var session = require('client-sessions');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+$(document).ready(function() {
 
-var data = require('../../data/users.json');
+      // fix menu when passed
+      $('.masthead').visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('fade in');
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('fade out');
+          }
+        });
 
-
-// Configure our HTTP server 
-var app = express();
-
-module.exports = function (app) {
-  // Setup Swig as the Template Engine
-  app.engine('swig', swig.renderFile);
-  app.set('views', './app/views');
-  app.set('view engine', 'swig');
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-// Setup static file serving
-app.use(express.static('public'));
-// Set up path to data directory holding json file.
-app.use("/data", express.static(__dirname + '/data'));
-
+      // create sidebar and attach to menu open
+      $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
     
-    
-  // Use this before setting any routes
-  app.use(session({
-    cookieName: 'userSession', 
-    secret: 'secretpiratekeyforcrypto', 
-    duration: 60 * 60 * 1000
-  }));
+      // Read in the inventory and display it.
+      var requestURL = "data/inventory_sm3.json";
+      $.getJSON(requestURL, null, function(data){
 
+        var items = data.inventory;
+        var classificationTypes = [[]];
+        var classificationBundle = '';
+        var html_snippet = [[]];
+        var menuSnippet = '';
+        var classificationCount;
 
+          
+        // Snipprt strings for creating the product menu.  
+          
+        // Snipprt strings for displaying items  
+        var snippetProduceItemColumn    = '<div class="ten wide column">';
+        var snippetProduceItemColumnEnd = '</div>';
+        var snippetIconString           = '<h2 class="ui icon header">';
+        var snippetIconStringEnd        = '</h2>';
+        var snippetProduceItemClassPt1  = '<li class="produceitem" id="';
+        var snippetProduceItemClassPt2     = '"><div class="ui grid">';
+        var snippetProduceItemClassEnd  = '</div></li>';
 
+        var snippetImageStringStart     = '<div class="three wide column"><img class="image" src="/images/';
+        var snippetImageStringEnd       = '_640.jpg" height="60" width="80"></div><div class="eight wide column">';
+        var snippetAddToCart = '</div><div class="five wide column"><button class="ui right labeled button">Add to cart</button></div>';
+        var snippetRightColumn          = '<div class="six wide column"></div>';
+          
+          
+          
+        // Sort the elements by classification, etc. 
+        for (var i = 0; i < items.length ; i++) {
+            objSort(items, 'classification', 'category', 'sub-category'); 
+        }
 
-app.get('/', function (req, res) {
-    res.render('home', {});
+        // Make array classification types.
+        for (var i = 0; i < items.length ; i++) {
+            var j;
+            if (i == 0) {
+                j = 0;
+                classificationTypes[j] = items[i].classification;
+                j++;
+            } else if (items[i].classification != items[i-1].classification){
+                classificationTypes[j] = items[i].classification;
+                j++;
+            }
+        }
+
+        // Create html snippet for each classification type.
+        for (var j = 0; j < classificationTypes.length ; j++) {
+//          html_snippet[j] = snippetProduceItemColumn;
+//          html_snippet[j] += snippetIconString;
+          classificationCount = 0;
+          html_snippet[j] = snippetIconString;
+          html_snippet[j] += capitalize(classificationTypes[j], true);
+          html_snippet[j] += snippetIconStringEnd;
+          html_snippet[j] += '<ul>';
+          for (var i = 0; i < items.length ; i++) {
+              if (items[i].classification == classificationTypes[j]) {
+                classificationCount++;
+                html_snippet[j] += snippetProduceItemClassPt1;
+                html_snippet[j] += classificationTypes[j];
+                html_snippet[j] += snippetProduceItemClassPt2;
+                html_snippet[j] += snippetImageStringStart;
+                html_snippet[j] += items[i].category;
+                html_snippet[j] += snippetImageStringEnd;
+                html_snippet[j] += capitalize(items[i].category, true);
+                if (items[i].subcategory != 'none') {
+                  html_snippet[j] += ', ' + capitalize(items[i].subcategory, true);
+                }
+                html_snippet[j] += '<h4>Available Units: ' + items[i].unitsavailable + '</h4>';
+                html_snippet[j] += '<h4>Unit: ' + items[i].unit + '   $' + items[i].price + '   ';
+                html_snippet[j] += '</h4>';
+                html_snippet[j] += snippetAddToCart;
+                html_snippet[j] += snippetProduceItemClassEnd;
+              }
+          }
+            html_snippet[j] += '</ul>';
+            menuSnippet += '<a href="#' + classificationTypes[j] + '" class="item"><div class="ui label">' + classificationCount + '</div>' + capitalize(classificationTypes[j]) + '</a>';
+//          html_snippet[j] = snippetProduceItemColumnEnd;
+//          html_snippet[j] = snippetRightColumn;
+            classificationBundle += html_snippet[j];
+        } // End html snippet loop
+
+        // Insert menu snippet
+        var $descMenu = $('#productMenu');
+        $descMenu.append(menuSnippet);
+
+        // Insert the snippet into the form
+        var $desc = $('#existingInventory');
+        $desc.append(classificationBundle);
+
+      });
+
+   
 });
-
-app.get('/login', function (req, res) {
-    res.render('login', {});
-});
-
-app.post('/login', function (req, res) {
-     fs.readFile('./data/users.json', 'utf-8', function(err, data) {
-        data = JSON.parse(data);
-    });    
-   if(req.body.email==data.admin.email && req.body.password==data.admin.password)
-    {
-      req.userSession.loggedIn = true;
-      res.redirect('/inventory');
-    } else 
-      res.redirect('/login');
-});
-
-app.get('/inventory', function (req, res) {
-    if (req.userSession.loggedIn)
-      res.render('inventory', { title: "Inventory" });
-    else
-      res.redirect('/login');
-
-});
-
-app.get('/inventory/new', function (req, res) {
-    var body = "This would show form for creating a new Inventory item<br /><form method=post action=/inventory>Price: <input type=text name=price /><br /><input type=submit /></form>";
-    res.send(body);
-});
-
-app.post('/inventory', function (req, res) {
-    console.log('I would create an inventory item here with params ' + JSON.stringify(req.body));
-    
-    // append req.body to the file and save it
-    
-    res.redirect('/inventory');
-});
-
-app.get('/inventory/:id', function (req, res) {
-    var body = "This would show a form for udpating Inventory #" + req.params.id + "<br /><form method=post action=/inventory/" + req.params.id + "><input type=submit /></form>";
-    res.send(body);
-});
-
-app.post('/inventory/:id', function (req, res) {
-    console.log('I would update inventory item #' + req.params.id);
-    res.redirect('/inventory');
-});
-
-app.get('/inventory/:id/delete', function (req, res) {
-    var body = "This would show a form to confirm deletion of Inventory #" + req.params.id + "<br /><form method=post action=/inventory/" + req.params.id + "/delete><input type=submit /></form>";
-    res.send(body);
-});
-
-app.post('/inventory/:id/delete', function (req, res) {
-    console.log('I would delete inventory item #' + req.params.id);
-    res.redirect('/inventory');
-});
-
-
- };
 
