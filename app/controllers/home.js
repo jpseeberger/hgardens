@@ -118,7 +118,8 @@ module.exports = function (app) {
 
   app.get('/inventory/:id', function (req, res) {
     var body = "This would show a form for udpating Inventory #" + req.params.id + "<br /><form method=post action=/inventory/" + req.params.id + "><input type=submit /></form>";
-    res.send(body);
+      res.render('inventory_edit', { title: "Edit Inventory Item" });
+//    res.send(body);
   });
 
   app.post('/inventory/:id', function (req, res) {

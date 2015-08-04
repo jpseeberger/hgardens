@@ -85,8 +85,7 @@
            </div>
          </div>
          <div class="eight wide column">
-          {% for y in arr %}
-              {% for x in  y %}
+          {% for item in arr %}
                 {% if loop.first %}
                   <h2 class="ui icon header">
                     classificationTypes[j]
@@ -96,22 +95,20 @@
                 <li class="produceitem" id="classificationTypes[j]">
                   <div class="ui grid">
                     <div class="three wide column">
-                      <img class="image" src="/images/items[i].category_640.jpg" height="60" width="80">
+                      <img class="image" src="/images/{{item.category}}_640.jpg" height="60" width="80">
                     </div>
                     <div class="eight wide column">
-                    {{x}}  {{y.classification}}  items[i].category
-                      <h4>Available Units: items[i].unitsavailable </h4>
-                      <h4>Unit:  items[i].unit  items[i].price </h4>
+                    {{x}}  {{y.classification}}  {{item.category}}
+                      <h4>Available Units: {{item.unitsavailable}} </h4>
+                      <h4>Unit:  {{item.unit}}  Price: {{item.price}} </h4>
                      </div>
                      <div class="five wide column">
-                       <button class="ui right labeled button">Add to cart</button>
                      </div>
                    </div>
 
                 {{ x }}
                 </li>
               {% if loop.last %}</ul>{% endif %}
-            {% endfor %}
           {% endfor %}
          </div>
          <div class="four wide column">
