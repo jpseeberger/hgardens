@@ -108,8 +108,11 @@ module.exports = function (app) {
 
   app.post('/inventory', function (req, res) {
     console.log('I would create an inventory item here with params ' + JSON.stringify(req.body));
+    console.log('req.body: ' , req.body);
     
     // append req.body to the file and save it
+    arr.push(req.body);
+        console.log('new arr: ', arr);
     
     res.redirect('/inventory');
   });
