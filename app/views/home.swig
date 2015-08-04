@@ -76,8 +76,6 @@
    </div>
     
    <h3 class="ui horizontal header divider">Available Now</h3>
-   
-
    <div class="ui vertical stripe segment" id="available-now">
      <div class="ui column divided relaxed stackable grid container">
        <div class="row">
@@ -87,7 +85,34 @@
            </div>
          </div>
          <div class="eight wide column">
-           <div id="existingInventory"></div>
+          {% for y in arr %}
+              {% for x in  y %}
+                {% if loop.first %}
+                  <h2 class="ui icon header">
+                    classificationTypes[j]
+                  </h2>
+                  <ul>
+                {% endif %}
+                <li class="produceitem" id="classificationTypes[j]">
+                  <div class="ui grid">
+                    <div class="three wide column">
+                      <img class="image" src="/images/items[i].category_640.jpg" height="60" width="80">
+                    </div>
+                    <div class="eight wide column">
+                    {{x}}  {{y.classification}}  items[i].category
+                      <h4>Available Units: items[i].unitsavailable </h4>
+                      <h4>Unit:  items[i].unit  items[i].price </h4>
+                     </div>
+                     <div class="five wide column">
+                       <button class="ui right labeled button">Add to cart</button>
+                     </div>
+                   </div>
+
+                {{ x }}
+                </li>
+              {% if loop.last %}</ul>{% endif %}
+            {% endfor %}
+          {% endfor %}
          </div>
          <div class="four wide column">
          </div>

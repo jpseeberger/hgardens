@@ -23,60 +23,64 @@
       </div>
     </h2>
     <h4 class="ui dividing header">Current Inventory</h4>
-<table class="ui compact celled definition table">
-  <thead>
-    <tr>
-      <th>Edit</th>
-      <th>Class</th>
-      <th>Category</th>
-      <th>Subcategory</th>
-      <th>Price</th>
-      <th>Unit</th>
-      <th>Available</th>
-      <th>Grower</th>
-      <th>Photo</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for y in arr %}
-      {% for x in  y %}
-        {% if loop.first %}
-          <tr>
-          <td class="collapsing">
-            <div class="ui radio checkbox">
-            <input type="checkbox"> <label></label>
+    <table class="ui compact celled definition table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Class</th>
+          <th>Category</th>
+          <th>Subcategory</th>
+          <th>Price</th>
+          <th>Unit</th>
+          <th>Available</th>
+          <th>Grower</th>
+          <th>Photo</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for y in arr %}
+          {% for x in  y %}
+            {% if loop.first %}
+              <tr>
+              <td class="collapsing">
+                <div class="ui radio checkbox">
+                <input type="checkbox"> <label></label>
+                </div>
+              </td>
+            {% endif %}
+            <td>{{ x }}</td>
+          {% if loop.last %}</tr>{% endif %}
+        {% endfor %}
+      {% endfor %}
+      </tbody>
+      <tfoot class="full-width">
+        <tr>
+          <th></th>
+          <th colspan="8">
+          <form metho="get" action="/inventory/new">
+            <button type="submit" class="ui right floated small primary labeled button">
+              Add New Item
+            </button>
+</form>
+            <div class="ui small button">
+              Edit Selected Item
             </div>
-          </td>
-        {% endif %}
-        <td>{{ x }}</td>
-      {% if loop.last %}</tr>{% endif %}
-    {% endfor %}
-  {% endfor %}
-  </tbody>
-  <tfoot class="full-width">
-    <tr>
-      <th></th>
-      <th colspan="8">
-        <div class="ui right floated small primary labeled icon button">
-          <i class="user icon"></i> Add New Inventory Item
-        </div>
-        <div class="ui small button">
-          Edit Selected Item
-        </div>
-        <div class="ui small  disabled button">
-          Delete Selected Item
-        </div>
-      </th>
-    </tr>
-  </tfoot>
-</table>
+            <div class="ui small button">
+              Delete Selected Item
+            </div>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+
+{% block content %}{% endblock %}
+
 </div>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="/semantic.min.js"></script>
 <script src="/js/sort_function.js"></script>
-<script src="/js/inventory.js"></script>
 </body>
 </html>
 

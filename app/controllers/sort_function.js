@@ -1,4 +1,19 @@
+module.exports = objSort;
+module.exports = capitalize;
+
+
 'use strict';
+
+function capitalize(str, all) {
+    var lastResponded;
+    return str.toLowerCase().replace(all ? /[^']/g : /^\S/, function(lower) {
+      var upper = lower.toUpperCase(), result;
+      result = lastResponded ? lower : upper;
+      lastResponded = upper !== lower;
+      return result;
+    });
+}
+
 
 /*Object sorting function from stackoverflow
   Usage:

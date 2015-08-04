@@ -15,6 +15,8 @@ var inventory_data = require('../../data/inventory_sm5.json');
 // Configure our HTTP server 
 var app = express();
 
+
+
 module.exports = function (app) {
   // Setup Swig as the Template Engine
   app.engine('swig', swig.renderFile);
@@ -58,16 +60,17 @@ module.exports = function (app) {
       res.redirect('/login');
   });
 
-
   // For now, while data stored in json file, read inventory data into memory.
   var inventory_data = {};
     
   fs.readFile('./data/inventory_sm5.json', 'utf-8', function(err, data) {
   if (err) throw err;
   inventory_data = JSON.parse(data);
+      
     console.log('inventory_data 2: ', inventory_data);
     console.log('inventory_data 3: ', inventory_data.inventory[5].category);
-/*  $('inventory_data').each( inventory_data, function( ob, el ) {
+
+      /*  $('inventory_data').each( inventory_data, function( ob, el ) {
       // Sort the elements by classification, etc. 
       for (var i = 0; i < el.length ; i++) {
         objSort(el, 'classification', 'category', 'subcategory'); 
@@ -75,12 +78,21 @@ module.exports = function (app) {
     });
 */
   arr = inventory_data.inventory;
-        console.log('arr 2: ', arr);
+        console.log('arr 2: ', arr[2]);
 
+  // Set the capitalization  
+/*  for (var i = 0; i < arr.length ; i++) {
+      capitalize(arr[i].classification, true)
+      capitalize(arr[i].category, true)
+      capitalize(arr[i].subcategory, true)
+      capitalize(arr[i].grower, true)
+    console.log('arr 4: ', i, ': ', arr[i].classification);
+  }
+*/      
   });    
     
-  // Changed this app.get to app.all.  Is this correct?
-  app.all('/inventory', function (req, res) {
+  // Changed this app.all back to app.get. 
+  app.get('/inventory', function (req, res) {
     if (req.userSession.loggedIn)
       res.render('inventory', { title: "Inventory" });
     else
@@ -89,8 +101,9 @@ module.exports = function (app) {
   });
 
   app.get('/inventory/new', function (req, res) {
-    var body = "This would show form for creating a new Inventory item<br /><form method=post action=/inventory>Price: <input type=text name=price /><br /><input type=submit /></form>";
-    res.send(body);
+      res.render('inventory_new', { title: "New Inventory Item" });
+//    var body = "This would show form for creating a new Inventory item<br /><form method=post action=/inventory>Price: <input type=text name=price /><br /><input type=submit /></form>";
+//    res.send(body);
   });
 
   app.post('/inventory', function (req, res) {
