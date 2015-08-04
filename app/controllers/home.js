@@ -67,8 +67,8 @@ module.exports = function (app) {
   if (err) throw err;
   inventory_data = JSON.parse(data);
       
-    console.log('inventory_data 2: ', inventory_data);
-    console.log('inventory_data 3: ', inventory_data.inventory[5].category);
+//    console.log('inventory_data 2: ', inventory_data);
+//    console.log('inventory_data 3: ', inventory_data.inventory[5].category);
 
       /*  $('inventory_data').each( inventory_data, function( ob, el ) {
       // Sort the elements by classification, etc. 
@@ -78,7 +78,7 @@ module.exports = function (app) {
     });
 */
   arr = inventory_data.inventory;
-        console.log('arr 2: ', arr[2]);
+ //       console.log('arr 2: ', arr[2]);
 
   // Set the capitalization  
 /*  for (var i = 0; i < arr.length ; i++) {
@@ -112,7 +112,6 @@ module.exports = function (app) {
     
     // append req.body to the file and save it
     arr.push(req.body);
-        console.log('new arr: ', arr);
     
     res.redirect('/inventory');
   });
@@ -128,12 +127,16 @@ module.exports = function (app) {
   });
 
   app.get('/inventory/:id/delete', function (req, res) {
-    var body = "This would show a form to confirm deletion of Inventory #" + req.params.id + "<br /><form method=post action=/inventory/" + req.params.id + "/delete><input type=submit /></form>";
+//    var body = "Are you sure you want to delete inventory #" + req.params.id + "?<br /><form method=post action=/inventory/" + req.params.id + "/delete><input type=submit /></form>";
+    var body = "Are you sure you want to delete " + (req.params.id).substring(1,2) + "?<br /><form method=post action=/inventory/" + req.params.id + "/delete><input type=submit /></form>";
     res.send(body);
   });
 
   app.post('/inventory/:id/delete', function (req, res) {
     console.log('I would delete inventory item #' + req.params.id);
+
+    arr.splice((req.params.id).substring(1,2), 1);
+      
     res.redirect('/inventory');
   });
 

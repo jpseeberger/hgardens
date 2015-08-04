@@ -23,7 +23,7 @@
       </div>
     </h2>
     <h4 class="ui dividing header">Current Inventory</h4>
-    <table class="ui compact celled definition table">
+    <table class="ui compact celled definition table" id="indexedTable">
       <thead>
         <tr>
           <th></th>
@@ -42,7 +42,7 @@
           {% for x in  y %}
             {% if loop.first %}
               <tr>
-              <td class="collapsing">
+              <td>
                 <div class="ui radio checkbox">
                 <input type="checkbox"> <label></label>
                 </div>
@@ -57,7 +57,7 @@
         <tr>
           <th></th>
           <th colspan="8">
-          <form metho="get" action="/inventory/new">
+          <form method="get" action="/inventory/new">
             <button type="submit" class="ui right floated small primary labeled button">
               Add New Item
             </button>
@@ -72,6 +72,7 @@
         </tr>
       </tfoot>
     </table>
+    <script>console.log('myRowIndex', myRowIndex);</script>
 
 {% block content %}{% endblock %}
 
@@ -81,6 +82,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="/semantic.min.js"></script>
 <script src="/js/sort_function.js"></script>
+<script src="/js/inventory.js"></script>
 </body>
 </html>
 
