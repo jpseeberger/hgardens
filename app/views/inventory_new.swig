@@ -20,7 +20,7 @@
         <input type="text" name="unit" placeholder="unit">
       </div>
       <div class="two wide field">
-        <input type="text" name="unitsavailabe" placeholder="# available">
+        <input type="text" name="unitsavailable" placeholder="# available">
       </div>
       <div class="two wide field">
         <input type="text" name="grower" placeholder="grower">
