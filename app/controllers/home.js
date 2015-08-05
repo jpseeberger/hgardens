@@ -1,46 +1,18 @@
 var express = require('express');
 
-var swig = require('swig');
-var util = require('util');
 var fs = require('fs');
 var path = require('path');
-var session = require('client-sessions');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-
 var data = require('../../data/users.json');
 var inventory_data = require('../../data/inventory_sm5.json');
 
 
-// Configure our HTTP server 
-var app = express();
-
-
-
 module.exports = function (app) {
-  // Setup Swig as the Template Engine
-  app.engine('swig', swig.renderFile);
-  app.set('views', './app/views');
-  app.set('view engine', 'swig');
 
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(cookieParser());
+    fs.readFileSync('./data/users.json', 'utf-8', function(err, data) {
+        data = JSON.parse(data);
+    });    
 
-  // Setup static file serving
-  app.use(express.static('public'));
-  // Set up path to data directory holding json file.
-  app.use("/data", express.static(__dirname + '/data'));
-
-  // Use this before setting any routes
-  app.use(session({
-    cookieName: 'userSession', 
-    secret: 'secretpiratekeyforcrypto', 
-    duration: 60 * 60 * 1000
-  }));
-
-
-  app.get('/', function (req, res) {
+    app.get('/', function (req, res) {
     res.render('home', {});
   });
 
@@ -49,9 +21,6 @@ module.exports = function (app) {
   });
 
   app.post('/login', function (req, res) {
-     fs.readFile('./data/users.json', 'utf-8', function(err, data) {
-        data = JSON.parse(data);
-    });    
    if(req.body.email==data.admin.email && req.body.password==data.admin.password)
     {
       req.userSession.loggedIn = true;
@@ -64,7 +33,8 @@ module.exports = function (app) {
   var inventory_data = {};
     
   fs.readFile('./data/inventory_sm5.json', 'utf-8', function(err, data) {
-  if (err) throw err;
+    if(!err)
+    { 
   inventory_data = JSON.parse(data);
       
 //    console.log('inventory_data 2: ', inventory_data);
@@ -89,6 +59,13 @@ module.exports = function (app) {
     console.log('arr 4: ', i, ': ', arr[i].classification);
   }
 */      
+//    res.json(data);
+    } 
+     else 
+    {
+    // on error, send nothing
+//    res.json("err": err);
+    }
   });    
     
   // Changed this app.all back to app.get. 
