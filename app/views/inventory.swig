@@ -23,7 +23,7 @@
       </div>
     </h2>
     <h4 class="ui dividing header">Current Inventory</h4>
-    <table class="ui compact celled definition table" id="indexedTable">
+    <table class="ui compact celled definition table">
       <thead>
         <tr>
           <th></th>
@@ -37,7 +37,7 @@
           <th>Photo</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="indexedTable">
         {% for y in arr %}
           {% for x in  y %}
             {% if loop.first %}
@@ -61,18 +61,21 @@
             <button type="submit" class="ui right floated small primary labeled button">
               Add New Item
             </button>
-</form>
-            <div class="ui small button">
-              Edit Selected Item
-            </div>
-            <div class="ui small button">
-              Delete Selected Item
-            </div>
+          </form>
+          <form method="get" action="" id="editTableItem">
+            <button type="submit" class="ui small button">
+              Edit Item
+            </button>
+          </form>
+          <form method="get" action="" id="deleteTableItem">
+            <button type="submit" class="ui small button">
+              Delete Item
+            </button>
+          </form>
           </th>
         </tr>
       </tfoot>
     </table>
-    <script>console.log('myRowIndex', myRowIndex);</script>
 
 {% block content %}{% endblock %}
 
@@ -81,7 +84,6 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="/semantic.min.js"></script>
-<script src="/js/sort_function.js"></script>
 <script src="/js/inventory.js"></script>
 </body>
 </html>
