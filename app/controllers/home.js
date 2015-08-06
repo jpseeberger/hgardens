@@ -94,8 +94,13 @@ module.exports = function (app) {
   });
 
   app.get('/inventory/:id', function (req, res) {
-    var body = "This would show a form for udpating Inventory #" + req.params.id + "<br /><form method=post action=/inventory/" + req.params.id + "><input type=submit /></form>";
-      res.render('inventory_edit', { title: "Edit Inventory Item" });
+ //   var body = "This would show a form for udpating Inventory #" + req.params.id + "<br /><form method=post action=/inventory/" + req.params.id + "><input type=submit /></form>";
+      console.log('req.params55', req.params);
+//      var itemNumber = (req.params.id).substring(1,2);
+//      console.log('req.params66', itemNumber);
+      var currentArr = arr.splice((req.params.id).substring(1,2), 1);
+      
+      res.render('inventory_edit', { title: "Edit Inventory Item", arrayItem: currentArr });
 //    res.send(body);
   });
 
