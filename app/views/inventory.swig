@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Homepage - Harvest Lane Gardens</title>
+  <title>{{ title }}</title>
     
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/semantic.min.css">
@@ -38,20 +38,14 @@
         </tr>
       </thead>
       <tbody id="indexedTable">
-        {% for y in arr %}
-          {% for x in  y %}
-            {% if loop.first %}
-              <tr>
+        {% for item in inventory %}
+            <tr>
               <td>
-                <div class="ui radio checkbox">
-                <input type="checkbox"> <label></label>
-                </div>
+                <a href="/inventory/{{ item.id }}">edit </a>
               </td>
-            {% endif %}
-            <td>{{ x }}</td>
-          {% if loop.last %}</tr>{% endif %}
+              <td>{{ item.classification }}</td>
+            </tr>
         {% endfor %}
-      {% endfor %}
       </tbody>
       <tfoot class="full-width">
         <tr>
