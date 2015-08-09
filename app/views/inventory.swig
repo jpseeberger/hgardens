@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/css/inventory.css" media="screen">
 </head>
 <body>
+
 
 <div class="ui middle aligned center aligned grid">
   <div class="column">
@@ -41,16 +41,26 @@
         {% for item in inventory %}
             <tr>
               <td>
-                <a href="/inventory/{{ item.id }}">edit </a>
+                <div class="ui radio checkbox">
+                <input type="checkbox"> <label></label>
+                </div>
               </td>
+<!-- Must make this work   <td><a href="/inventory/{{ item.id }}">edit </a></td>  -->
               <td>{{ item.classification }}</td>
+              <td>{{ item.category }}</td>
+              <td>{{ item.subcategory }}</td>
+              <td>{{ item.price }}</td>
+              <td>{{ item.unit }}</td>
+              <td>{{ item.unitsavailable }}</td>
+              <td>{{ item.grower }}</td>
+              <td>{{ item.photo }}</td>
             </tr>
         {% endfor %}
       </tbody>
       <tfoot class="full-width">
         <tr>
           <th></th>
-          <th colspan="8">
+          <th colspan="9">
           <form method="get" action="/inventory/new">
             <button type="submit" class="ui right floated small primary labeled button">
               Add New Item
@@ -73,12 +83,11 @@
 
 {% block content %}{% endblock %}
 
+  </div>
 </div>
-</div>
-
+    
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="/semantic.min.js"></script>
 <script src="/js/inventory.js"></script>
 </body>
 </html>
-

@@ -85,30 +85,29 @@
            </div>
          </div>
          <div class="eight wide column">
-          {% for item in arr %}
-                {% if loop.first %}
-                  <h2 class="ui icon header">
-                    classificationTypes[j]
-                  </h2>
-                  <ul>
-                {% endif %}
-                <li class="produceitem" id="classificationTypes[j]">
-                  <div class="ui grid">
-                    <div class="three wide column">
-                      <img class="image" src="/images/{{item.category}}_640.jpg" height="60" width="80">
-                    </div>
-                    <div class="eight wide column">
-                    {{x}}  {{y.classification}}  {{item.category}}
-                      <h4>Available Units: {{item.unitsavailable}} </h4>
-                      <h4>Unit:  {{item.unit}}  Price: {{item.price}} </h4>
-                     </div>
-                     <div class="five wide column">
-                     </div>
-                   </div>
-
-                {{ x }}
-                </li>
-              {% if loop.last %}</ul>{% endif %}
+          {% for item in inventory %}
+            {% if loop.first %}
+              <h2 class="ui icon header">
+                classificationTypes[j]
+              </h2>
+              <ul>
+            {% endif %}
+            <li class="produceitem" id="classificationTypes[j]">
+              <div class="ui grid">
+                <div class="three wide column">
+                  <img class="image" src="/images/{{item.category}}_640.jpg" height="60" width="80">
+                </div>
+                <div class="eight wide column">
+                  {{item.category}}
+                  {% if item.subcategory!= 'none'%}, {{item.subcategory}}{% endif %}
+                  <h4>Available Units: {{item.unitsavailable}} </h4>
+                  <h4>Unit:  {{item.unit}}  Price: {{item.price}} </h4>
+                </div>
+                <div class="five wide column">
+                </div>
+              </div>
+            </li>
+            {% if loop.last %}</ul>{% endif %}
           {% endfor %}
          </div>
          <div class="four wide column">

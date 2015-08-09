@@ -22,7 +22,11 @@ module.exports = function (app) {
       }
   });    
     
-  // Changed this app.all back to app.get. 
+    app.get('/', function (req, res) {
+    res.render('home', {inventory: inventory_data.inventory});
+  });
+
+// Changed this app.all back to app.get. 
   app.get('/inventory', function (req, res) {
     if (req.userSession.loggedIn)
       res.render('inventory', { title: "Inventory", inventory: inventory_data.inventory });
@@ -32,7 +36,7 @@ module.exports = function (app) {
   });
 
   app.get('/inventory/new', function (req, res) {
-      res.render('inventory_new', { title: "New Inventory Item" });
+      res.render('inventory_new', { title: "New Inventory Item", inventory: inventory_data.inventory });
   });
 
   app.post('/inventory', function (req, res) {
@@ -40,7 +44,7 @@ module.exports = function (app) {
     console.log('req.body: ' , req.body);
     
     // append req.body to the file and save it
-    arr.push(req.body);
+    inventory_data.inventory.push(req.body);
     
     res.redirect('/inventory');
   });
@@ -49,9 +53,9 @@ module.exports = function (app) {
  //   var body = "This would show a form for udpating Inventory #" + req.params.id + "<br /><form method=post action=/inventory/" + req.params.id + "><input type=submit /></form>";
       console.log('req.params55', req.params);
 //      var itemNumber = (req.params.id).substring(1,2);
-      var currentArr = arr.splice((req.params.id).substring(1,2), 1);
+      var currentItem = inventory_data.inventory.splice((req.params.id).substring(1,2), 1);
       
-      res.render('inventory_edit', { title: "Edit Inventory Item", arrayItem: currentArr });
+      res.render('inventory_edit', { title: "Edit Inventory Item", inventory: inventory_data.inventory, arrayItem: currentItem });
 //    res.send(body);
   });
 
@@ -69,7 +73,7 @@ module.exports = function (app) {
   app.post('/inventory/:id/delete', function (req, res) {
 //    console.log('I would delete inventory item #' + req.params.id);
 
-    arr.splice((req.params.id).substring(1,2), 1);
+    inventory_data.inventory.splice((req.params.id).substring(1,2), 1);
       
     res.redirect('/inventory');
   });

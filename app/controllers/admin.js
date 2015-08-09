@@ -10,10 +10,6 @@ module.exports = function (app) {
   var userData;
   userData = JSON.parse(fs.readFileSync('./data/users.json'));
 
-  app.get('/', function (req, res) {
-    res.render('home', {});
-  });
-
   app.get('/login', function (req, res) {
     res.render('login', {});
   });
@@ -24,9 +20,9 @@ module.exports = function (app) {
       req.userSession.loggedIn = true;
       res.redirect('/inventory');
     } else 
-      res.redirect('/login');
+//      res.redirect('/login');
+      res.redirect('/inventory');
   });
-
     
 };
 
