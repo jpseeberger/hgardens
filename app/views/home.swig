@@ -81,18 +81,29 @@
        <div class="row">
          <div class="four wide column">
            <div class="ui vertical menu">
-             <div id="productMenu"></div>
+             <div id="productMenu">
+               <ul>
+                 {% for key, classification in classifications %}
+                   <li>
+                     <a href="#{{classification}}" class="item">
+                       <div class="ui label">{{classification}}
+                       </div>
+                     </a>
+                   </li>
+                 {% endfor %}
+               </ul>
+             </div>
            </div>
          </div>
          <div class="eight wide column">
           {% for item in inventory %}
             {% if loop.first %}
               <h2 class="ui icon header">
-                classificationTypes[j]
+                classification[j]
               </h2>
               <ul>
             {% endif %}
-            <li class="produceitem" id="classificationTypes[j]">
+            <li class="produceitem" id="classification[j]">
               <div class="ui grid">
                 <div class="three wide column">
                   <img class="image" src="/images/{{item.category}}_640.jpg" height="60" width="80">

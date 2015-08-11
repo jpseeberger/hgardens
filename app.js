@@ -53,7 +53,6 @@ app.use(session({
 //require('./app/controllers/admin')(app);
 require('./app/controllers/inventory')(app);
 
-
 // Setup static file serving
 app.use(express.static('public'));
 // Set up path to data directory holding json file.
