@@ -61,7 +61,7 @@ module.exports = function (app) {
   // For now, while data stored in json file, read inventory data into memory.
   var inventory_data = {};
   var classification_data = [];
-    
+  
   fs.readFile('./data/inventory_sm5.json', 'utf-8', function(err, data) {
     if(!err)
     { 
@@ -97,13 +97,55 @@ module.exports = function (app) {
     
 
   app.get('/', function (req, res) {
-    res.render('home', {title: "Harvest Lane Gardens", inventory: inventory_data.inventory, classifications: classification_data});
+
+    var classifications_top_level = [];
+
+    //Make array of top level of classifications table.
+    var sql = "SELECT * ";
+      sql += "FROM classifications ";
+      sql += "WHERE parent_id IS NULL ";
+      sql += "ORDER BY name ";
+
+      // Why am I doing db.all instead of db.run?  db.run doesn't return data so 
+      // only use to insert data.  db.all returns data from the database.
+	  db.all(sql, function(err, rows){
+	    if (!err){
+          for (i = 0; i < rows.length; i++)
+          {
+            classifications_top_level[i] = rows[i].name;
+          }
+        }
+//        console.log('classifications_top_level: ', classifications_top_level);
+
+        res.render('home', {title: "Harvest Lane Gardens", inventory: inventory_data.inventory, classifications: classifications_top_level});
+  	   });
   });
 
+    
+    
   // Changed this app.all back to app.get. 
   app.get('/inventory', function (req, res) {
     if (req.userSession.loggedIn)
-      res.render('inventory', { title: "Inventory", inventory: inventory_data.inventory });
+    {
+        var inventory_data_lowest_level = [{}];
+
+        var sql = "SELECT name AS subcategory, price, unit, unitsavailable, grower, photo ";
+        sql += "FROM classifications, items ";
+        sql += "WHERE classification_id=classifications.id";
+
+      // Why am I doing db.all instead of db.run?  db.run doesn't return data so 
+      // only use to insert data.  db.all returns data from the database.
+	  db.all(sql, function(err, rows){
+	    if (!err){
+          res.render('inventory', { title: "Inventory", inventory: rows });
+        } else 
+        {
+          // on error, send nothing
+//          res.json("err": err);
+          console.log('err: ', err);
+        }
+      });
+    }
     else
       res.redirect('/login');
 
@@ -146,6 +188,8 @@ module.exports = function (app) {
       
     res.redirect('/inventory');
   });
+
+
 
 };
 

@@ -27,13 +27,13 @@
       <thead>
         <tr>
           <th></th>
-          <th>Class</th>
-          <th>Category</th>
+          <th>Subcategory</th>
           <th>Subcategory</th>
           <th>Price</th>
           <th>Unit</th>
           <th>Available</th>
           <th>Grower</th>
+          <th>Next Week</th>
           <th>Photo</th>
         </tr>
       </thead>
@@ -46,13 +46,13 @@
                 </div>
               </td>
 <!-- Must make this work   <td><a href="/inventory/{{ item.id }}">edit </a></td>  -->
-              <td>{{ item.classification }}</td>
-              <td>{{ item.category }}</td>
+              <td>{{ item.subcategory }}</td>
               <td>{{ item.subcategory }}</td>
               <td>{{ item.price }}</td>
               <td>{{ item.unit }}</td>
               <td>{{ item.unitsavailable }}</td>
               <td>{{ item.grower }}</td>
+              <td>{{ item.photo }}</td>
               <td>{{ item.photo }}</td>
             </tr>
         {% endfor %}
