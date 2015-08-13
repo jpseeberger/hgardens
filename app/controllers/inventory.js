@@ -59,7 +59,7 @@ function objSort() {
 
 module.exports = function (app) {
   // For now, while data stored in json file, read inventory data into memory.
-  var inventory_data = {};
+  app.inventory_data = {};
   var classification_data = [];
   
   fs.readFile('./data/inventory_sm5.json', 'utf-8', function(err, data) {
@@ -93,35 +93,8 @@ module.exports = function (app) {
       // on error, send nothing
       //    res.json("err": err);
     }
-  });    
-    
+  }); 
 
-  app.get('/', function (req, res) {
-
-    var classifications_top_level = [];
-
-    //Make array of top level of classifications table.
-    var sql = "SELECT * ";
-      sql += "FROM classifications ";
-      sql += "WHERE parent_id IS NULL ";
-      sql += "ORDER BY name ";
-
-      // Why am I doing db.all instead of db.run?  db.run doesn't return data so 
-      // only use to insert data.  db.all returns data from the database.
-	  db.all(sql, function(err, rows){
-	    if (!err){
-          for (i = 0; i < rows.length; i++)
-          {
-            classifications_top_level[i] = rows[i].name;
-          }
-        }
-//        console.log('classifications_top_level: ', classifications_top_level);
-
-        res.render('home', {title: "Harvest Lane Gardens", inventory: inventory_data.inventory, classifications: classifications_top_level});
-  	   });
-  });
-
-    
     
   // Changed this app.all back to app.get. 
   app.get('/inventory', function (req, res) {
@@ -129,9 +102,10 @@ module.exports = function (app) {
     {
         var inventory_data_lowest_level = [{}];
 
-        var sql = "SELECT name AS subcategory, price, unit, unitsavailable, grower, photo ";
+        var sql = "SELECT items.id, name AS subcategory, price, unit, ";
+        sql += "unitsavailable, grower, available_next_week, photo  ";
         sql += "FROM classifications, items ";
-        sql += "WHERE classification_id=classifications.id";
+        sql += "WHERE classification_id=classifications.id ORDER BY name";
 
       // Why am I doing db.all instead of db.run?  db.run doesn't return data so 
       // only use to insert data.  db.all returns data from the database.
@@ -165,6 +139,8 @@ module.exports = function (app) {
   });
 
   app.get('/inventory/:id', function (req, res) {
+
+      
       console.log('req.params55', req.params);
       var currentItem = inventory_data.inventory.splice((req.params.id).substring(1,2), 1);
       
@@ -172,6 +148,7 @@ module.exports = function (app) {
   });
 
   app.post('/inventory/:id', function (req, res) {
+      console.log(req.body.price);
     res.redirect('/inventory');
   });
 
@@ -184,7 +161,7 @@ module.exports = function (app) {
   app.post('/inventory/:id/delete', function (req, res) {
 //    console.log('I would delete inventory item #' + req.params.id);
 
-    inventory_data.inventory.splice((req.params.id).substring(1,2), 1);
+    inventory_data.inventory.splice((req.params.id));
       
     res.redirect('/inventory');
   });

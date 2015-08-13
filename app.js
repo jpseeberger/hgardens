@@ -49,7 +49,7 @@ app.use(session({
   });
     
 
-//require('./app/controllers/home')(app);
+require('./app/controllers/home')(app);
 //require('./app/controllers/admin')(app);
 require('./app/controllers/inventory')(app);
 

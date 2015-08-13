@@ -1,32 +1,37 @@
-{% extends 'inventory.swig' %}
-
+<html>
+<body>
 {% block content %}
-<form class="ui form" method="post" action="/inventory"  id="editItemForm">
+<form class="ui form" method="post" action="/inventory/{{item.id}}"  id="editItemForm">
   <div class="field">
     <div class="fields">
       <div class="two wide field">
-        <input type="text" name="classifcation" value={{currentItem[0].classification}}>
-      </div>
-      <div class="two wide field">
-        <input type="text" name="category" value={{currentItem[0].category}}>
-      </div>
       <div class="three wide field">
-        <input type="text" name="subcategory" value={{currentItem[0].subcategory}}>
+        <label>subcategory</label>
+        <input type="text" name="subcategory" value={{item.subcategory}}>
       </div>
       <div class="two wide field">
-        <input type="text" name="price" value={{currentItem[0].price}}>
+        <label>price</label>
+        <input type="text" name="price" value={{item.price}}>
       </div>
       <div class="two wide field">
-        <input type="text" name="unit" value={{currentItem[0].unit}}>
+        <label>unit</label>
+        <input type="text" name="unit" value={{item.unit}}>
       </div>
       <div class="two wide field">
-        <input type="text" name="unitsavailable" value={{currentItem[0].unitsavailable}}>
+        <label>unitsavailable</label>
+        <input type="text" name="unitsavailable" value={{item.unitsavailable}}>
       </div>
       <div class="two wide field">
-        <input type="text" name="grower" value={{currentItem[0].grower}}>
+        <label>grower</label>
+        <input type="text" name="grower" value={{item.grower}}>
       </div>
       <div class="one wide field">
-        <input type="text" name="photo" value={{currentItem[0].photo}}>
+        <label>available_next_week</label>
+        <input type="text" name="available_next_week" value={{item.available_next_week}}>
+      </div>
+      <div class="one wide field">
+        <label>photo</label>
+        <input type="text" name="photo" value={{item.photo}}>
       </div>
     </div>
   </div>
@@ -35,3 +40,4 @@
 
 
 {% endblock %}
+</body></html>

@@ -28,7 +28,6 @@
         <tr>
           <th></th>
           <th>Subcategory</th>
-          <th>Subcategory</th>
           <th>Price</th>
           <th>Unit</th>
           <th>Available</th>
@@ -40,19 +39,13 @@
       <tbody id="indexedTable">
         {% for item in inventory %}
             <tr>
-              <td>
-                <div class="ui radio checkbox">
-                <input type="checkbox"> <label></label>
-                </div>
-              </td>
-<!-- Must make this work   <td><a href="/inventory/{{ item.id }}">edit </a></td>  -->
-              <td>{{ item.subcategory }}</td>
+              <td><a href="/inventory/{{ item.id }}">edit </a></td>
               <td>{{ item.subcategory }}</td>
               <td>{{ item.price }}</td>
               <td>{{ item.unit }}</td>
               <td>{{ item.unitsavailable }}</td>
               <td>{{ item.grower }}</td>
-              <td>{{ item.photo }}</td>
+              <td>{{ item.available_next_week }}</td>
               <td>{{ item.photo }}</td>
             </tr>
         {% endfor %}
