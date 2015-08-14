@@ -6,8 +6,14 @@
     <div class="fields">
       <div class="two wide field">
       <div class="three wide field">
-        <label>subcategory</label>
-        <input type="text" name="subcategory" value={{item.subcategory}}>
+        <label>Classification</label>
+        <select name="classification">
+          {% for cls in classes %}
+            <option value="{{cls.id}}" {% if item.classification_id == cls.id %}selected{% endif%}>
+              {{cls.name}}
+            </option>
+          {% endfor %}
+        </select>
       </div>
       <div class="two wide field">
         <label>price</label>

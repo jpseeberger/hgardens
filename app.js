@@ -20,9 +20,16 @@ app.engine('swig', swig.renderFile);
 app.set('views', './app/views');
 app.set('view engine', 'swig');
 
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+/*
+app.use(function(req, res, next) {
+  console.log('Hi!! You went to: ' + req.url);
+  if (req.url == '/') next();
+  else res.redirect('/');
+});
+*/
 
 // Use this before setting any routes
 app.use(session({
@@ -43,9 +50,11 @@ app.use(session({
     {
       req.userSession.loggedIn = true;
       res.redirect('/inventory');
-    } else 
-//      res.redirect('/login');
-      res.redirect('/inventory');
+    } 
+    else 
+    {
+      res.redirect('/login');
+    }
   });
     
 
@@ -55,8 +64,6 @@ require('./app/controllers/inventory')(app);
 
 // Setup static file serving
 app.use(express.static('public'));
-// Set up path to data directory holding json file.
-app.use("/data", express.static(__dirname + '/data'));
 
 // Listen on port 3000, IP defaults to 127.0.0.1
 server = app.listen(3000);

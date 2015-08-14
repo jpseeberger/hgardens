@@ -5,74 +5,15 @@ var fs = require('fs');
 var path = require('path');
 var db = require('../../db');
 
-/*Object sorting function from stackoverflow
-  Usage:
-  objSort(object, 'key') --> sort by key (ascending, case in-sensitive)
-  objSort(object, 'key', true) --> sort by key (ascending, case sensitive)
-  objSort(object, ['key', true]) --> sort by key (descending, case in-sensitive)
-  objSort(object, 'key1', 'key2') --> sort by key1 then key2 (both ascending, case in-sensitive)
-  objSort(object, 'key1', ['price', true]) --> sort by key1 (ascending) then key2 (descending), case in-sensitive)
-*/
-function objSort() {
-  var args = arguments,
-    array = args[0],
-    case_sensitive, keys_length, key, desc, a, b, i;
-
-  if (typeof arguments[arguments.length - 1] === 'boolean') {
-    case_sensitive = arguments[arguments.length - 1];
-    keys_length = arguments.length - 1;
-  } else {
-    case_sensitive = false;
-    keys_length = arguments.length;
-  }
-
-  return array.sort(function (obj1, obj2) {
-    for (i = 1; i < keys_length; i++) {
-      key = args[i];
-      if (typeof key !== 'string') {
-        desc = key[1];
-        key = key[0];
-        a = obj1[args[i][0]];
-        b = obj2[args[i][0]];
-      } else {
-        desc = false;
-        a = obj1[args[i]];
-        b = obj2[args[i]];
-      }
-      if (case_sensitive === false && typeof a === 'string') {
-        a = a.toLowerCase();
-        b = b.toLowerCase();
-      }
-      if (! desc) {
-        if (a < b) return -1;
-        if (a > b) return 1;
-      } else {
-        if (a > b) return -1;
-        if (a < b) return 1;
-      }
-    }
-    return 0;
-  });
-} //end of objSort() function
-
-
-
 module.exports = function (app) {
   // For now, while data stored in json file, read inventory data into memory.
   app.inventory_data = {};
-  var classification_data = [];
-  
+  //Create the classes array of objects
   fs.readFile('./data/inventory_sm5.json', 'utf-8', function(err, data) {
     if(!err)
     { 
       inventory_data = JSON.parse(data);
-          
       // Make array of classification_data types for menu.
-      // Sort the inventory_data object by classification, etc.
-      // and get the count in each classification
-        for (var i = 0; i < inventory_data.inventory.length ; i++) {
-            objSort(inventory_data.inventory, 'classification', 'category', 'subcategory'); 
-        }
       for (var i = 0; i < inventory_data.inventory.length ; i++) {
         var j;
         if (i == 0) {
@@ -100,8 +41,6 @@ module.exports = function (app) {
   app.get('/inventory', function (req, res) {
     if (req.userSession.loggedIn)
     {
-        var inventory_data_lowest_level = [{}];
-
         var sql = "SELECT items.id, name AS subcategory, price, unit, ";
         sql += "unitsavailable, grower, available_next_week, photo  ";
         sql += "FROM classifications, items ";
@@ -139,23 +78,41 @@ module.exports = function (app) {
   });
 
   app.get('/inventory/:id', function (req, res) {
-
-      
-      console.log('req.params55', req.params);
-      var currentItem = inventory_data.inventory.splice((req.params.id).substring(1,2), 1);
-      
-      res.render('inventory_edit', { title: "Edit Inventory Item", inventory: inventory_data.inventory, currentItem: currentItem });
+    // TEMP: all classifications
+    var classes = [
+      {id:1, name:'Fruit'},
+      {id:2, name:'Veggie'},
+      {id:8, name:'Spinach'}
+    ];
+    
+    // Get all the item information
+    var sql = "SELECT * FROM items ";
+      sql  += "WHERE id=" + req.params.id;
+    console.log('sql: ', sql);
+    db.get(sql, function(err, row) {
+      if (!err)
+      {
+        console.log('rows: ', row);
+        res.render('inventory_edit', { title: "Edit Inventory Item", classes: classes, item: row });
+      }
+      else 
+      {
+        // on error, send nothing
+//          res.json("err": err);
+        console.log('err: ', err);
+      }
+    });
   });
 
   app.post('/inventory/:id', function (req, res) {
-      console.log(req.body.price);
+    console.log('I will edit an item with id of ' + req.params.id + ', values: ');
+    console.log(req.body);
     res.redirect('/inventory');
   });
 
   app.get('/inventory/:id/delete', function (req, res) {
-      var currentItem = inventory_data.inventory.splice((req.params.id).substring(1,2), 1);
       
-      res.render('inventory_delete', { title: "Delete Inventory Item", inventory: inventory_data.inventory, currentItem: currentItem });
+      res.render('inventory_delete', { title: "Delete Inventory Item"});
   });
 
   app.post('/inventory/:id/delete', function (req, res) {
