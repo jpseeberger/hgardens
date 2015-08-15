@@ -1,10 +1,11 @@
-<html>
-<body>
+{% extends 'inventory_layout.swig' %}
+
 {% block content %}
+<h2 class="ui teal dividing header center aligned">Edit Item</h2>
+
 <form class="ui form" method="post" action="/inventory/{{item.id}}"  id="editItemForm">
   <div class="field">
     <div class="fields">
-      <div class="two wide field">
       <div class="three wide field">
         <label>Classification</label>
         <select name="classification">
@@ -16,12 +17,12 @@
         </select>
       </div>
       <div class="two wide field">
-        <label>price</label>
-        <input type="text" name="price" value={{item.price}}>
-      </div>
-      <div class="two wide field">
         <label>unit</label>
         <input type="text" name="unit" value={{item.unit}}>
+      </div>
+      <div class="two wide field">
+        <label>price</label>
+        <input type="text" name="price" value={{item.price}}>
       </div>
       <div class="two wide field">
         <label>unitsavailable</label>
@@ -46,4 +47,3 @@
 
 
 {% endblock %}
-</body></html>
