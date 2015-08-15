@@ -20,8 +20,7 @@ module.exports = function (app) {
       req.userSession.loggedIn = true;
       res.redirect('/inventory');
     } else 
-//      res.redirect('/login');
-      res.redirect('/inventory');
+      res.redirect('/login');
   });
     
 };
