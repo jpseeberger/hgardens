@@ -8,7 +8,7 @@
     <div class="column six wide">
     <form class="ui form" method="post" action="/inventory/{{item.id}}/delete"  id="deleteItem">
       <label class="ui">Are you sure you want to delete {{item.name}}?</label>
-      <button class="ui button" type="submit">Submit</button>
+      <button class="ui small button" type="submit">Submit</button>
     </form>
   </div>
 <div>

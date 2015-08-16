@@ -21,8 +21,8 @@
           <th></th>
           <th></th>
           <th>Subcategory</th>
-          <th>Price</th>
           <th>Unit</th>
+          <th>Price</th>
           <th>Available</th>
           <th>Grower</th>
           <th>Next Week</th>
@@ -35,8 +35,8 @@
               <td><a href="/inventory/{{ item.id }}">edit </a></td>
               <td><a href="/inventory/{{ item.id }}/delete">delete </a></td>
               <td>{{ item.name }}</td>
-              <td>{{ item.price }}</td>
               <td>{{ item.unit }}</td>
+              <td>{{ item.price }}</td>
               <td>{{ item.unitsavailable }}</td>
               <td>{{ item.grower }}</td>
               <td>{{ item.available_next_week }}</td>

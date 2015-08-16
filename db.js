@@ -19,17 +19,18 @@ module.exports = db.serialize(function() {
       "email TEXT" +
       "phone_number TEXT" +
       "web_page TEXT" +
+      "photo TEXT" +
   ");");
 */
   db.run("CREATE TABLE IF NOT EXISTS items ("+
     "id INTEGER PRIMARY KEY, " +
     "classification_id INTEGER NOT NULL, " +
-    "grower TEXT NOT NULL, " +
-    "price INTEGER NOT NULL, " +
-    "unit TEXT NOT NULL, " +
-    "unitsavailable INTEGER NOT NULL, " +
-    "available_next_week TEXT DEFAULT 'n', " +
-    "photo TEXT DEFAULT 'n', " +
+    "grower TEXT, " +
+    "price INTEGER, " +
+    "unit TEXT, " +
+    "unitsavailable INTEGER, " +
+    "available_next_week TEXT NOT NULL DEFAULT 'n', " +
+    "photo TEXT NOT NULL DEFAULT 'n', " +
     "FOREIGN KEY (classification_id) REFERENCES classifications(id)" + 
   ");");
 
