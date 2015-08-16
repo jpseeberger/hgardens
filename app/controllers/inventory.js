@@ -213,7 +213,7 @@ module.exports = function (app) {
 
   app.get('/inventory/:id/delete', function (req, res) {
     // Get name of item to delete
-    var sql = "SELECT classifications.name FROM items, classifications ";
+    var sql = "SELECT *, classifications.name FROM items, classifications ";
       sql  += "WHERE items.id=" + req.params.id + " AND items.classification_id=classifications.id";
     db.get(sql, function(err, row) {
       if (!err)
@@ -232,10 +232,10 @@ module.exports = function (app) {
   });
 
   app.post('/inventory/:id/delete', function (req, res) {
-    console.log('I would delete inventory item #' + req.params.id);
+    console.log('I would delete inventory item #' + req.params.id + ' body ' + req.body.id);
 
     //UPDATE inventory data in items table
-    var sqlDelete = 'DELETE FROM items WHERE id=' + req.params.id;
+    var sqlDelete = 'DELETE FROM items WHERE classification_id=' + req.params.id;
     console.log('sqlDelete: ', sqlDelete);
     db.run(sqlDelete);
 
