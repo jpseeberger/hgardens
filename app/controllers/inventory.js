@@ -12,8 +12,8 @@ module.exports = function (app) {
     {id:'y', name:'y'}
   ];
     
-  var top_level_classes = [{}];
-  var all_classes = [{}];
+  var topLevelClasses = [{}];
+  var parentClasses = [{}];
   var leaf = [];
 
 // TEMP: all classifications
@@ -23,19 +23,19 @@ module.exports = function (app) {
     {id:8, name:'Spinach'}
   ];
     
-  
   app.yesNo = [];
-  app.top_level_classes = [];
+  app.topLevelClasses = [];
 
-  function getTopLevelClasses() {
+  // Build classifications table
+  function getClasses() {
+    // Select all items where the parent_id is null.
+    var sqlTopLevel = "SELECT * FROM classifications ";
+      sqlTopLevel  += "WHERE parent_id IS NULL";
 
-    var sql = "SELECT * FROM classifications ";
-      sql  += "WHERE parent_id IS NULL";
-
-    db.all(sql, function(err, rows) {
+    db.all(sqlTopLevel, function(err, rows) {
       if (!err)
       {
-        top_level_classes = rows;
+        topLevelClasses = rows;
       }
       else 
       {
@@ -44,55 +44,56 @@ module.exports = function (app) {
         console.log('err: ', err);
       }
     });
-  }
-
     
-    // Build classifications table
-  function getClasses() {
+    db.serialize(function() {
+    
     // Select all items where the id is not a parent_id.
     // This gives the lowest level classifications
-//    var sql = "SELECT * FROM classifications ";
-//      sql  += "WHERE id IN (SELECT parent_id FROM classifications)";
-    
-    var sql = "SELECT * FROM classifications ";
-      sql  += "WHERE id IN (SELECT parent_id FROM classifications)";
+      var sqlParentClass = "SELECT * FROM classifications ";
+        sqlParentClass  += "WHERE id IN (SELECT parent_id FROM classifications)";
 
-    db.all(sql, function(err, rows) {
-      var parent_classes = [];
-      if (!err)
-      {
-//        top_level_classes = rows;
-        for (i = 0; i < rows.length; i++)
+      db.all(sqlParentClass, function(err, rows) {
+        var parentElements = [];
+        if (!err)
+        {
+          for (i = 0; i < rows.length; i++)
           {
-            parent_classes[i] = rows[i].id;
+            parentElements[i] = rows[i].id;
           }
-        var parent_string = parent_classes.toString();
-        var sqlLeaf = "SELECT * FROM classifications ";
-          sqlLeaf  += "WHERE id NOT IN (" + parent_string + ")";
+          db.serialize(function(){
+            var parent_string = parentElements.toString();
+            var sqlLeaf = "SELECT * FROM classifications ";
+              sqlLeaf  += "WHERE id NOT IN (" + parent_string + ")";
 
-        console.log('sqlLeaf: ', sqlLeaf);
-        db.all(sqlLeaf, function(err, rows) {
-
-        console.log("rows b: ", rows);
-        for (i = 0; i < rows.length; i++)
-          {
-            leaf[i] = rows[i].id;
-          }
-        console.log("leaf zz: ", leaf);
-        });
-
-        console.log("parent_classes: ", parent_classes);
-        console.log("leaf z: ", leaf);
-        all_classes = rows;
-      }
-      else 
-      {
-        // on error, send nothing
-//          res.json("err": err);
-        console.log('err: ', err);
-      }
-    });
-
+            console.log('sqlLeaf: ', sqlLeaf);
+            db.all(sqlLeaf, function(err, rows) {
+              if (!err){
+                console.log("rows b: ", rows);
+                for (i = 0; i < rows.length; i++)
+                {
+                  leaf[i] = rows[i].id;
+                }
+                console.log("leaf zz: ", leaf);
+              } else 
+              {
+                // on error, send nothing
+      //          res.json("err": err);
+                console.log('err: ', err);
+              }
+            });
+          });
+          parentClasses = rows;
+          console.log("parentClasses: ", parentClasses);
+          console.log("leaf z: ", leaf);
+        }
+        else 
+        {
+          // on error, send nothing
+  //          res.json("err": err);
+          console.log('err: ', err);
+        }
+      });
+	});
   } //end getClasses() function
   
 
@@ -101,7 +102,6 @@ module.exports = function (app) {
   app.get('/inventory', function (req, res) {
     if (req.userSession.loggedIn)
     {
-      getTopLevelClasses();
       getClasses();
       var sql = "SELECT * FROM classifications, items ";
         sql += "WHERE classification_id=classifications.id ORDER BY name";
@@ -110,9 +110,9 @@ module.exports = function (app) {
       // only use to insert data.  db.all returns data from the database.
 	  db.all(sql, function(err, rows){
 	    if (!err){
-console.log("leaf b: ", leaf);
-          console.log('all_classes: ', all_classes);
-          console.log('top_level_classes: ', top_level_classes);
+          console.log("leaf b: ", leaf);
+          console.log('parentClasses: ', parentClasses);
+          console.log('topLevelClasses: ', topLevelClasses);
           res.render('inventory', { title: "Inventory", inventory: rows });
         } else 
         {
@@ -128,23 +128,16 @@ console.log("leaf b: ", leaf);
   });
 
   app.get('/inventory/new_class', function (req, res) {
-      res.render('inventory_new_class', { title: "New Inventory Item", classes: classes, yesNo: yesNo });
+      res.render('inventory_new_class', { title: "New Inventory Item", classes: parentClasses, yesNo: yesNo });
   });
 
   app.post('/inventory', function (req, res) {
     console.log('I would create an inventory item here with params ' + JSON.stringify(req.body));
-/*    
-    db.serialize(function(){
-      //INSERT new inventory data into items table
-      var sqlInsert = 'INSERT INTO items (grower, price, unit, unitsavailable)';
-      sqlInsert += 'VALUES (?, ?, ?, ?, ?, ?)';
-      db.run(sqlInsert, [req.body.grower, req.body.price, req.body.unit, req.body.bio, req.body.unitsavailable]);
+    var sqlNewItem = 'INSERT INTO classifications (name, parent_id)';
+      sqlNewItem += 'VALUES (?, ?)';
+    db.run(sqlNewItem, [req.body.new_item, req.body.parent_id]);
 
-      res.redirect('/inventory');
-    });
-*/    
     res.redirect('/inventory');
-
   });
 
   app.get('/inventory/:id', function (req, res) {
@@ -156,7 +149,7 @@ console.log("leaf b: ", leaf);
       if (!err)
       {
         console.log('rows: ', row);
-        res.render('inventory_edit', { title: "Edit Inventory Item", classes: classes, yesNo: yesNo, item: row });
+        res.render('inventory_edit', { title: "Edit Inventory Item", classes: parentClasses, yesNo: yesNo, item: row });
       }
       else 
       {
@@ -214,8 +207,6 @@ console.log("leaf b: ", leaf);
 
     res.redirect('/inventory');
   });
-
-
 
 };
 
