@@ -12,34 +12,78 @@ module.exports = function (app) {
     {id:'y', name:'y'}
   ];
     
-    // TEMP: all classifications
-    var classes = [
-      {id:1, name:'Fruit'},
-      {id:2, name:'Veggie'},
-      {id:8, name:'Spinach'}
-    ];
+  var top_level_classes = [{}];
+  var all_classes = [{}];
+  var leaf = [];
+
+// TEMP: all classifications
+  var classes = [
+    {id:1, name:'Fruit'},
+    {id:2, name:'Veggie'},
+    {id:8, name:'Spinach'}
+  ];
     
   
-  app.inventory_data = {};
   app.yesNo = [];
-  app.classes = [];
-  classification_data = [];
+  app.top_level_classes = [];
 
-  // Build classifications table
-/*  
-  function getClasses() {
-    var classes = [{}];
-    var top_level = [{}];
-    // Get all the item information
+  function getTopLevelClasses() {
+
     var sql = "SELECT * FROM classifications ";
-      sql  += "WHERE parent_id= IS NULL";
-    
-    console.log('sql: ', sql);
+      sql  += "WHERE parent_id IS NULL";
+
     db.all(sql, function(err, rows) {
       if (!err)
       {
-        console.log('classes rows: ', rows);
-        top_level = rows;
+        top_level_classes = rows;
+      }
+      else 
+      {
+        // on error, send nothing
+//          res.json("err": err);
+        console.log('err: ', err);
+      }
+    });
+  }
+
+    
+    // Build classifications table
+  function getClasses() {
+    // Select all items where the id is not a parent_id.
+    // This gives the lowest level classifications
+//    var sql = "SELECT * FROM classifications ";
+//      sql  += "WHERE id IN (SELECT parent_id FROM classifications)";
+    
+    var sql = "SELECT * FROM classifications ";
+      sql  += "WHERE id IN (SELECT parent_id FROM classifications)";
+
+    db.all(sql, function(err, rows) {
+      var parent_classes = [];
+      if (!err)
+      {
+//        top_level_classes = rows;
+        for (i = 0; i < rows.length; i++)
+          {
+            parent_classes[i] = rows[i].id;
+          }
+        var parent_string = parent_classes.toString();
+        var sqlLeaf = "SELECT * FROM classifications ";
+          sqlLeaf  += "WHERE id NOT IN (" + parent_string + ")";
+
+        console.log('sqlLeaf: ', sqlLeaf);
+        db.all(sqlLeaf, function(err, rows) {
+
+        console.log("rows b: ", rows);
+        for (i = 0; i < rows.length; i++)
+          {
+            leaf[i] = rows[i].id;
+          }
+        console.log("leaf zz: ", leaf);
+        });
+
+        console.log("parent_classes: ", parent_classes);
+        console.log("leaf z: ", leaf);
+        all_classes = rows;
       }
       else 
       {
@@ -51,95 +95,24 @@ module.exports = function (app) {
 
   } //end getClasses() function
   
-  // Build classifications table.  
-  //display the database on /data
-  app.get('/data', function(req, res){
-    db.all('SELECT * FROM classifications ORDER BY name', function(err, rows){
-      //build an object here - keys are mentor types, values are an array
-      //easy way to do grouping without knowing all the info ahead of time
-      var classes = {}; 
-      var ret = {nodes: [], links: []};
-      var umap = {}, smap = {};
-      for (x = 0; x < rows.length; x++)
-      {
-          var row = rows[x]; // we are adding mentors into the appropriate groups
-          if (!groups[row.mentor_type]) groups[row.mentor_type] = (Object.keys(groups).length+1); //if the mentor type doesn't exist, add it
-
-          //add a node
-          var node = {name: row.username, group: groups[row.mentor_type]};
-          umap[row.id] = ret.nodes.length;
-          ret['nodes'].push(node);
-      }
-      //we can nest a select inside a select
-      //add a node for a new skill
-      db.all('SELECT id, skill_name FROM skills', function(err, rows){
-          var skillsGroup = (Object.keys(groups).length + 1);
-          var skills = {};	
-
-          for (x = 0; x < rows.length; x++)
-          {
-              var node = {name: rows[x].skill_name, skill: true, group: skillsGroup};
-              smap[rows[x].id] = ret.nodes.length;
-              ret.nodes.push(node);
-          };
-
-          //add a link???
-          db.all('SELECT user_skills.user_id AS uid, user_skills.skill_id AS sid FROM users, skills, user_skills WHERE users.id = user_skills.user_id AND skills.id = user_skills.skill_id', function(err, rows){ //in db.all, you have an error and an array of objects
-              console.log(umap);
-              console.log(smap);
-              rows.forEach(function(row){
-                  var obj = {"source": umap[row.uid], "target": smap[row.sid]};
-                  ret['links'].push(obj);
-              });
-              res.json(ret);
-
-          });								
-      });
-    });
-  });
-*/  
 
   
-  //Create the classes array of objects
-  fs.readFile('./data/inventory.json', 'utf-8', function(err, data) {
-    if(!err)
-    { 
-      inventory_data = JSON.parse(data);
-      // Make array of classification_data types for menu.
-      for (var i = 0; i < inventory_data.inventory.length ; i++) {
-        var j;
-        if (i == 0) {
-          j = 0;
-          classification_data[0] = inventory_data.inventory[0].classification;
-          j++;
-        } else if (inventory_data.inventory[i].classification != inventory_data.inventory[i-1].classification)
-        {
-          classification_data[j] = inventory_data.inventory[i].classification;
-          j++;
-        }
-      }
-
-      //    res.json(data);
-    } 
-    else 
-    {
-      // on error, send nothing
-      //    res.json("err": err);
-    }
-  }); 
-
-    
   // Changed this app.all back to app.get. 
   app.get('/inventory', function (req, res) {
     if (req.userSession.loggedIn)
     {
-        var sql = "SELECT * FROM classifications, items ";
+      getTopLevelClasses();
+      getClasses();
+      var sql = "SELECT * FROM classifications, items ";
         sql += "WHERE classification_id=classifications.id ORDER BY name";
 
       // Why am I doing db.all instead of db.run?  db.run doesn't return data so 
       // only use to insert data.  db.all returns data from the database.
 	  db.all(sql, function(err, rows){
 	    if (!err){
+console.log("leaf b: ", leaf);
+          console.log('all_classes: ', all_classes);
+          console.log('top_level_classes: ', top_level_classes);
           res.render('inventory', { title: "Inventory", inventory: rows });
         } else 
         {
@@ -154,8 +127,8 @@ module.exports = function (app) {
 
   });
 
-  app.get('/inventory/new', function (req, res) {
-      res.render('inventory_new', { title: "New Inventory Item", classes: classes, yesNo: yesNo });
+  app.get('/inventory/new_class', function (req, res) {
+      res.render('inventory_new_class', { title: "New Inventory Item", classes: classes, yesNo: yesNo });
   });
 
   app.post('/inventory', function (req, res) {

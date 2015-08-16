@@ -10,7 +10,7 @@
       </div>
     </h2>
     <h4 class="ui dividing header">Current Inventory</h4>
-    <form method="get" action="/inventory/new">
+    <form method="get" action="/inventory/new_class">
       <button type="submit" class="ui small primary labeled button">
         Add New Item
       </button>
