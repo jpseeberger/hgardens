@@ -23,11 +23,11 @@ module.exports = function (app) {
           classes[i] = rows[i].name;
         }
       }
-
+console.log("home: ", inventory_data.inventory);
       // Show our homepage
       res.render('home', {
         title: "Harvest Lane Gardens", 
-        inventory: app.inventory_data.inventory, 
+        inventory: inventory_data.inventory, 
         classifications: classes
       });
     });

@@ -1,14 +1,11 @@
 var http = require('http');
 var express = require('express');
-
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('client-sessions');
-
-var swig = require('swig');
 var fs = require('fs');
 var path = require('path');
-
+var swig = require('swig');
 
 // Configure our HTTP server 
 var app = express();

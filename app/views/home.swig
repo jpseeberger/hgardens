@@ -50,9 +50,9 @@
        <h1 class="ui inverted header">
          Harvest Lane Gardens
        </h1>
-       <h2>Providing direct access to local, small batch farms</h2>
+       <h2>Providing direct access to <br/>your neighborhood, small batch farms</h2>
        <a href="#available-now" class="ui huge inverted basic button">
-         Available Now
+         Produce Available Now
        </a>
      </div>
    </div>
