@@ -69,10 +69,12 @@ module.exports = function (app) {
             db.all(sqlLeaf, function(err, rows) {
               if (!err){
                 console.log("rows b: ", rows);
-                for (i = 0; i < rows.length; i++)
+                leaf = rows;
+/*                for (i = 0; i < rows.length; i++)
                 {
                   leaf[i] = rows[i].id;
-                }
+                } 
+  */
                 console.log("leaf zz: ", leaf);
               } else 
               {
@@ -113,7 +115,7 @@ module.exports = function (app) {
           console.log("leaf b: ", leaf);
           console.log('parentClasses: ', parentClasses);
           console.log('topLevelClasses: ', topLevelClasses);
-          res.render('inventory', { title: "Inventory", inventory: rows });
+          res.render('inventory', { title: "Inventory", inventory: leaf });
         } else 
         {
           // on error, send nothing
