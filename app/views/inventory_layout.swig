@@ -13,6 +13,18 @@
   <link rel="stylesheet" type="text/css" href="/css/inventory.css" media="screen">
 </head>
 <body>
+  <div class="ui large top fixed hidden menu">
+    <div class="ui container">
+      <div class="center aligned column">
+        <div class="eight wide field">
+          <a href="/inventory">Inventory Page</a>
+        </div>
+        <div class="eight wide field">
+          <a href="/classifications">Classifications Page</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
     {% block content %}{% endblock %}

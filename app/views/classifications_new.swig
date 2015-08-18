@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<h2 class="ui teal dividing header center aligned">Add New Item</h2>
+<h2 class="ui teal dividing header center aligned"><br/>Add New Classification</h2>
 
 <div class="ui middle aligned center aligned grid">
-  <form class="ui form" method="post" action="/inventory">
+  <form class="ui form" method="post" action="/classifications">
     <div class="field">
       <div class="fields">
         <div class="eight wide field">
@@ -20,6 +20,7 @@
                 {{cls.name}}
               </option>
             {% endfor %}
+            <option>null</option>
           </select>
         </div>
       </div>
