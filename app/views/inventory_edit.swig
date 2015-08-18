@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2 class="ui teal dividing header center aligned">Edit Item</h2>
+<h2 class="ui teal dividing header center aligned"><br/>Edit Item</h2>
 
 <div class="ui middle aligned center aligned grid">
 
@@ -11,7 +11,7 @@
       <div class="fields">
         <div class="two wide field">
           <label>Classification</label>
-          <select name="classification">
+          <select name="classification_id">
             {% for cls in classes %}
               <option value="{{cls.id}}" {% if item.classification_id == cls.id %}selected{% endif%}>
                 {{cls.name}}
@@ -23,7 +23,7 @@
           <label>Unit</label>
           <input type="text" name="unit" value={{item.unit}}>
         </div>
-        <div class="one wide field">
+        <div class="two wide field">
           <label>Price</label>
           <input type="text" name="price" value={{item.price}}>
         </div>
@@ -31,10 +31,24 @@
           <label>Units Available</label>
           <input type="text" name="unitsavailable" value={{item.unitsavailable}}>
         </div>
-        <div class="one wide field">
+<!--       <div class="one wide field">
           <label>Grower</label>
           <input type="text" name="grower" value={{item.grower}}>
         </div>
+-->
+
+        <div class="two wide field">
+          <label>Grower</label>
+          <select name="grower">
+            {% for gr in grower %}
+              <option value="{{gr.id}}" {% if item.grower == gr.id %}selected{% endif%}>
+                {{gr.name}}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+
         <div class="two wide field">
           <label>Next Week</label>
           <select name="nextWeek">

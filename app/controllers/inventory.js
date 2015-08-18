@@ -14,6 +14,7 @@ module.exports = function (app) {
     
   var topLevelClasses = [{}];
   var parentClasses = [{}];
+  var allClasses = [{}];
   var leaf = [];
 
 // TEMP: all classifications
@@ -25,6 +26,7 @@ module.exports = function (app) {
     
   app.yesNo = [];
   app.topLevelClasses = [];
+  app.allClasses = [];
 
   // Build classifications table
   function getClasses() {
@@ -44,6 +46,21 @@ module.exports = function (app) {
         console.log('err: ', err);
       }
     });
+    
+    var sqlAllClasses = "SELECT * FROM classifications ORDER BY parent_id, name";
+    db.all(sqlAllClasses, function(err, rows) {
+      if (!err)
+      {
+        allClasses = rows;
+      }
+      else 
+      {
+        // on error, send nothing
+//          res.json("err": err);
+        console.log('err: ', err);
+      }
+    });
+
     
     db.serialize(function() {
     
@@ -167,13 +184,13 @@ module.exports = function (app) {
       getClasses();
     // Get the item information
     var sqlEdit = "SELECT * FROM items ";
-      sqlEdit  += "WHERE id=" + req.params.id;
+      sqlEdit  += "WHERE classification_id=" + req.params.id;
     console.log('sqlEdit: ', sqlEdit);
     db.get(sqlEdit, function(err, row) {
       if (!err)
       {
         console.log('rowEdit: ', row);
-        res.render('inventory_edit', { title: "Edit Inventory Item", classes: topLevelClasses, yesNo: yesNo, grower: growers, items: row });
+        res.render('inventory_edit', { title: "Edit Inventory Item", classes: allClasses, yesNo: yesNo, grower: growers, item: row });
       }
       else 
       {
