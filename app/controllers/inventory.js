@@ -24,10 +24,6 @@ module.exports = function (app) {
     {id:3, name:'jon'}
   ];
     
-  app.yesNo = [];
-  app.topLevelClasses = [];
-  app.allClasses = [];
-
   // Build classifications table
   function getClasses() {
     // Select all items where the parent_id is null.
@@ -202,7 +198,7 @@ module.exports = function (app) {
   });
 
   app.post('/inventory/:id', function (req, res) {
-    //console.log('I will edit an item with id of ' + req.params.id + ', values: ');
+    console.log('I will edit an item with id of ' + req.params.id + ', values: ');
     //console.log(req.body);
     var sqlUpdate = 'UPDATE items ';
       sqlUpdate += 'SET grower="' + req.body.grower + '", price=' + req.body.price + ', ';
