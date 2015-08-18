@@ -8,8 +8,8 @@ module.exports = db.serialize(function() {
     
   db.run("CREATE TABLE IF NOT EXISTS classifications ("+
       "id INTEGER PRIMARY KEY , " +
-      "name TEXT NOT NULL UNIQUE, " +
-      "parent_id INTEGER" +
+      "name TEXT UNIQUE, " +
+      "parent_id INTEGER DEFAULT NULL" +
   ");");
 /*
   db.run("CREATE TABLE IF NOT EXISTS growers ("+

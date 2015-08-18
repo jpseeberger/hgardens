@@ -4,13 +4,13 @@
 
 <div class="ui middle aligned center aligned grid">
   <div class="column">
-    <h2 class="ui teal header">
+    <h2 class="ui teal header ">
       <div class="content">
-        Inventory Control
+        <br/>Inventory Control
       </div>
     </h2>
     <h4 class="ui dividing header">Current Inventory</h4>
-    <form method="get" action="/inventory/new_class">
+    <form method="get" action="/inventory/new_item">
       <button type="submit" class="ui small primary labeled button">
         Add New Item
       </button>

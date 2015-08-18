@@ -19,12 +19,15 @@
           </select>
         </div>
         <div class="two wide field">
+          <label>Unit</label>
           <input type="text" name="unit" placeholder="unit">
         </div>
         <div class="two wide field">
+          <label>Price</label>
           <input type="text" name="price" placeholder="price">
         </div>
         <div class="two wide field">
+          <label>Units Available</label>
           <input type="text" name="unitsavailable" placeholder="# available">
         </div>
   <!--       <div class="one wide field">
@@ -37,7 +40,7 @@
             <label>Grower</label>
             <select name="grower">
               {% for gr in grower %}
-                <option value="{{gr.id}}" {% if item.grower == gr.id %}selected{% endif%}>
+                <option>
                   {{gr.name}}
                 </option>
               {% endfor %}
