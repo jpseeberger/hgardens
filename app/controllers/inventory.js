@@ -217,7 +217,7 @@ module.exports = function (app) {
       // only use to insert data.  db.all returns data from the database.
 	  db.all(sql, function(err, rows){
 	    if (!err){
-          console.log('row class: ', rows);
+//          console.log('row class: ', rows);
           res.render('classifications', { title: "Classifications", classifications: rows });
         } 
         else 
@@ -237,7 +237,7 @@ module.exports = function (app) {
     var sql = "SELECT * FROM classifications ORDER BY parent_id, name";
     db.all(sql, function(err, rows){
       if (!err){
-        console.log('row class new: ', rows);
+//        console.log('row class new: ', rows);
         res.render('classifications_new', { title: "New Classification Item", classes: rows });
       } 
       else 

@@ -21,23 +21,6 @@ module.exports = db.serialize(function() {
       "web_page TEXT" +
   ");");
 
-  db.run("CREATE TABLE IF NOT EXISTS photos ("+
-      "id INTEGER PRIMARY KEY, " +
-      "thumbnail TEXT DEFAULT 'default.jpg', " +
-      "small TEXT, " +
-      "medium TEXT" +
-      "large TEXT" +
-      "lightbox TEXT" +
-      "photo_link TEXT" +
-  ");");
-
-  db.run("CREATE TABLE IF NOT EXISTS units ("+
-      "id INTEGER PRIMARY KEY, " +
-      "primary_unit TEXT DEFAULT 'bunch', " +
-      "bulk_unit TEXT DEFAULT 'lb', " +
-      "grower_unit TEXT DEFAULT 'lb' " +
-  ");");
-
   db.run("CREATE TABLE IF NOT EXISTS items ("+
     "id INTEGER PRIMARY KEY, " +
     "classification_id INTEGER NOT NULL, " +
