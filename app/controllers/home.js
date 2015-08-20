@@ -7,8 +7,37 @@ var db = require('../../db');
 
 
 module.exports = function (app) {
-classification_data = [];
-  app.inventory_data = {};
+  var classification_data = [];
+  var classes = [];
+  var leaf = [];
+  var topLevelClasses = [];
+
+  // Build classifications table
+  function getClasses() 
+//  function getClasses(callback(items, classes)) 
+  {
+    // Select all items where the parent_id is null.
+    var sqlTopLevel = "SELECT * FROM classifications ";
+      sqlTopLevel  += "WHERE parent_id IS NULL ORDER BY name";
+    db.all(sqlTopLevel, function(err, rows) {
+      if (!err)
+      {
+        for (i = 0; i < rows.length; i++)
+        {
+          topLevelClasses[i] = rows[i].name;
+        }
+        console.log("topLevelClasses: ", topLevelClasses);
+      }
+      else 
+      {
+        // on error, send nothing
+        // res.json("err": err);
+        console.log('err: ', err);
+      }
+    });
+    
+  } 
+  
 
   //Create the classes array of objects
   fs.readFile('./data/inventory.json', 'utf-8', function(err, data) {
@@ -41,28 +70,18 @@ classification_data = [];
     
 
   app.get('/', function (req, res) {
-    //Make array of top level of classifications table.
-    var sql = "SELECT * FROM classifications ";
-      sql += "WHERE parent_id IS NULL ORDER BY name ";
+    getClasses();
+//    getClasses(function(items, classes) {
+    
+//      console.log('leaf: ', leaf);
 
-    // Why am I doing db.all instead of db.run?  db.run doesn't return data so 
-    // only use to insert data.  db.all returns data from the database.
-    db.all(sql, function(err, rows){
-      var classes = [];
-      if (!err){
-console.log("rows: ", rows);
-        for (i = 0; i < rows.length; i++)
-        {
-          classes[i] = rows[i].name;
-        }
-console.log("classes: ", classes);
       // Show our homepage
       res.render('home', {
         title: "Harvest Lane Gardens", 
+//        inventory: items, 
         inventory: inventory_data.inventory, 
-        classifications: classes
+        classifications: topLevelClasses
       });
-      }
-    });
+//    });
   });
 };

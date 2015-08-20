@@ -9,11 +9,12 @@
   <a href="#available-now" class="item">Available Now</a>
   <a href="#available-next-week" class="item">Next Week</a>
   <a href="#full-list" class="item">Our Full List</a>
-    <div class="right menu">
+<!--    <div class="right menu">
       <div class="item">
         <a class="ui primary button">Log in</a>
       </div>
-    </div>
+    </div> 
+-->
   </div>
 </div>
 
@@ -23,7 +24,8 @@
   <a href="#available-now" class="item">Available Now</a>
   <a href="#available-next-week" class="item">Next Week</a>
   <a href="#full-list" class="item">Our Full List</a>
-  <a class="item">Login</a>
+<!--    <a class="item">Login</a>
+-->
 </div>
 
 <!-- Page Contents -->
@@ -40,9 +42,10 @@
             <a href="#available-now" class="item">Available Now</a>
             <a href="#available-next-week" class="item">Next Week</a>
             <a href="#full-list" class="item">Our Full List</a>
-            <div class="right item">
+<!--                <div class="right item">
               <a class="ui inverted basic button">Log in</a>
             </div>
+-->
         </div>
       </div>
 
@@ -85,7 +88,7 @@
                <ul>
                  {% for key, classification in classifications %}
                    <li>
-                     <a href="#{{classification}}" class="item">
+                     <a href="#{{classification}}" class="small button">
                        <div class="ui label">{{classification}}
                        </div>
                      </a>
@@ -99,7 +102,8 @@
           {% for item in inventory %}
             {% if loop.first %}
               <h2 class="ui icon header">
-                classification[j]
+<!--                classification[j]  -->
+                Our Produce
               </h2>
               <ul>
             {% endif %}
