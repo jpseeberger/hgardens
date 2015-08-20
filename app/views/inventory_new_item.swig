@@ -58,8 +58,8 @@
           </select>
         </div>
         <div class="one wide field">
-          <label>Photo</label>
-          <select name="photo">
+          <label>Full List</label>
+          <select name="full_list">
             {% for yes_no in yesNo %}
               <option value="{{yes_no.id}}">
                 {{yes_no.name}}

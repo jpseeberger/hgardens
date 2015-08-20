@@ -60,10 +60,10 @@
           </select>
         </div>
         <div class="one wide field">
-          <label>Photo</label>
-          <select name="photo">
+          <label>Full List</label>
+          <select name="full_list">
             {% for yes_no in yesNo %}
-              <option value="{{yes_no.id}}" {% if item.photo == yes_no.id %}selected{% endif%}>
+              <option value="{{yes_no.id}}" {% if item.full_list == yes_no.id %}selected{% endif%}>
                 {{yes_no.name}}
               </option>
             {% endfor %}

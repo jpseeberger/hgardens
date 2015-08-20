@@ -26,7 +26,7 @@
           <th>Available</th>
           <th>Grower</th>
           <th>Next Week</th>
-          <th>Photo</th>
+          <th>Full List</th>
         </tr>
       </thead>
       <tbody id="indexedTable">
@@ -40,7 +40,7 @@
               <td>{{ item.unitsavailable }}</td>
               <td>{{ item.grower }}</td>
               <td>{{ item.available_next_week }}</td>
-              <td>{{ item.photo }}</td>
+              <td>{{ item.full_list }}</td>
             </tr>
         {% endfor %}
       </tbody>

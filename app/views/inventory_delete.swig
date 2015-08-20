@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2 class="ui teal dividing header center aligned">Delete Item</h2>
+<h2 class="ui teal dividing header center aligned"><br/>Delete Item</h2>
 
 <div class="ui center aligned grid container">
   <div class="column six wide">

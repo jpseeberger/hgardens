@@ -12,23 +12,20 @@ module.exports = function (app) {
     {id:'y', name:'y'}
   ];
     
-  var topLevelClasses = [{}];
-  var parentClasses = [{}];
-  var allClasses = [{}];
-  var leaf = [];
-
 // TEMP: all classifications
   var growers = [
     {id:1, name:'rox'},
     {id:2, name:'loren'},
     {id:3, name:'jon'}
   ];
-    
+
+  app.getClasses;  
+  
   // Build classifications table
   function getClasses() {
     // Select all items where the parent_id is null.
     var sqlTopLevel = "SELECT * FROM classifications ";
-      sqlTopLevel  += "WHERE parent_id IS NULL";
+      sqlTopLevel  += "WHERE parent_id IS NULL ORDER BY name";
 
     db.all(sqlTopLevel, function(err, rows) {
       if (!err)
@@ -56,57 +53,6 @@ module.exports = function (app) {
         console.log('err: ', err);
       }
     });
-
-    
-    db.serialize(function() {
-    
-    // Select all items where the id is not a parent_id.
-    // This gives the lowest level classifications
-      var sqlParentClass = "SELECT * FROM classifications ";
-        sqlParentClass  += "WHERE id IN (SELECT parent_id FROM classifications) ";
-        console.log('sqlParentClass: ', sqlParentClass);
-
-      db.all(sqlParentClass, function(err, rows) {
-        var parentElements = [];
-        if (!err)
-        {
-          for (i = 0; i < rows.length; i++)
-          {
-            parentElements[i] = rows[i].id;
-          }
-            console.log('rows parents: ', rows);
-          db.serialize(function(){
-            var parentString = parentElements.toString();
-            var sqlLeaf = "SELECT * FROM classifications ";
-              sqlLeaf  += "WHERE id NOT IN (" + parentString + ")";
-
-            console.log('sqlLeaf: ', sqlLeaf);
-            db.all(sqlLeaf, function(err, rows) {
-              if (!err){
-                leaf = rows;
-/*                for (i = 0; i < rows.length; i++)
-                {
-                  leaf[i] = rows[i].id;
-                } 
-  */
-              } else 
-              {
-                // on error, send nothing
-      //          res.json("err": err);
-                console.log('err: ', err);
-              }
-            });
-          });
-          parentClasses = rows;
-        }
-        else 
-        {
-          // on error, send nothing
-  //          res.json("err": err);
-          console.log('err: ', err);
-        }
-      });
-	});
   } //end getClasses() function
   
 
@@ -123,8 +69,6 @@ module.exports = function (app) {
       // only use to insert data.  db.all returns data from the database.
 	  db.all(sql, function(err, rows){
 	    if (!err){
-          console.log("leaf b: ", leaf);
-          console.log('parentClasses: ', parentClasses);
           console.log('topLevelClasses: ', topLevelClasses);
           res.render('inventory', { title: "Inventory", inventory: rows });
         } 
@@ -159,10 +103,10 @@ module.exports = function (app) {
   app.post('/inventory', function (req, res) {
     console.log('I would create an inventory item here with params ' + JSON.stringify(req.body));
     var sqlNewItem = 'INSERT INTO items (classification_id, grower, price, ';
-      sqlNewItem += 'unit, unitsavailable, available_next_week, photo)';
+      sqlNewItem += 'unit, unitsavailable, available_next_week, full_list)';
       sqlNewItem += 'VALUES (?, ?, ?, ?, ?, ?, ?)';
     console.log('sqlNewItem: ', sqlNewItem);
-    db.run(sqlNewItem, [parseInt(req.body.classification, 10), req.body.grower, parseInt(req.body.price, 10), req.body.unit, parseInt(req.body.unitsavailable, 10), req.body.available_next_week, req.body.photo], function(err, rows) {
+    db.run(sqlNewItem, [parseInt(req.body.classification, 10), req.body.grower, parseInt(req.body.price, 10), req.body.unit, parseInt(req.body.unitsavailable, 10), req.body.available_next_week, req.body.full_list], function(err, rows) {
       if (!err)
       {
         res.redirect('/inventory');
@@ -177,7 +121,7 @@ module.exports = function (app) {
   });
 
   app.get('/inventory/:id', function (req, res) {
-      getClasses();
+    getClasses();
     // Get the item information
     var sqlEdit = "SELECT * FROM items ";
       sqlEdit  += "WHERE classification_id=" + req.params.id;
@@ -200,12 +144,15 @@ module.exports = function (app) {
   app.post('/inventory/:id', function (req, res) {
     console.log('I will edit an item with id of ' + req.params.id + ', values: ');
     //console.log(req.body);
+  
+    var growerName = growers[req.body.grower - 1].name;
+//    console.log('growerName', growerName);
     var sqlUpdate = 'UPDATE items ';
-      sqlUpdate += 'SET grower="' + req.body.grower + '", price=' + req.body.price + ', ';
+      sqlUpdate += 'SET grower="' + growerName + '", price=' + req.body.price + ', ';
       sqlUpdate += 'unit="' + req.body.unit + '", unitsavailable=';
       sqlUpdate += req.body.unitsavailable + ', available_next_week="';
-      sqlUpdate += req.body.nextWeek + '", photo="';
-      sqlUpdate += req.body.photo + '" WHERE id=' + req.params.id;
+      sqlUpdate += req.body.nextWeek + '", full_list="';
+      sqlUpdate += req.body.full_list + '" WHERE id=' + req.params.id;
     console.log('sqlUpdate: ', sqlUpdate);
     db.run(sqlUpdate, function(err, rows) {
       if (!err)
