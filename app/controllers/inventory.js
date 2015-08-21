@@ -86,7 +86,7 @@ module.exports = function (app) {
   });
 
   app.get('/inventory/new_item', function (req, res) {
-    var sql = "SELECT * FROM classifications ORDER BY parent_id, name";
+    var sql = "SELECT * FROM classifications WHERE parent_id IS NOT NULL ORDER BY parent_id, name";
     db.all(sql, function(err, rows){
       if (!err){
         res.render('inventory_new_item', { title: "New Inventory Item", classes: rows, grower: growers, yesNo: yesNo });
