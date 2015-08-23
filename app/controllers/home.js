@@ -7,37 +7,12 @@ var db = require('../../db');
 
 var classification_data = [];
 var classes = [];
-var leaf = [];
+var items = [];
 var topLevelClasses = [];
+
 
 /*
 // Async type processing:
-function getTopLevelClasses(callback)
-{
-  // Select all items where the parent_id is null.
-  var sqlTopLevel = "SELECT * FROM classifications ";
-    sqlTopLevel  += "WHERE parent_id IS NULL ORDER BY name";
-  db.all(sqlTopLevel, function(err, rows) {
-    if (!err)
-    {
-      for (i = 0; i < rows.length; i++)
-      {
-        topLevelClasses[i] = rows[i].name;
-      }
-      console.log("topLevelClasses: ", topLevelClasses);
-    }
-    else 
-    {
-      // on error, send nothing
-      // res.json("err": err);
-      console.log('err: ', err);
-    }
-  });
-
-  // Do stuff
-  callback(classes);
-}
-
 function getClasses(callback)
 {
   // Do stuff
@@ -57,9 +32,35 @@ function getItems(callback)
 */
 
 // Build classifications table
+
+
+
+function getItems(callback)
+{
+      var sqlItems = "SELECT classifications.name, * FROM items, classifications ";
+        sqlItems += "WHERE classification_id=classifications.id AND unitsavailable != 0 ";
+//        sqlItems += "ORDER BY items.classification_id";
+      db.all(sqlItems, function(err, rows) {
+        if (!err)
+        {
+          items = rows;
+//          console.log("items: ", items);
+
+          // BE SURE TO DO THIS INSIDE OF A db.all() CALLBACK
+          callback(items);
+        }
+        else 
+        {
+          // on error, send nothing
+          // res.json("err": err);
+          console.log('err: ', err);
+        }
+      });
+}
+
 function getClasses(callback) 
 {
-  // Select all items where the parent_id is null.
+    // Select all items where the parent_id is null.
   var sqlTopLevel = "SELECT * FROM classifications ";
     sqlTopLevel  += "WHERE parent_id IS NULL ORDER BY name";
   db.all(sqlTopLevel, function(err, rows) {
@@ -79,30 +80,15 @@ function getClasses(callback)
     }
   });
 
-  var sqlClassifications = "SELECT * FROM classifications";
+  var sqlClassifications = "SELECT * FROM classifications ORDER BY name";
   db.all(sqlClassifications, function(err, rows) {
     if (!err)
     {
       classes = rows;
-      var sqlItems = "SELECT classifications.name, * FROM items, classifications ";
-        sqlItems += "WHERE classification_id=classifications.id AND unitsavailable != 0 ";
-//        sqlItems += "ORDER BY items.classification_id";
-      db.all(sqlItems, function(err, rows) {
-        if (!err)
-        {
-          items = rows;
-          console.log("items: ", items);
-
+      console.log("classes: ", classes);
+      
           // BE SURE TO DO THIS INSIDE OF A db.all() CALLBACK
-          callback(items, classes);
-        }
-        else 
-        {
-          // on error, send nothing
-          // res.json("err": err);
-          console.log('err: ', err);
-        }
-      });
+          callback(classes);
     }
     else 
     {
@@ -113,28 +99,19 @@ function getClasses(callback)
   });
 
 } 
-  
+
 
 module.exports = function (app) {
   app.get('/', function (req, res) {
 
-/*    
+    
     getClasses(function(classes) {
       getItems(function(items) {
-      res.render('home', {
-        title: "Harvest Lane Gardens", 
-        inventory: items, 
-        classifications: topLevelClasses
-      });
-      });
-    });
-*/
-    
-    getClasses(function(items, classes) {
-      res.render('home', {
-        title: "Harvest Lane Gardens", 
-        inventory: items, 
-        classifications: topLevelClasses
+        res.render('home', {
+          title: "Harvest Lane Gardens", 
+          inventory: items, 
+          classifications: topLevelClasses
+        });
       });
     });
   });
