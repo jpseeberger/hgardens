@@ -3,7 +3,6 @@ var express = require('express');
 var swig = require('swig');
 var fs = require('fs');
 var path = require('path');
-var db = require('../../db');
 
 
 module.exports = function (app) {
@@ -11,18 +10,17 @@ module.exports = function (app) {
 
   // Admin user information from flat JSON file
   // Ensure data directory exists
-  fs.mkdir('./data', function(e) {
+  fs.mkdir(app.locals.config.data_dir, function(e) {
     try
     {
       if (!e || e.code === 'EEXIST')
       {
         // Data directory is present
         // Read in the admin information (if exists, if not: no exception will be thrown)
-        userData = JSON.parse(fs.readFileSync('./data/users.json'));
+        userData = JSON.parse(fs.readFileSync(app.locals.config.data_dir + 'users.json'));
       }
       else
       {
-      console.log('Here');
         throw e;
       }
     }
