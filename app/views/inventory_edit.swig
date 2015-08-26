@@ -23,7 +23,7 @@
         <input type="text" name="unit" value={{item.unit}}>
       </div>
       <div class="two wide field">
-        <label>Price</label>
+        <label>Price ($10.00 = 1000)</label>
         <input type="text" name="price" value={{item.price}}>
       </div>
       <div class="two wide field">

@@ -5,8 +5,6 @@ var fs = require('fs');
 var path = require('path');
 var db = require('../../db');
 
-module.exports = function (app) {
-
   var yesNo = [
     {id:'n', name:'n'},
     {id:'y', name:'y'}
@@ -19,8 +17,8 @@ module.exports = function (app) {
     {id:3, name:'jon'}
   ];
 
-  app.getClasses;  
-  
+module.exports = function (app) {
+
   // Build classifications table
   function getClasses() {
     // Select all items where the parent_id is null.
@@ -142,11 +140,9 @@ module.exports = function (app) {
   });
 
   app.post('/inventory/:id', function (req, res) {
-    console.log('I will edit an item with id of ' + req.params.id + ', values: ');
-    //console.log(req.body);
+//    console.log('I will edit an item with id of ' + req.params.id + ', values: ');
   
     var growerName = growers[req.body.grower - 1].name;
-//    console.log('growerName', growerName);
     var sqlUpdate = 'UPDATE items ';
       sqlUpdate += 'SET grower="' + growerName + '", price=' + req.body.price + ', ';
       sqlUpdate += 'unit="' + req.body.unit + '", unitsavailable=';
@@ -175,7 +171,7 @@ module.exports = function (app) {
     db.get(sql, function(err, row) {
       if (!err)
       {
-        //console.log('rows: ', row);
+        console.log('row: ', row);
         res.render('inventory_delete', { title: "Edit Inventory Item", item: row });
       }
       else 
