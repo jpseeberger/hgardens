@@ -66,7 +66,7 @@
      <div class="ui middle aligned stackable grid container">
        <div class="row">
          <div class="eight wide column">
-           <h3 class="ui header">Produce From a Garden Near You</h3>
+           <h3 class="ui header">We Believe...</h3>
            <p>We grow and harvest our produce just outside Iowa City, without the use of chemicals or pesticides. By eating locally grown produce, you're investing in eating the way nature intended. We don't stress water supplies in parched parts of the country, and we don't waste fuel getting it to you.</p>
            <h3 class="ui header">We Make </h3>
            <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
@@ -86,13 +86,17 @@
            <div class="ui vertical menu">
              <div id="productMenu">
                <ul>
-                 {% for key, classification in classifications %}
-                   <li>
-                     <a href="#{{classification}}" class="small button">
-                       <div class="ui label">{{classification}}
-                       </div>
-                     </a>
-                   </li>
+                 {% for key, val in parentClasses %}
+                   {% for classification in classifications %}
+                     {% if classification.id == parentClasses[key] %}
+                       <li>
+                         <a href="#{{classification.name}}" class="small button">
+                           <div class="ui label">{{classification.name}}
+                           </div>
+                         </a>
+                       </li>
+                     {% endif %}
+                   {% endfor %}
                  {% endfor %}
                </ul>
              </div>
@@ -103,20 +107,21 @@
             {% if loop.first %}
               <h2 class="ui icon header">
 <!--                classification[j]  -->
-                Our Produce
+<!--                What We're Bringing You This Week  -->
+                Available Now
               </h2>
               <ul>
             {% endif %}
             <li class="produceitem" id="classification[j]">
               <div class="ui grid">
                 <div class="three wide column">
-                  <img class="image" src="/images/{{item.category}}_640.jpg" height="60" width="80">
+                  <img class="image" src="/images/{{item.name}}_640.jpg" height="60" width="80">
                 </div>
                 <div class="eight wide column">
-                  {{item.category}}
                   {% if item.subcategory!= 'none'%}, {{item.subcategory}}{% endif %}
+                  {{item.name}}
                   <h4>Available Units: {{item.unitsavailable}} </h4>
-                  <h4>Unit:  {{item.unit}}  Price: {{item.price}} </h4>
+                  <h4>Unit:  {{item.unit}}  Price: {{item.price/100}} </h4>
                 </div>
                 <div class="five wide column">
                 </div>
