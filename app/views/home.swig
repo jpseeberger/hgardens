@@ -115,10 +115,26 @@
             <li class="produceitem" id="classification[j]">
               <div class="ui grid">
                 <div class="three wide column">
-                  <img class="image" src="/images/{{item.name}}_640.jpg" height="60" width="80">
+                  {% for classification in classifications %}
+                    {% if item.classification_id == classification.id %}
+                      {% for parent in classifications %}
+                        {% if (classification.parent_id == parent.id) && parent.parent_id %}
+                          <img class="image" src="/images/{{parent.name}}_640.jpg" height="60" width="80">
+                        {% elseif (classification.parent_id == parent.id) && !parent.parent_id %}
+                          <img class="image" src="/images/{{item.name}}_640.jpg" height="60" width="80">
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
                 </div>
                 <div class="eight wide column">
-                  {% if item.subcategory!= 'none'%}, {{item.subcategory}}{% endif %}
+                  {% for classification in classifications %}
+                    {% if item.classification_id == classification.id %}
+                      {% for parent in classifications %}
+                        {% if (classification.parent_id == parent.id) && parent.parent_id %}{{parent.name}}, {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
                   {{item.name}}
                   <h4>Available Units: {{item.unitsavailable}} </h4>
                   <h4>Unit:  {{item.unit}}  Price: {{item.price/100}} </h4>
