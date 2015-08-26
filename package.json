@@ -11,8 +11,7 @@
     "swig": "^1.4.2"
   },
   "devDependencies": {
-    "nodemon": "^1.4.0",
-    "semantic-ui": "^2.0.2"
+    "nodemon": "^1.4.0"
   },
   "main": "app.js"
 }
