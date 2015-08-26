@@ -1,38 +1,54 @@
 var sqlite3 = require('sqlite3').verbose();
+var fs = require('fs');
 
-var db = new sqlite3.Database('./data/inventory.db');
+// Ensure data directory exists
+try
+{
+  fs.mkdirSync(app.locals.config.data_dir);
+}
+catch (e)
+{
+  // Do nothing on error
+}
 
-db.run("PRAGMA foreign_keys = ON;");
+/**
+ * Setup our database for application wide usage
+ **/
+module.exports = function(app) {
+  var db = new sqlite3.Database(app.locals.config.data_dir + 'inventory.db');
 
-module.exports = db.serialize(function() {
-    
-  db.run("CREATE TABLE IF NOT EXISTS classifications ("+
-      "id INTEGER PRIMARY KEY , " +
-      "name TEXT UNIQUE, " +
-      "parent_id INTEGER DEFAULT NULL" +
-  ");");
+  db.run("PRAGMA foreign_keys = ON;");
 
-  db.run("CREATE TABLE IF NOT EXISTS growers ("+
+  // Create the database schema (if not already existing)
+  app.locals.db = db.serialize(function() {
+    db.run("CREATE TABLE IF NOT EXISTS classifications ("+
+        "id INTEGER PRIMARY KEY , " +
+        "name TEXT UNIQUE, " +
+        "parent_id INTEGER DEFAULT NULL" +
+    ");");
+
+    db.run("CREATE TABLE IF NOT EXISTS growers ("+
+        "id INTEGER PRIMARY KEY, " +
+        "first_name TEXT NOT NULL, " +
+        "last_name TEXT, " +
+        "email TEXT" +
+        "phone_number TEXT" +
+        "web_page TEXT" +
+    ");");
+
+    db.run("CREATE TABLE IF NOT EXISTS items ("+
       "id INTEGER PRIMARY KEY, " +
-      "first_name TEXT NOT NULL, " +
-      "last_name TEXT, " +
-      "email TEXT" +
-      "phone_number TEXT" +
-      "web_page TEXT" +
-  ");");
+      "classification_id INTEGER NOT NULL, " +
+      "grower TEXT, " +
+      "price INTEGER DEFAULT 0, " +
+      "unit TEXT, " +
+      "unitsavailable INTEGER DEFAULT 0, " +
+      "available_next_week TEXT NOT NULL DEFAULT 'n', " +
+      "full_list TEXT NOT NULL DEFAULT 'n', " +
+      "FOREIGN KEY (classification_id) REFERENCES classifications(id)" + 
+    ");");
+  });
 
-  db.run("CREATE TABLE IF NOT EXISTS items ("+
-    "id INTEGER PRIMARY KEY, " +
-    "classification_id INTEGER NOT NULL, " +
-    "grower TEXT, " +
-    "price INTEGER DEFAULT 0, " +
-    "unit TEXT, " +
-    "unitsavailable INTEGER DEFAULT 0, " +
-    "available_next_week TEXT NOT NULL DEFAULT 'n', " +
-    "full_list TEXT NOT NULL DEFAULT 'n', " +
-    "FOREIGN KEY (classification_id) REFERENCES classifications(id)" + 
-  ");");
-
-});
+};
 
 

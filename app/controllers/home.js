@@ -3,8 +3,9 @@ var express = require('express');
 var swig = require('swig');
 var fs = require('fs');
 var path = require('path');
-var db = require('../../db');
 
+var db = {};
+var classification_data = [];
 var classes = [];
 var items = [];
 var groupedClasses = {};
@@ -170,6 +171,9 @@ function getClasses(callback)
 
 
 module.exports = function (app) {
+  // Allow for functions above to access our database connection
+  db = app.locals.db;
+
   app.get('/', function (req, res) {
 
     

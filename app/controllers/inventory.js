@@ -3,7 +3,9 @@ var express = require('express');
 var swig = require('swig');
 var fs = require('fs');
 var path = require('path');
-var db = require('../../db');
+
+module.exports = function (app) {
+  var db = app.locals.db;
 
   var yesNo = [
     {id:'n', name:'n'},
