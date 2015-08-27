@@ -4,9 +4,6 @@ var swig = require('swig');
 var fs = require('fs');
 var path = require('path');
 
-module.exports = function (app) {
-  var db = app.locals.db;
-
   var yesNo = [
     {id:'n', name:'n'},
     {id:'y', name:'y'}
@@ -19,7 +16,9 @@ module.exports = function (app) {
     {id:3, name:'jon'}
   ];
 
+
 module.exports = function (app) {
+  var db = app.locals.db;
 
   // Build classifications table
   function getClasses() {
