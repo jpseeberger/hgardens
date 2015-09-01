@@ -8,143 +8,78 @@ var db = {};
 var classification_data = [];
 var classes = [];
 var items = [];
-var groupedClasses = {};
+var leaves = [];
 var topLevelClasses = [];
-var groupedByTopLevel = {};
+var groupedClasses = [];
+var topLevelClassesArray = [];
 
-// Build classifications table
-// First for loop from https://gist.github.com/smrchy/7040377#file-_maketree-coffee
-function queryTreeSort(callback) {
-  var cfi, e, i, id, o, rfi, ri, j, k, ref, ref1, ti, topLevel, done;
-  ri = [];  // Root item
-  rfi = {}; // Rows from id
-  cfi = {}; // Children from id
-  o = [];
-  ti = {};
-  ref = classes;
-          
-  // Get top level classes and first grouped level
-  for (i = 0; i < ref.length; ++i) {
-    e = ref[i];
-    if (cfi[e.parent_id] == null) {
-      cfi[e.parent_id] = [];
+function getNextWeek(callback) 
+{
+  var sqlItems = "SELECT classifications.name, * FROM items, classifications ";
+    sqlItems += "WHERE items.classification_id=classifications.id AND items.available_next_week = 'y' ";
+    sqlItems += "ORDER BY classifications.name";
+  db.all(sqlItems, function(err, rows) {
+    if (!err)
+    {
+      nextWeek = rows;
+//      console.log("classes 2: ", classes);
+//      console.log("nextWeek 2: ", nextWeek);
+
+      callback(nextWeek);
     }
-    cfi[e.parent_id].push(ref[i].id);
-    // console.log("cfi[e.parent_id] , e.parent_id e.id: ", cfi[e.parent_id], e.parent_id, e.id);
-  }
-  groupedClasses  = cfi;
-  topLevelClasses = cfi[null];
-
-
-/*  // Group by top level
-  topLevel = cfi[null];
-  for (j = 0; j < topLevel.length; j++) {
-    e = topLevel[j];
-    ti[e] =[];
-    ref1 = cfi;
-    done = 0;
-    while(!done){
-      for (i = 0; i < ref.length; i++) {
-        if(ref1[i]) {
-          if(e == i){
-            for (k = 0; k < ref1[i].length; k++) {
-              ti[e][k] = ref1[i][k];
-            }
-          }
-        }
-      }
+    else 
+    {
+      // on error, send nothing
+      // res.json("err": err);
+      console.log('err: ', err);
     }
-  }
-
-  
-  // Group all elements by top level
-  for (j = 0; j < topLevel.length; j++) {
-    e = topLevel[j];
-    ti[e] =[];
-    ref1 = cfi;
-    for (i = ref.length; i < 0 ; i--) {
-      if(ref1[i]) {
-        // Check to see if it's an element of a super group
-        for (j = 0; j < cfi.length; j++) {
-          e = cfi[j];
-            for (k = 0; k < cfi[j].length; k++) {
-              if(e == cfi[j][k]){
-              ti[e][k] = ref1[i][k];
-            }
-          }
-        }
-      }
-    }
-  }
-//  console.log("ti: ", ti);
-  
-
-  // Group by next level
-  ref1 = cfi;
-  topLevel = cfi[null];
-  for (j = 0; j < topLevel.length; j++) {
-    e = topLevel[j];
-    ti[e] =[];
-    for (i = 0; i < ref.length; i++) {
-      if(ref1[i]) {
-        if(e == i){
-          for (k = 0; k < ref1[i].length; k++) {
-            ti[e][k] = ref1[i][k];
-          }
-        }
-      }
-    }
-  }
-
-
-  ref1 = cfi;
-  topLevel = cfi[null];
-  for (j = 0; j < topLevel.length; j++) {
-    e = topLevel[j];
-    ti[e] =[];
-    for (i = 0; i < ref.length; i++) {
-      if(ref1[i]) {
-        if(e == i){
-          for (k = 0; k < ref1[i].length; k++) {
-            ti[e][k] = ref1[i][k];
-          }
-        }
-      }
-    }
-  }
-*/
-  
-  groupedByTopLevel = ti;
-  
-  callback(classes);
+  });
 }
 
+function getFullList(callback) 
+{
+  var sqlItems = "SELECT classifications.name, * FROM items, classifications ";
+    sqlItems += "WHERE items.classification_id=classifications.id AND items.full_list = 'y' ";
+    sqlItems += "ORDER BY classifications.name";
+  db.all(sqlItems, function(err, rows) {
+    if (!err)
+    {
+      fullList = rows;
+//      console.log("fullList 2: ", fullList);
+
+      callback(fullList);
+    }
+    else 
+    {
+      // on error, send nothing
+      // res.json("err": err);
+      console.log('err: ', err);
+    }
+  });
+}
 
 function getItems(callback)
 {
-      var sqlItems = "SELECT classifications.name, * FROM items, classifications ";
-        sqlItems += "WHERE classification_id=classifications.id AND unitsavailable != 0 ";
+  var sqlItems = "SELECT classifications.name, * FROM items, classifications ";
+    sqlItems += "WHERE classification_id=classifications.id AND unitsavailable != 0 ";
 //        sqlItems += "ORDER BY items.classification_id";
-      db.all(sqlItems, function(err, rows) {
-        if (!err)
-        {
-          items = rows;
-          console.log("topLevelClasses 2: ", topLevelClasses);
-          console.log("groupedClasses 2: ", groupedClasses);
-          console.log("groupedByTopLevel 2: ", groupedByTopLevel);
-//          console.log("classes 2: ", classes);
-//          console.log("items: ", items);
+  db.all(sqlItems, function(err, rows) {
+    if (!err)
+    {
+      items = rows;
+//      console.log("items: ", items);
+      console.log("groupedClasses: ", groupedClasses);
 
-          // BE SURE TO DO THIS INSIDE OF A db.all() CALLBACK
-          callback(items);
-        }
-        else 
-        {
-          // on error, send nothing
-          // res.json("err": err);
-          console.log('err: ', err);
-        }
-      });
+      // BE SURE TO DO THIS INSIDE OF A db.all() CALLBACK
+      callback(items);
+    }
+    else 
+    {
+      // on error, send nothing
+      // res.json("err": err);
+      console.log('err: ', err);
+    }
+  });
 }
 
 function getClasses(callback) 
@@ -154,9 +89,7 @@ function getClasses(callback)
     if (!err)
     {
       classes = rows;
-//      console.log("classes: ", classes, "classes.length: ", classes.length);
-      
-      // BE SURE TO DO THIS INSIDE OF A db.all() CALLBACK
+      console.log("classes: ", classes);
       callback(classes);
     }
     else 
@@ -169,23 +102,104 @@ function getClasses(callback)
 
 } 
 
+function getTopLevelClasses(callback) 
+{
+  var sqlTopLevel = "SELECT * FROM classifications ";
+    sqlTopLevel  += "WHERE parent_id IS NULL ORDER BY name";
+  db.all(sqlTopLevel, function(err, rows) {
+    if (!err)
+    {
+      topLevelClasses = rows;
+      for (i = 0; i < rows.length; i++)
+      {
+        topLevelClassesArray[i] = rows[i].id;
+      }
+      console.log("topLevelClasses: ", topLevelClasses);
+      
+      callback(classes);
+    }
+    else 
+    {
+      // on error, send nothing
+      // res.json("err": err);
+      console.log('err: ', err);
+    }
+  });
+}
+
+function groupByTopLevel(callback) 
+{
+  // Select all classifications where the id is also a classification_id in items.
+  // This gives the lowest level classifications
+  var sqlLeaves = "SELECT DISTINCT classifications.* FROM classifications, items ";
+    sqlLeaves  += "WHERE classifications.id IN (SELECT items.classification_id FROM items )";
+    sqlLeaves  += "ORDER BY classifications.id";
+  db.all(sqlLeaves, function(err, rows) {
+    var topParentFound = 0;
+    if (!err)
+    {
+      leaves = rows;
+      console.log("leaves: ", leaves);
+      // Find the top level that each leaf belongs to
+      for (var j = 0; j < leaves.length; j++)
+      {
+        topParentFound = 0;
+        while (!topParentFound)
+        {
+          if(topLevelClassesArray.indexOf(leaves[j].parent_id) > -1)
+          {
+            topParentFound = 1;
+          }
+          else
+          {
+            for (var k = 0; k < classes.length; k++)
+            {
+              if(leaves[j].parent_id == classes[k].id)
+              {
+                leaves[j].parent_id = classes[k].parent_id;
+                break;
+              }
+            }
+          }
+        }
+      }
+      console.log("leaves: ", leaves);
+
+      callback(leaves);
+    }
+    else 
+    {
+      // on error, send nothing
+      // res.json("err": err);
+      console.log('err: ', err);
+    }
+  });
+} 
+
 
 module.exports = function (app) {
   // Allow for functions above to access our database connection
   db = app.locals.db;
 
   app.get('/', function (req, res) {
-
     
     getClasses(function(classes) {
-      queryTreeSort(function(classes) {
+      getTopLevelClasses(function(classes) {
         getItems(function(items) {
-          res.render('home', {
-            title: "Harvest Lane Gardens", 
-            inventory: items, 
-            classes: groupedByTopLevel, 
-            classifications: classes,
-            parentClasses: topLevelClasses
+          groupByTopLevel(function(leaves) {
+            getNextWeek(function(nextWeek) {
+              getFullList(function(fullList) {
+                res.render('home', {
+                  title: "Harvest Lane Gardens", 
+                  inventory: items, 
+                  nextWeek: nextWeek, 
+                  fullList: fullList, 
+                  classifications: classes,
+                  leaves: leaves,
+                  parentClasses: topLevelClasses
+                });
+              });
+            });
           });
         });
       });

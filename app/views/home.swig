@@ -82,68 +82,71 @@
    <div class="ui vertical stripe segment" id="available-now">
      <div class="ui column divided relaxed stackable grid container">
        <div class="row">
+
+<!-- Start on the fly menu here -->
          <div class="four wide column">
            <div class="ui vertical menu">
              <div id="productMenu">
                <ul>
-                 {% for key, val in parentClasses %}
-                   {% for classification in classifications %}
-                     {% if classification.id == parentClasses[key] %}
-                       <li>
-                         <a href="#{{classification.name}}" class="small button">
-                           <div class="ui label">{{classification.name}}
-                           </div>
-                         </a>
-                       </li>
-                     {% endif %}
-                   {% endfor %}
+                 {% for classification in parentClasses %}
+                   <li>
+                     <a href="#{{classification.name}}" class="small button">
+                       <div class="ui label">{{classification.name}}
+                       </div>
+                     </a>
+                   </li>
                  {% endfor %}
                </ul>
              </div>
            </div>
          </div>
+<!-- End on the fly menu here -->
+
          <div class="eight wide column">
-          {% for item in inventory %}
-            {% if loop.first %}
-              <h2 class="ui icon header">
-<!--                classification[j]  -->
-<!--                What We're Bringing You This Week  -->
-                Available Now
-              </h2>
-              <ul>
-            {% endif %}
-            <li class="produceitem" id="classification[j]">
-              <div class="ui grid">
-                <div class="three wide column">
-                  {% for classification in classifications %}
-                    {% if item.classification_id == classification.id %}
-                      {% for parent in classifications %}
-                        {% if (classification.parent_id == parent.id) && parent.parent_id %}
-                          <img class="image" src="/images/{{parent.name}}_640.jpg" height="60" width="80">
-                        {% elseif (classification.parent_id == parent.id) && !parent.parent_id %}
-                          <img class="image" src="/images/{{item.name}}_640.jpg" height="60" width="80">
-                        {% endif %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
+           <h2 class="ui icon header">
+             What We're Bringing You This Week
+           </h2> <br />
+           {% for pc in parentClasses %}
+             {% for item in inventory %}
+               {% if loop.first %}
+                 <h2 class="ui icon header">
+                   {{pc.name}}  
+                 </h2>
+                 <ul>
+               {% endif %}
+                <li class="produceitem" id="{{pc.name}}">
+                <div class="ui grid">
+                          <div class="three wide column">
+                            {% for classification in classifications %}
+                              {% if item.classification_id == classification.id %}
+                                {% for parent in classifications %}
+                                  {% if (classification.parent_id == parent.id) && parent.parent_id %}
+                                    <img class="image" src="/images/{{parent.name}}_640.jpg" height="60" width="80">
+                                  {% elseif (classification.parent_id == parent.id) && !parent.parent_id %}
+                                    <img class="image" src="/images/{{item.name}}_640.jpg" height="60" width="80">
+                                  {% endif %}
+                                {% endfor %}
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                          <div class="eight wide column">
+                            {% for classification in classifications %}
+                              {% if item.classification_id == classification.id %}
+                                {% for parent in classifications %}
+                                  {% if (classification.parent_id == parent.id) && parent.parent_id %}{{parent.name}}, {% endif %}
+                                {% endfor %}
+                              {% endif %}
+                            {% endfor %}
+                            {{item.name}}
+                            <h4>Available Units: {{item.unitsavailable}} </h4>
+                            <h4>Unit:  {{item.unit}}  Price: {{item.price/100}} </h4>
+                          </div>
+                          <div class="five wide column">
+                          </div>
                 </div>
-                <div class="eight wide column">
-                  {% for classification in classifications %}
-                    {% if item.classification_id == classification.id %}
-                      {% for parent in classifications %}
-                        {% if (classification.parent_id == parent.id) && parent.parent_id %}{{parent.name}}, {% endif %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                  {{item.name}}
-                  <h4>Available Units: {{item.unitsavailable}} </h4>
-                  <h4>Unit:  {{item.unit}}  Price: {{item.price/100}} </h4>
-                </div>
-                <div class="five wide column">
-                </div>
-              </div>
-            </li>
-            {% if loop.last %}</ul>{% endif %}
+              </li>
+              {% if loop.last %}</ul>{% endif %}
+            {% endfor %}
           {% endfor %}
          </div>
          <div class="four wide column">
@@ -152,10 +155,11 @@
     </div>
   </div>
 
-  <h4 class="ui horizontal header divider">Next Week</h4>
+  <h4 class="ui horizontal header divider"></h4>
   <div class="ui vertical stripe segment" id="available-next-week">
     <div class="ui center aligned grid container">
       <div class="column">
+        <h3 class="ui header">Next Week</h3>
         <p>Weather and other conditions permitting, we expect to have the following items available next week.</p>
       </div>
     </div>
@@ -165,30 +169,67 @@
         <div class="column">
           <h3>Veggies</h3>
           <ul>
-              <li>Baby Bok Choy</li>
-              <li>Beets</li>
-              <li>Zucchini</li>
+             {% for nw in nextWeek %}
+               <li>
+               {{nw.name}}
+               </li>
+             {% endfor %}
           </ul>
         </div>
         <div class="column">
           <h3>Herbs</h3>
           <ul>
-              <li>Basil</li>
-              <li>Thyme</li>
-              <li>Marjoram</li>
+             {% for nw in nextWeek %}
+               <li>
+               {{nw.name}}
+               </li>
+             {% endfor %}
           </ul>
         </div>
       </div>
     </div>
   </div>
 
+  <h4 class="ui horizontal header divider"></h4>
   <div class="ui vertical stripe segment" id="full-list">
-    <div class="ui text container">
-      <h3 class="ui header">Our Full List</h3>
-      <p>Here's the complete list of produce we grow at Harvest Lane Gardens.</p>
-      <h4 class="ui horizontal header divider">HLG</h4>
-      <p>The complete list.</p>
-      <a class="ui large button">Let us know if you're interested</a>
+    <div class="ui center aligned grid container">
+      <div class="column">
+        <h3 class="ui header">Our Full List</h3>
+        <p>Here's the complete list of produce we grow at Harvest Lane Gardens.</p>
+      </div>
+    </div>
+    <div class="ui equal width stackable internally celled grid">
+      <div class="center aligned row">
+        <div class="column">
+          <h3>Veggies</h3>
+          <ul>
+             {% for fl in fullList %}
+               <li>
+               {{fl.name}}
+               </li>
+             {% endfor %}
+          </ul>
+        </div>
+        <div class="column">
+          <h3>Herbs</h3>
+          <ul>
+             {% for fl in fullList %}
+               <li>
+               {{fl.name}}
+               </li>
+             {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="ui horizontal header divider">HLG</h4>
+  <div class="ui vertical stripe segment" id="interested">
+    <div class="ui center aligned grid container">
+      <div class="column">
+        <a class="ui large button">Let us know if you're interested</a>
+      </div>
     </div>
   </div>
 
