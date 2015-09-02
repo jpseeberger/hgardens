@@ -5,35 +5,12 @@ var fs = require('fs');
 var path = require('path');
 
 var db = {};
-var classification_data = [];
 var classes = [];
 var items = [];
 var leaves = [];
 var topLevelClasses = [];
-var groupedClasses = [];
 var topLevelClassesArray = [];
 
-function getFullList(callback) 
-{
-  var sqlItems = "SELECT classifications.name, * FROM items, classifications ";
-    sqlItems += "WHERE items.classification_id=classifications.id AND items.full_list = 'y' ";
-    sqlItems += "ORDER BY classifications.name";
-  db.all(sqlItems, function(err, rows) {
-    if (!err)
-    {
-      fullList = rows;
-//      console.log("fullList 2: ", fullList);
-
-      callback(fullList);
-    }
-    else 
-    {
-      // on error, send nothing
-      // res.json("err": err);
-      console.log('err: ', err);
-    }
-  });
-}
 
 function getItems(callback)
 {
@@ -44,8 +21,6 @@ function getItems(callback)
     if (!err)
     {
       items = rows;
-//      console.log("items: ", items);
-      console.log("groupedClasses: ", groupedClasses);
 
       // BE SURE TO DO THIS INSIDE OF A db.all() CALLBACK
       callback(items);
@@ -142,7 +117,7 @@ function groupLeavesByTopLevel(callback)
           }
         }
       }
-      console.log("leaves: ", leaves);
+//      console.log("leaves: ", leaves);
 
       callback(leaves);
     }
@@ -166,15 +141,12 @@ module.exports = function (app) {
       getTopLevelClasses(function(classes) {
         getItems(function(items) {
           groupLeavesByTopLevel(function(leaves) {
-              getFullList(function(fullList) {
-                res.render('home', {
-                  title: "Harvest Lane Gardens", 
-                  inventory: leaves, 
-                  fullList: fullList, 
-                  classifications: classes,
-                  parentClasses: topLevelClasses
-                });
-              });
+            res.render('home', {
+              title: "Harvest Lane Gardens", 
+              inventory: leaves, 
+              classifications: classes,
+              parentClasses: topLevelClasses
+            });
           });
         });
       });

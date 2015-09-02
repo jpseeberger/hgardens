@@ -228,31 +228,41 @@
         <p>Here's the complete list of produce we grow at Harvest Lane Gardens.</p>
       </div>
     </div>
-    <div class="ui equal width stackable internally celled grid">
-      <div class="center aligned row">
-        <div class="column">
-          <h3>Veggies</h3>
-          <ul>
-             {% for fl in fullList %}
-               <li>
-               {{fl.name}}
-               </li>
-             {% endfor %}
-          </ul>
-        </div>
-        <div class="column">
-          <h3>Herbs</h3>
-          <ul>
-             {% for fl in fullList %}
-               <li>
-               {{fl.name}}
-               </li>
-             {% endfor %}
-          </ul>
+      <div class="ui equal width stackable internally celled grid">
+        <div class="row">
+          <div class="eight wide column">
+          
+            {% for pc in parentClasses %}
+              {% for item in inventory %}
+                {% if loop.first %}
+                  <h2 class="ui icon header"  id="{{pc.name}}">
+                    {{pc.name}}  
+                  </h2>
+                  <ul>
+                {% endif %}
+                {% if (item.parent_id == pc.id) %}
+                {% if (item.full_list == 'y')  %}
+                  <li class="produceitem">
+                    {% for classification in classifications %}
+                      {% if item.classification_id == classification.id %}
+                        {% for parent in classifications %}
+                          {% if (classification.parent_id == parent.id) && parent.parent_id %}{{parent.name}}, {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                    {{item.name}}
+                  </li>
+                {% endif %}
+                {% endif %}
+                {% if loop.last %}</ul>{% endif %}
+              {% endfor %}
+            {% endfor %}
+            
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+
+</div>
 
   <h4 class="ui horizontal header divider">HLG</h4>
   <div class="ui vertical stripe segment" id="interested">
