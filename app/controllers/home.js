@@ -127,19 +127,21 @@ function getTopLevelClasses(callback)
   });
 }
 
-function groupByTopLevel(callback) 
+function groupLeavesByTopLevel(callback) 
 {
   // Select all classifications where the id is also a classification_id in items.
   // This gives the lowest level classifications
-  var sqlLeaves = "SELECT DISTINCT classifications.* FROM classifications, items ";
-    sqlLeaves  += "WHERE classifications.id IN (SELECT items.classification_id FROM items )";
+//  var sqlLeaves = "SELECT DISTINCT classifications.* FROM classifications, items ";
+//    sqlLeaves  += "WHERE classifications.id IN (SELECT items.classification_id FROM items) ";
+  var sqlLeaves = "SELECT classifications.*, items.* FROM classifications, items ";
+    sqlLeaves  += "WHERE ((classifications.id IN (SELECT items.classification_id FROM items)) ";
+    sqlLeaves  += "AND (classifications.id = items.classification_id)) ";
     sqlLeaves  += "ORDER BY classifications.id";
   db.all(sqlLeaves, function(err, rows) {
     var topParentFound = 0;
     if (!err)
     {
       leaves = rows;
-      console.log("leaves: ", leaves);
       // Find the top level that each leaf belongs to
       for (var j = 0; j < leaves.length; j++)
       {
@@ -186,16 +188,15 @@ module.exports = function (app) {
     getClasses(function(classes) {
       getTopLevelClasses(function(classes) {
         getItems(function(items) {
-          groupByTopLevel(function(leaves) {
+          groupLeavesByTopLevel(function(leaves) {
             getNextWeek(function(nextWeek) {
               getFullList(function(fullList) {
                 res.render('home', {
                   title: "Harvest Lane Gardens", 
-                  inventory: items, 
+                  inventory: leaves, 
                   nextWeek: nextWeek, 
                   fullList: fullList, 
                   classifications: classes,
-                  leaves: leaves,
                   parentClasses: topLevelClasses
                 });
               });

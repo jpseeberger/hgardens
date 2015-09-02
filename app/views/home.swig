@@ -49,73 +49,74 @@
         </div>
       </div>
 
-     <div class="ui text container">
-       <h1 class="ui inverted header">
-         Harvest Lane Gardens
-       </h1>
-       <h2>Providing direct access to <br/>your neighborhood, small batch farms</h2>
-       <a href="#available-now" class="ui huge inverted basic button">
-         Produce Available Now
-       </a>
-     </div>
-   </div>
+      <div class="ui text container">
+        <h1 class="ui inverted header">
+          Harvest Lane Gardens
+        </h1>
+        <h2>Providing direct access to <br/>your neighborhood, small batch farms</h2>
+        <a href="#available-now" class="ui huge inverted basic button">
+          Produce Available Now
+        </a>
+      </div>
+    </div>
 
-   <!-- Vertical stripe segments -->
+    <!-- Vertical stripe segments -->
         
-   <div class="ui vertical stripe segment">
-     <div class="ui middle aligned stackable grid container">
-       <div class="row">
-         <div class="eight wide column">
-           <h3 class="ui header">We Believe...</h3>
-           <p>We grow and harvest our produce just outside Iowa City, without the use of chemicals or pesticides. By eating locally grown produce, you're investing in eating the way nature intended. We don't stress water supplies in parched parts of the country, and we don't waste fuel getting it to you.</p>
-           <h3 class="ui header">We Make </h3>
-           <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
-         </div>
-         <div class="six wide right floated column">
-           <img src="../images/thistle.JPG" class="ui large bordered rounded image">
-         </div>
-       </div>
-     </div>
-   </div>
+    <div class="ui vertical stripe segment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="row">
+          <div class="eight wide column">
+            <h3 class="ui header">We Believe...</h3>
+              <p>We grow and harvest our produce just outside Iowa City, without the use of chemicals or pesticides. By eating locally grown produce, you're investing in eating the way nature intended. We don't stress water supplies in parched parts of the country, and we don't waste fuel getting it to you.</p>
+            <h3 class="ui header">We Make </h3>
+              <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
+          </div>
+            <div class="six wide right floated column">
+              <img src="../images/thistle.JPG" class="ui large bordered rounded image">
+            </div>
+        </div>
+      </div>
+    </div>
     
-   <h3 class="ui horizontal header divider">Available Now</h3>
-   <div class="ui vertical stripe segment" id="available-now">
-     <div class="ui column divided relaxed stackable grid container">
-       <div class="row">
+    <h3 class="ui horizontal header divider">Available Now</h3>
+    <div class="ui vertical stripe segment" id="available-now">
+      <div class="ui column divided relaxed stackable grid container">
+        <div class="row">
 
 <!-- Start on the fly menu here -->
-         <div class="four wide column">
-           <div class="ui vertical menu">
-             <div id="productMenu">
-               <ul>
-                 {% for classification in parentClasses %}
-                   <li>
-                     <a href="#{{classification.name}}" class="small button">
-                       <div class="ui label">{{classification.name}}
-                       </div>
-                     </a>
-                   </li>
-                 {% endfor %}
-               </ul>
-             </div>
-           </div>
-         </div>
+          <div class="four wide column">
+            <div class="ui vertical menu">
+              <div id="productMenu">
+                <ul>
+                  {% for classification in parentClasses %}
+                    <li>
+                      <a href="#{{classification.name}}" class="small button">
+                        <div class="ui label">{{classification.name}}
+                        </div>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
 <!-- End on the fly menu here -->
 
-         <div class="eight wide column">
-           <h2 class="ui icon header">
-             What We're Bringing You This Week
-           </h2> <br />
-           {% for pc in parentClasses %}
-             {% for item in inventory %}
-               {% if loop.first %}
-                 <h2 class="ui icon header">
-                   {{pc.name}}  
-                 </h2>
-                 <ul>
-               {% endif %}
-                <li class="produceitem" id="{{pc.name}}">
-                <div class="ui grid">
+          <div class="eight wide column">
+            <h2 class="ui icon header">
+              What We're Bringing You This Week
+            </h2> <br />
+            {% for pc in parentClasses %}
+              {% for item in inventory %}
+                {% if loop.first %}
+                  <h2 class="ui icon header"  id="{{pc.name}}">
+                    {{pc.name}}  
+                  </h2>
+                  <ul>
+                {% endif %}
+                    {% if item.parent_id == pc.id %}
+                <li class="produceitem">
+                  <div class="ui grid">
                           <div class="three wide column">
                             {% for classification in classifications %}
                               {% if item.classification_id == classification.id %}
@@ -143,17 +144,18 @@
                           </div>
                           <div class="five wide column">
                           </div>
-                </div>
-              </li>
-              {% if loop.last %}</ul>{% endif %}
+                  </div>
+                </li>
+                    {% endif %}
+                {% if loop.last %}</ul>{% endif %}
+              {% endfor %}
             {% endfor %}
-          {% endfor %}
-         </div>
-         <div class="four wide column">
-         </div>
-       </div>
+          </div>
+          <div class="four wide column">
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
   <h4 class="ui horizontal header divider"></h4>
   <div class="ui vertical stripe segment" id="available-next-week">
