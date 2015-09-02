@@ -13,29 +13,6 @@ var topLevelClasses = [];
 var groupedClasses = [];
 var topLevelClassesArray = [];
 
-function getNextWeek(callback) 
-{
-  var sqlItems = "SELECT classifications.name, * FROM items, classifications ";
-    sqlItems += "WHERE items.classification_id=classifications.id AND items.available_next_week = 'y' ";
-    sqlItems += "ORDER BY classifications.name";
-  db.all(sqlItems, function(err, rows) {
-    if (!err)
-    {
-      nextWeek = rows;
-//      console.log("classes 2: ", classes);
-//      console.log("nextWeek 2: ", nextWeek);
-
-      callback(nextWeek);
-    }
-    else 
-    {
-      // on error, send nothing
-      // res.json("err": err);
-      console.log('err: ', err);
-    }
-  });
-}
-
 function getFullList(callback) 
 {
   var sqlItems = "SELECT classifications.name, * FROM items, classifications ";
@@ -189,18 +166,15 @@ module.exports = function (app) {
       getTopLevelClasses(function(classes) {
         getItems(function(items) {
           groupLeavesByTopLevel(function(leaves) {
-            getNextWeek(function(nextWeek) {
               getFullList(function(fullList) {
                 res.render('home', {
                   title: "Harvest Lane Gardens", 
                   inventory: leaves, 
-                  nextWeek: nextWeek, 
                   fullList: fullList, 
                   classifications: classes,
                   parentClasses: topLevelClasses
                 });
               });
-            });
           });
         });
       });
