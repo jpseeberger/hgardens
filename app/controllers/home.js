@@ -87,7 +87,7 @@ function groupLeavesByTopLevel(callback)
   var sqlLeaves = "SELECT classifications.*, items.* FROM classifications, items ";
     sqlLeaves  += "WHERE ((classifications.id IN (SELECT items.classification_id FROM items)) ";
     sqlLeaves  += "AND (classifications.id = items.classification_id)) ";
-    sqlLeaves  += "ORDER BY classifications.id";
+    sqlLeaves  += "ORDER BY classifications.parent_id, classifications.name";
   db.all(sqlLeaves, function(err, rows) {
     var topParentFound = 0;
     if (!err)

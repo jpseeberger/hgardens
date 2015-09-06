@@ -100,7 +100,7 @@ module.exports = function (app) {
   });
 
   app.post('/inventory', function (req, res) {
-    console.log('I would create an inventory item here with params ' + JSON.stringify(req.body));
+      // Create an inventory item with params ' + JSON.stringify(req.body));
     var sqlNewItem = 'INSERT INTO items (classification_id, grower, price, ';
       sqlNewItem += 'unit, unitsavailable, available_next_week, full_list)';
       sqlNewItem += 'VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -186,7 +186,7 @@ module.exports = function (app) {
   });
 
   app.post('/inventory/:id/delete', function (req, res) {
-    //console.log('I would delete inventory item #' + req.params.id + ' body ' + req.body.id);
+    // Delete inventory item #' + req.params.id + ' body ' + req.body.id);
     var sqlDelete = 'DELETE FROM items WHERE classification_id=' + req.params.id;
     //console.log('sqlDelete: ', sqlDelete);
     db.run(sqlDelete, function(err, rows) {

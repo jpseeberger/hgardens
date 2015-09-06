@@ -88,18 +88,21 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
 
 <!-- Start on the fly menu here -->
           <div class="four wide column">
-            <div class="ui vertical menu">
-              <div id="productMenu">
-                <ul>
-                  {% for classification in parentClasses %}
-                    <li>
-                      <a href="#{{classification.name}}" class="small button">
-                        <div class="ui label">{{(classification.name).toLowerCase().capitalize()}}
-                        </div>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
+            <div class="overlay">
+              <div class="ui vertical menu">
+                <div id="productMenu">
+                  <p>Available Now</p>
+                  <ul>
+                    {% for classification in parentClasses %}
+                      <li>
+                        <a href="#{{classification.name}}" class="small button">
+                          <div class="ui label">{{(classification.name).toLowerCase().capitalize()}}
+                          </div>
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -167,12 +170,14 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
       <div class="ui center aligned grid container">
         <div class="column">
           <h3 class="ui header">Next Week</h3>
-          <p>Weather and other conditions permitting, we expect to have the following items available.</p>
+          <p>Weather permitting, here's what we expect to have next week.</p>
         </div>
       </div>
 
       <div class="ui equal width stackable internally celled grid">
         <div class="row">
+          <div class="four wide column">
+          </div>
           <div class="eight wide column">
           
             {% for pc in parentClassesNextWeek %}
@@ -230,11 +235,13 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
     <div class="ui center aligned grid container">
       <div class="column">
         <h3 class="ui header">Our Full List</h3>
-        <p>Here's the complete list of produce we grow at Harvest Lane Gardens.</p>
+        <p>The complete list of produce we grow at Harvest Lane Gardens.</p>
       </div>
     </div>
       <div class="ui equal width stackable internally celled grid">
         <div class="row">
+          <div class="four wide column">
+          </div>
           <div class="eight wide column">
           
             {% for pc in parentClassesFullList %}
