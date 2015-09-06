@@ -199,7 +199,9 @@ module.exports = function (app) {
           res.render('home', {
             title: "Harvest Lane Gardens", 
             classifications: classes,
-            inventory: leaves, 
+            inventory: availableNow, 
+            nextWeek: nextWeek, 
+            fullList: fullList, 
             parentClasses: topLevelNow,
             parentClassesNextWeek: topLevelNextWeek,
             parentClassesFullList: topLevelFullList

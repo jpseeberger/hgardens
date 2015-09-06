@@ -171,7 +171,7 @@
           <div class="eight wide column">
           
             {% for pc in parentClassesNextWeek %}
-              {% for item in inventory %}
+              {% for item in nextWeek %}
                 {% if loop.first %}
                   <h2 class="ui icon header">
                     {{pc.name}}  
@@ -179,7 +179,6 @@
                   <ul>
                 {% endif %}
                 {% if (item.parent_id == pc.id) %}
-                {% if (item.available_next_week == 'y')  %}
                   <li class="produceitem">
                     <div class="ui grid">
                       <div class="three wide column">
@@ -210,7 +209,6 @@
                     </div>
                   </li>
                 {% endif %}
-                {% endif %}
                 {% if loop.last %}</ul>{% endif %}
               {% endfor %}
             {% endfor %}
@@ -233,7 +231,7 @@
           <div class="eight wide column">
           
             {% for pc in parentClassesFullList %}
-              {% for item in inventory %}
+              {% for item in fullList %}
                 {% if loop.first %}
                   <h2 class="ui icon header">
                     {{pc.name}}  
@@ -241,7 +239,6 @@
                   <ul>
                 {% endif %}
                 {% if (item.parent_id == pc.id) %}
-                {% if (item.full_list == 'y')  %}
                   <li class="produceitem">
                     {% for classification in classifications %}
                       {% if item.classification_id == classification.id %}
@@ -252,7 +249,6 @@
                     {% endfor %}
                     {{item.name}}
                   </li>
-                {% endif %}
                 {% endif %}
                 {% if loop.last %}</ul>{% endif %}
               {% endfor %}
