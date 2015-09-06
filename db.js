@@ -50,7 +50,7 @@ module.exports = function(app) {
 
     db.run("CREATE TABLE IF NOT EXISTS photos ("+
       "id INTEGER PRIMARY KEY, " +
-      "photo_name TEXT " +
+      "photo_name TEXT UNIQUE " +
     ");");
 
   	db.run("CREATE TABLE IF NOT EXISTS classification_photo (" +
