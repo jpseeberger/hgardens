@@ -27,6 +27,7 @@
           <th>Grower</th>
           <th>Next Week</th>
           <th>Full List</th>
+          <th>Photo</th>
         </tr>
       </thead>
       <tbody id="indexedTable">
@@ -41,6 +42,17 @@
               <td>{{ item.grower }}</td>
               <td>{{ item.available_next_week }}</td>
               <td>{{ item.full_list }}</td>
+              <td>
+                {% for cps in class_photos %}
+                  {% if cps.cid == item.classification_id %}
+                    {% for ph in photos %}
+                      {% if cps.pid == ph.id %}
+                        {{ ph.photo_name }}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
+              </td>
             </tr>
         {% endfor %}
       </tbody>

@@ -26,7 +26,6 @@
               {{ph.photo_name}}
             </option>
           {% endfor %}
-          <option>null</option>
         </select>
       </div>
     </div>
