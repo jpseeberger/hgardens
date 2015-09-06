@@ -125,12 +125,42 @@ module.exports = function (app) {
     db.all(sql, function(err, rows){
       if (!err){
 //        console.log('row class new: ', rows);
-        res.render('classifications_new', { title: "New Classification Photo", classes: rows });
+          var sqlp = "SELECT * FROM photos ORDER BY photo_name";
+          db.all(sqlp, function(err, photo_rows){
+            if (!err){
+//              console.log('photo_rows: ', photo_rows);
+              res.render('photo_class_new', { title: "Link Photo to Class", classes: rows, photos: photo_rows });
+            } 
+            else 
+            {
+              // on error, send nothing
+              // res.json("err": err);
+              console.log('err: ', err);
+            }
+          });
       } 
       else 
       {
         // on error, send nothing
         // res.json("err": err);
+        console.log('err: ', err);
+      }
+    });
+  });
+
+  app.post('/photos/photo_class_new', function (req, res) {
+    // Create entry in classification_photo table with params ' + JSON.stringify(req.body));
+        console.log('req.body.classification_id, req.body.photo_id: ', req.body.classification_id, req.body.photo_id);
+    var sql = 'INSERT INTO classification_photo (classification_id, photo_id) VALUES (?,?)';
+    db.run(sql, [req.body.classification_id, req.body.photo_id], function(err, rows) {
+      if (!err)
+      {
+        res.redirect('/photos');
+      }
+      else 
+      {
+        // on error, send nothing
+        //res.json("err": err);
         console.log('err: ', err);
       }
     });

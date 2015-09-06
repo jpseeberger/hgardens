@@ -19,9 +19,8 @@
       <div class="center aligned column">
         <div class="eight wide field">
           <a href="/inventory">Inventory Page</a>
-        </div>
-        <div class="eight wide field">
           <a href="/classifications">Classifications Page</a>
+          <a href="/photos">Manage Photos Page</a>
         </div>
       </div>
     </div>
