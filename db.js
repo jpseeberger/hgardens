@@ -22,18 +22,18 @@ module.exports = function(app) {
   // Create the database schema (if not already existing)
   app.locals.db = db.serialize(function() {
     db.run("CREATE TABLE IF NOT EXISTS classifications ("+
-        "id INTEGER PRIMARY KEY , " +
-        "name TEXT UNIQUE, " +
-        "parent_id INTEGER DEFAULT NULL" +
+      "id INTEGER PRIMARY KEY , " +
+      "name TEXT UNIQUE, " +
+      "parent_id INTEGER DEFAULT NULL" +
     ");");
 
     db.run("CREATE TABLE IF NOT EXISTS growers ("+
-        "id INTEGER PRIMARY KEY, " +
-        "first_name TEXT NOT NULL, " +
-        "last_name TEXT, " +
-        "email TEXT" +
-        "phone_number TEXT" +
-        "web_page TEXT" +
+      "id INTEGER PRIMARY KEY, " +
+      "first_name TEXT NOT NULL, " +
+      "last_name TEXT, " +
+      "email TEXT, " +
+      "phone_number TEXT, " +
+      "web_page TEXT" +
     ");");
 
     db.run("CREATE TABLE IF NOT EXISTS items ("+
@@ -44,11 +44,23 @@ module.exports = function(app) {
       "unit TEXT, " +
       "unitsavailable INTEGER DEFAULT 0, " +
       "available_next_week TEXT NOT NULL DEFAULT 'n', " +
-      "full_list TEXT NOT NULL DEFAULT 'n', " +
+      "full_list TEXT NOT NULL DEFAULT 'y', " +
       "FOREIGN KEY (classification_id) REFERENCES classifications(id)" + 
     ");");
-  });
 
+    db.run("CREATE TABLE IF NOT EXISTS photos ("+
+      "id INTEGER PRIMARY KEY, " +
+      "photo_name TEXT " +
+    ");");
+
+  	db.run("CREATE TABLE IF NOT EXISTS classification_photo (" +
+      "classification_id INTEGER," + 
+      "photo_id INTEGER," + 
+      "FOREIGN KEY (classification_id) REFERENCES classifications(id)," + 
+      "FOREIGN KEY (photo_id) REFERENCES photos(id)" +
+    ");");
+
+  });
 };
 
 

@@ -4,18 +4,33 @@ var swig = require('swig');
 var fs = require('fs');
 var path = require('path');
 
-  var yesNo = [
-    {id:'n', name:'n'},
-    {id:'y', name:'y'}
-  ];
-    
-// TEMP: all classifications
-  var growers = [
-    {id:1, name:'rox'},
-    {id:2, name:'loren'},
-    {id:3, name:'jon'}
-  ];
+var yesNo = [
+  {id:'n', name:'n'},
+  {id:'y', name:'y'}
+];
 
+// TEMP: all classifications
+var growers = [
+  {id:1, name:'rox'},
+  {id:2, name:'loren'},
+  {id:3, name:'jon'}
+];
+
+// Insert a row into classification_photo
+/*function createLink(classification, photo){
+  db.run('INSERT INTO classification_photo (classification_id, photo_id) VALUES (?, ?)', [classification, photo]);
+    if (!err)
+    {
+       console.log (classification + "," + photo);
+    }
+    else 
+    {
+      // on error, send nothing
+//          res.json("err": err);
+      console.log('err: ', err);
+    }
+}
+/**/
 
 module.exports = function (app) {
   var db = app.locals.db;
@@ -54,7 +69,6 @@ module.exports = function (app) {
     });
   } //end getClasses() function
   
-
   
   // Changed this app.all back to app.get. 
   app.get('/inventory', function (req, res) {
@@ -284,6 +298,50 @@ module.exports = function (app) {
     }
   });
 
+  // Add photos page for displaying existing photo-classification relationship
+  app.get('/photos', function (req, res) {
+    if (req.userSession.loggedIn)
+    {
+      getClasses();
+      var sql = 'SELECT classification_photo.classification_id AS cid, ';
+         sql += 'classification_photo.photo_id AS pid ';
+         sql += 'FROM classifications, photos, classification_photo ';
+         sql += 'WHERE classifications.id = classification_photo.classification_id ';
+         sql += 'AND photos.id = classification_photo.photo_id';
 
+	  db.all(sql, function(err, rows){
+	    if (!err){
+          console.log('rows: ', rows);
+          var sqlp = "SELECT * FROM photos ORDER BY photo_name";
+          db.all(sqlp, function(err, photo_rows){
+            if (!err){
+              console.log('photo_rows: ', photo_rows);
+              res.render('photos', { title: "Photos", class_photos: rows, photos: photo_rows, allClasses: allClasses });
+            } 
+            else 
+            {
+              // on error, send nothing
+              // res.json("err": err);
+              console.log('err: ', err);
+            }
+          });
+        } 
+        else 
+        {
+          // on error, send nothing
+          // res.json("err": err);
+          console.log('err: ', err);
+        }
+      });
+    }
+    else
+      res.redirect('/login');
+
+  });
+
+/**/
+
+  
+  
 };
 
