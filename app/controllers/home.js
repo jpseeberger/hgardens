@@ -118,6 +118,18 @@ function groupLeavesByTopLevel(callback)
         }
       }
       // console.log("leaves: ", leaves);
+ availableNow = [];
+ nextWeek = [];
+ fullList = [];
+ topLevelNow = [];
+ topLevelNextWeek = [];
+ topLevelFullList = [];
+ topLevelNowArray = [];
+ topLevelNextWeekArray = [];
+ topLevelFullListArray = [];
+ tmpNow = [];
+ tmpNextWeek = [];
+ tmpFullList = [];
 
       // Determine availability of inventory items.
       for (var j = 0; j < leaves.length; j++)
