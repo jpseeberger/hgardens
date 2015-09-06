@@ -170,10 +170,10 @@
         <div class="row">
           <div class="eight wide column">
           
-            {% for pc in parentClasses %}
+            {% for pc in parentClassesNextWeek %}
               {% for item in inventory %}
                 {% if loop.first %}
-                  <h2 class="ui icon header"  id="{{pc.name}}">
+                  <h2 class="ui icon header">
                     {{pc.name}}  
                   </h2>
                   <ul>
@@ -232,10 +232,10 @@
         <div class="row">
           <div class="eight wide column">
           
-            {% for pc in parentClasses %}
+            {% for pc in parentClassesFullList %}
               {% for item in inventory %}
                 {% if loop.first %}
-                  <h2 class="ui icon header"  id="{{pc.name}}">
+                  <h2 class="ui icon header">
                     {{pc.name}}  
                   </h2>
                   <ul>
