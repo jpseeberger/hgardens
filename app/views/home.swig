@@ -140,7 +140,7 @@
                         {% endfor %}
                         {{item.name}}
                         <h4>Available Units: {{item.unitsavailable}} </h4>
-                        <h4>Unit:  {{item.unit}}  Price: {{item.price/100}} </h4>
+                        <h4>Unit:  {{item.unit}}  Price: {{(item.price/100).toFixed(2)}} </h4>
                       </div>
                       <div class="five wide column">
                       </div>
