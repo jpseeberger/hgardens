@@ -71,7 +71,7 @@ module.exports = function (app) {
 
 	  db.all(sql, function(err, rows){
 	    if (!err){
-          console.log('rows: ', rows);
+//          console.log('rows: ', rows);
           var sqlp = "SELECT * FROM photos ORDER BY photo_name";
           db.all(sqlp, function(err, photo_rows){
             if (!err){

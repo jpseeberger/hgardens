@@ -16,22 +16,6 @@ var growers = [
   {id:3, name:'jon'}
 ];
 
-// Insert a row into classification_photo
-/*function createLink(classification, photo){
-  db.run('INSERT INTO classification_photo (classification_id, photo_id) VALUES (?, ?)', [classification, photo]);
-    if (!err)
-    {
-       console.log (classification + "," + photo);
-    }
-    else 
-    {
-      // on error, send nothing
-//          res.json("err": err);
-      console.log('err: ', err);
-    }
-}
-/**/
-
 module.exports = function (app) {
   var db = app.locals.db;
 
@@ -217,87 +201,6 @@ module.exports = function (app) {
     });
   });
   
-  // Add classifications page for displaying existing classifications
-  app.get('/classifications', function (req, res) {
-    if (req.userSession.loggedIn)
-    {
-      getClasses();
-      var sql = "SELECT * FROM classifications ORDER BY parent_id, name";
-
-      // Why am I doing db.all instead of db.run?  db.run doesn't return data so 
-      // only use to insert data.  db.all returns data from the database.
-	  db.all(sql, function(err, rows){
-	    if (!err){
-//          console.log('row class: ', rows);
-          res.render('classifications', { title: "Classifications", classifications: rows });
-        } 
-        else 
-        {
-          // on error, send nothing
-          // res.json("err": err);
-          console.log('err: ', err);
-        }
-      });
-    }
-    else
-      res.redirect('/login');
-
-  });
-
-  app.get('/classifications/new_class', function (req, res) {
-    var sql = "SELECT * FROM classifications ORDER BY parent_id, name";
-    db.all(sql, function(err, rows){
-      if (!err){
-//        console.log('row class new: ', rows);
-        res.render('classifications_new', { title: "New Classification Item", classes: rows });
-      } 
-      else 
-      {
-        // on error, send nothing
-        // res.json("err": err);
-        console.log('err: ', err);
-      }
-    });
-  });
-
-  app.post('/classifications', function (req, res) {
-//    console.log('I would create classification item here with params ' + JSON.stringify(req.body));
-    if(req.body.parent_id != "null") 
-    {
-      var sqlNewItem = 'INSERT INTO classifications (name, parent_id)';
-        sqlNewItem += 'VALUES (?, ?)';
-      db.run(sqlNewItem, [req.body.new_item, req.body.parent_id], function(err, rows) {
-        if (!err)
-        {
-          res.redirect('/classifications');
-        }
-        else 
-        {
-          // on error, send nothing
-          //res.json("err": err);
-          console.log('err: ', err);
-        }
-      });
-    }
-    else
-    {
-      var sqlNewClass = 'INSERT INTO classifications (name)';
-        sqlNewClass += 'VALUES (?)';
-      db.run(sqlNewClass, [req.body.new_item], function(err, rows) {
-        if (!err)
-        {
-          res.redirect('/classifications');
-        }
-        else 
-        {
-          // on error, send nothing
-          //res.json("err": err);
-          console.log('err: ', err);
-        }
-      });
-    }
-  });
-
-    
+     
 };
 

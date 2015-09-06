@@ -35,6 +35,7 @@ app.use(session({
 require('./app/controllers/home')(app);
 require('./app/controllers/admin')(app);
 require('./app/controllers/inventory')(app);
+require('./app/controllers/classifications')(app);
 require('./app/controllers/manage_photos')(app);
 
 // Setup static file serving
