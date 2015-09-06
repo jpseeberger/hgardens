@@ -67,9 +67,12 @@
         <div class="row">
           <div class="eight wide column">
             <h3 class="ui header">We Believe...</h3>
-              <p>We grow and harvest our produce just outside Iowa City, without the use of chemicals or pesticides. By eating locally grown produce, you're investing in eating the way nature intended. We don't stress water supplies in parched parts of the country, and we don't waste fuel getting it to you.</p>
-            <h3 class="ui header">We Make </h3>
-              <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
+              <p>...that the best “Fresh and Local” is something you can get really close to home.
+If you aren’t growing it yourself at your home, your neighbor could be!</p>
+              <p>...that local rainfall and Iowa soil provide the freshest, tastiest vegetables and support nature's ecologically designed food-growing practices</p>
+            <h3 class="ui header">How It Works... </h3>
+              <p>Contact me to start getting the freshest produce available now.  See details below.
+</p>
           </div>
             <div class="six wide right floated column">
               <img src="../images/thistle.JPG" class="ui large bordered rounded image">
@@ -91,7 +94,7 @@
                   {% for classification in parentClasses %}
                     <li>
                       <a href="#{{classification.name}}" class="small button">
-                        <div class="ui label">{{classification.name}}
+                        <div class="ui label">{{(classification.name).toLowerCase().capitalize()}}
                         </div>
                       </a>
                     </li>
@@ -110,7 +113,7 @@
               {% for item in inventory %}
                 {% if loop.first %}
                   <h2 class="ui icon header"  id="{{pc.name}}">
-                    {{pc.name}}  
+                    {{(pc.name).toLowerCase().capitalize()}}  
                   </h2>
                   <ul>
                 {% endif %}
@@ -134,11 +137,13 @@
                         {% for classification in classifications %}
                           {% if item.classification_id == classification.id %}
                             {% for parent in classifications %}
-                              {% if (classification.parent_id == parent.id) && parent.parent_id %}{{parent.name}}, {% endif %}
+                              {% if (classification.parent_id == parent.id) && parent.parent_id %}
+                                {{(parent.name).toLowerCase().capitalize()}}, 
+                              {% endif %}
                             {% endfor %}
                           {% endif %}
                         {% endfor %}
-                        {{item.name}}
+                        {{(item.name).toLowerCase().capitalize()}}
                         <h4>Available Units: {{item.unitsavailable}} </h4>
                         <h4>Unit:  {{item.unit}}  Price: {{(item.price/100).toFixed(2)}} </h4>
                       </div>
@@ -174,7 +179,7 @@
               {% for item in nextWeek %}
                 {% if loop.first %}
                   <h2 class="ui icon header">
-                    {{pc.name}}  
+                    {{(pc.name).toLowerCase().capitalize()}}  
                   </h2>
                   <ul>
                 {% endif %}
@@ -198,11 +203,13 @@
                         {% for classification in classifications %}
                           {% if item.classification_id == classification.id %}
                             {% for parent in classifications %}
-                              {% if (classification.parent_id == parent.id) && parent.parent_id %}{{parent.name}}, {% endif %}
+                              {% if (classification.parent_id == parent.id) && parent.parent_id %}
+                                {{(parent.name).toLowerCase().capitalize()}}, 
+                              {% endif %}
                             {% endfor %}
                           {% endif %}
                         {% endfor %}
-                        {{item.name}}
+                        {{(item.name).toLowerCase().capitalize()}}
                       </div>
                       <div class="five wide column">
                       </div>
@@ -234,7 +241,7 @@
               {% for item in fullList %}
                 {% if loop.first %}
                   <h2 class="ui icon header">
-                    {{pc.name}}  
+                    {{(pc.name).toLowerCase().capitalize()}}  
                   </h2>
                   <ul>
                 {% endif %}
@@ -243,11 +250,13 @@
                     {% for classification in classifications %}
                       {% if item.classification_id == classification.id %}
                         {% for parent in classifications %}
-                          {% if (classification.parent_id == parent.id) && parent.parent_id %}{{parent.name}}, {% endif %}
+                          {% if (classification.parent_id == parent.id) && parent.parent_id %}
+                          {{(parent.name).toLowerCase().capitalize()}}, 
+                          {% endif %}
                         {% endfor %}
                       {% endif %}
                     {% endfor %}
-                    {{item.name}}
+                    {{(item.name).toLowerCase().capitalize()}}
                   </li>
                 {% endif %}
                 {% if loop.last %}</ul>{% endif %}

@@ -82,7 +82,6 @@ function getTopLevelClasses(callback)
 
 function groupLeavesByTopLevel(callback) 
 {
-  
   // Select all classifications where the id is also a classification_id in items.
   // This gives the lowest level classifications
   var sqlLeaves = "SELECT classifications.*, items.* FROM classifications, items ";
@@ -118,18 +117,18 @@ function groupLeavesByTopLevel(callback)
         }
       }
       // console.log("leaves: ", leaves);
- availableNow = [];
- nextWeek = [];
- fullList = [];
- topLevelNow = [];
- topLevelNextWeek = [];
- topLevelFullList = [];
- topLevelNowArray = [];
- topLevelNextWeekArray = [];
- topLevelFullListArray = [];
- tmpNow = [];
- tmpNextWeek = [];
- tmpFullList = [];
+     availableNow = [];
+     nextWeek = [];
+     fullList = [];
+     topLevelNow = [];
+     topLevelNextWeek = [];
+     topLevelFullList = [];
+     topLevelNowArray = [];
+     topLevelNextWeekArray = [];
+     topLevelFullListArray = [];
+     tmpNow = [];
+     tmpNextWeek = [];
+     tmpFullList = [];
 
       // Determine availability of inventory items.
       for (var j = 0; j < leaves.length; j++)
@@ -179,13 +178,9 @@ function groupLeavesByTopLevel(callback)
           }
         }
       }
-      
-      console.log("topLevelNowArray: ", topLevelNowArray);
-      console.log("topLevelNextWeekArray: ", topLevelNextWeekArray);
-      console.log("topLevelFullListArray: ", topLevelFullListArray);
-      console.log("topLevelNow: ", topLevelNow);
-      console.log("topLevelNextWeek: ", topLevelNextWeek);
-      console.log("topLevelFullList: ", topLevelFullList);
+//      console.log("topLevelNow: ", topLevelNow);
+//      console.log("topLevelNextWeek: ", topLevelNextWeek);
+//      console.log("topLevelFullList: ", topLevelFullList);
 
       callback(leaves);
     }
@@ -202,6 +197,15 @@ function groupLeavesByTopLevel(callback)
 module.exports = function (app) {
   // Allow for functions above to access our database connection
   db = app.locals.db;
+
+  // http://stackoverflow.com/questions/4268272/javascript-capitalization-of-each-word-in-string
+  // http://www.mediacollege.com/internet/javascript/text/case-capitalize.html
+  // The problem is that it also capitalizes chars that are foreigns such as Böar -> BöAr 
+String.prototype.capitalize = function(){
+    return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+};
+
+
 
   app.get('/', function (req, res) {
     
