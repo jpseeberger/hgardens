@@ -39,13 +39,9 @@
                 <td>
                   {{ cls2.name }}
                 </td>
-                  {% for ph in photos %}
-                    {% if cps.pid == ph.id %}
-                      <td>
-                        {{ ph.photo_name }}
-                      </td>
-                    {% endif %}
-                  {% endfor %}
+                <td>
+                  {{ cps.photo_name }}
+                </td>
               {% endif %}
             {% endfor %}
           </tr>

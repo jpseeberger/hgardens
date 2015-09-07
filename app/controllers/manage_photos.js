@@ -63,28 +63,16 @@ module.exports = function (app) {
     if (req.userSession.loggedIn)
     {
       getClasses();
-      var sql = 'SELECT classification_photo.classification_id AS cid, ';
+      var sql = 'SELECT photos.*, classification_photo.classification_id AS cid, ';
          sql += 'classification_photo.photo_id AS pid ';
          sql += 'FROM classifications, photos, classification_photo ';
          sql += 'WHERE classifications.id = classification_photo.classification_id ';
-         sql += 'AND photos.id = classification_photo.photo_id';
+         sql += 'AND photos.id = classification_photo.photo_id ORDER BY photo_name';
 
 	  db.all(sql, function(err, rows){
 	    if (!err){
 //          console.log('rows: ', rows);
-          var sqlp = "SELECT * FROM photos ORDER BY photo_name";
-          db.all(sqlp, function(err, photo_rows){
-            if (!err){
-//              console.log('photo_rows: ', photo_rows);
-              res.render('photos', { title: "Photos", class_photos: rows, photos: photo_rows, allClasses: allClasses });
-            } 
-            else 
-            {
-              // on error, send nothing
-              // res.json("err": err);
-              console.log('err: ', err);
-            }
-          });
+          res.render('photos', { title: "Photos", class_photos: rows, allClasses: allClasses });
         } 
         else 
         {
