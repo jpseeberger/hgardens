@@ -63,11 +63,11 @@ function getPhotos(callback)
      sql += 'FROM classifications, photos, classification_photo ';
      sql += 'WHERE classifications.id = classification_photo.classification_id ';
      sql += 'AND photos.id = classification_photo.photo_id ORDER BY photo_name';
-  db.all(sql, function(err, class_photo_rows) {
+  db.all(sql, function(err, class_photos) {
     if (!err)
     {
-      console.log("class_photo_rows home: ", class_photo_rows);
-      callback(class_photo_rows);
+//      console.log("class_photos home: ", class_photos);
+      callback(class_photos);
     }
     else 
     {
@@ -224,9 +224,9 @@ module.exports = function (app) {
   // http://stackoverflow.com/questions/4268272/javascript-capitalization-of-each-word-in-string
   // http://www.mediacollege.com/internet/javascript/text/case-capitalize.html
   // The problem is that it also capitalizes chars that are foreigns such as Böar -> BöAr 
-String.prototype.capitalize = function(){
+  String.prototype.capitalize = function(){
     return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
-};
+  };
 
 
 
@@ -234,12 +234,12 @@ String.prototype.capitalize = function(){
     
     getClasses(function(classes) {
       getTopLevelClasses(function(classes) {
-      getPhotos(function(class_photo_rows) {
+      getPhotos(function(class_photos) {
         groupLeavesByTopLevel(function(leaves) {
           res.render('home', {
             title: "Harvest Lane Gardens", 
             classifications: classes,
-            class_photos: class_photo_rows, 
+            class_photos: class_photos, 
             inventory: availableNow, 
             nextWeek: nextWeek, 
             fullList: fullList, 
