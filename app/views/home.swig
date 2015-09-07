@@ -126,11 +126,13 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
                       <div class="three wide column">
                         {% for classification in classifications %}
                           {% if item.classification_id == classification.id %}
-                            {% for parent in classifications %}
-                              {% if (classification.parent_id == parent.id) && parent.parent_id %}
-                                <img class="image" src="/images/{{parent.name}}_640.jpg" height="60" width="80">
-                              {% elseif (classification.parent_id == parent.id) && !parent.parent_id %}
-                                <img class="image" src="/images/{{item.name}}_640.jpg" height="60" width="80">
+                             {% for cps in class_photos %}
+                              {% if cps.cid == item.classification_id %}
+                                {% for ph in photos %}
+                                  {% if cps.pid == ph.id %}
+                                    <img class="image" src="/images/{{ph.photo_name}}" height="60" width="80">
+                                  {% endif %}
+                                {% endfor %}
                               {% endif %}
                             {% endfor %}
                           {% endif %}
