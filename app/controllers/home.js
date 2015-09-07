@@ -58,30 +58,16 @@ function getClasses(callback)
 function getPhotos(callback) 
 {
 //  var sqlClassifications = "SELECT * FROM classifications ORDER BY name";
-  var sql = 'SELECT classification_photo.classification_id AS cid, ';
+  var sql = 'SELECT photos.*, classification_photo.classification_id AS cid, ';
      sql += 'classification_photo.photo_id AS pid ';
      sql += 'FROM classifications, photos, classification_photo ';
      sql += 'WHERE classifications.id = classification_photo.classification_id ';
-     sql += 'AND photos.id = classification_photo.photo_id';
+     sql += 'AND photos.id = classification_photo.photo_id ORDER BY photo_name';
   db.all(sql, function(err, class_photo_rows) {
     if (!err)
     {
-      console.log("class_photo_rows: ", class_photo_rows);
-
-      var sqlp = "SELECT * FROM photos ORDER BY photo_name";
-      db.all(sqlp, function(err, photo_rows){
-        if (!err){
-          console.log("photo_rows: ", photo_rows);
-
-          callback(class_photo_rows, photo_rows);
-        } 
-        else 
-        {
-          // on error, send nothing
-          // res.json("err": err);
-          console.log('err: ', err);
-        }
-      });
+      console.log("class_photo_rows home: ", class_photo_rows);
+      callback(class_photo_rows);
     }
     else 
     {
@@ -248,13 +234,12 @@ String.prototype.capitalize = function(){
     
     getClasses(function(classes) {
       getTopLevelClasses(function(classes) {
-      getPhotos(function(class_photo_rows, photo_rows) {
+      getPhotos(function(class_photo_rows) {
         groupLeavesByTopLevel(function(leaves) {
           res.render('home', {
             title: "Harvest Lane Gardens", 
             classifications: classes,
             class_photos: class_photo_rows, 
-            photos: photo_rows,
             inventory: availableNow, 
             nextWeek: nextWeek, 
             fullList: fullList, 
