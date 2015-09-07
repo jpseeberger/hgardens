@@ -54,7 +54,6 @@ module.exports = function (app) {
   } //end getClasses() function
   
   
-  // Changed this app.all back to app.get. 
   app.get('/inventory', function (req, res) {
     if (req.userSession.loggedIn)
     {
@@ -62,40 +61,27 @@ module.exports = function (app) {
       var sql = "SELECT * FROM items, classifications ";
         sql += "WHERE items.classification_id=classifications.id ORDER BY name";
 
-          db.all(sql, function(err, rows){
-            if (!err){
-              console.log('topLevelClasses: ', topLevelClasses);
-              var sql = 'SELECT classification_photo.classification_id AS cid, ';
-                 sql += 'classification_photo.photo_id AS pid ';
-                 sql += 'FROM classifications, photos, classification_photo ';
-                 sql += 'WHERE classifications.id = classification_photo.classification_id ';
-                 sql += 'AND photos.id = classification_photo.photo_id';
+      db.all(sql, function(err, rows){
+        if (!err){
+          var sql = 'SELECT photos.*, classification_photo.classification_id AS cid, ';
+             sql += 'classification_photo.photo_id AS pid ';
+             sql += 'FROM classifications, photos, classification_photo ';
+             sql += 'WHERE classifications.id = classification_photo.classification_id ';
+             sql += 'AND photos.id = classification_photo.photo_id ORDER BY photo_name';
 
-              db.all(sql, function(err, class_photo_rows){
-                if (!err){
-        //          console.log('rows: ', rows);
-                  var sqlp = "SELECT * FROM photos ORDER BY photo_name";
-                  db.all(sqlp, function(err, photo_rows){
-                    if (!err){
-        //              console.log('photo_rows: ', photo_rows);
-//                      res.render('inventory', { title: "Inventory", inventory: rows });
-                      res.render('inventory', { title: "Inventory", inventory: rows, class_photos: class_photo_rows, photos: photo_rows });
-                    } 
-                    else 
-                    {
-                      // on error, send nothing
-                      // res.json("err": err);
-                      console.log('err: ', err);
-                    }
-                  });
-                } 
-                else 
-                {
-                  // on error, send nothing
-                  // res.json("err": err);
-                  console.log('err: ', err);
-                }
-              });
+          db.all(sql, function(err, class_photo_rows){
+            if (!err){
+              console.log('items: ', rows);
+              console.log('class_photo_rows: ', class_photo_rows);
+              res.render('inventory', { title: "Inventory", inventory: rows, class_photos: class_photo_rows });
+            } 
+            else 
+            {
+              // on error, send nothing
+              // res.json("err": err);
+              console.log('err: ', err);
+            }
+          });
         } 
         else 
         {

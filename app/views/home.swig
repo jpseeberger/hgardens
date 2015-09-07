@@ -75,7 +75,7 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
 </p>
           </div>
             <div class="six wide right floated column">
-              <img src="../images/thistle.JPG" class="ui large bordered rounded image">
+              <img src="../images/barrel_of_peppers.jpg" class="ui large bordered rounded image">
             </div>
         </div>
       </div>
@@ -150,7 +150,7 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
                         {% endfor %}
                         {{(item.name).toLowerCase().capitalize()}}
                         <h4>Available Units: {{item.unitsavailable}} </h4>
-                        <h4>Unit:  {{item.unit}}  Price: {{(item.price/100).toFixed(2)}} </h4>
+                        <h4>Unit:  {{item.unit}}  Price: ${{(item.price/100).toFixed(2)}} </h4>
                       </div>
                       <div class="five wide column">
                       </div>

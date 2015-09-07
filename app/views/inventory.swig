@@ -45,11 +45,7 @@
               <td>
                 {% for cps in class_photos %}
                   {% if cps.cid == item.classification_id %}
-                    {% for ph in photos %}
-                      {% if cps.pid == ph.id %}
-                        {{ ph.photo_name }}
-                      {% endif %}
-                    {% endfor %}
+                    {{ cps.photo_name }}
                   {% endif %}
                 {% endfor %}
               </td>
