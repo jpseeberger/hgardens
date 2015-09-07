@@ -11,9 +11,22 @@ var yesNo = [
 
 // TEMP: all classifications
 var growers = [
-  {id:1, name:'rox'},
-  {id:2, name:'loren'},
-  {id:3, name:'jon'}
+  {id:1, name:'Rox'},
+  {id:2, name:'Loren'},
+  {id:3, name:'Jon'}
+];
+
+var units = [
+  {id:1, name:'each'},
+  {id:2, name:'3 count'},
+  {id:3, name:'4 oz'},
+  {id:4, name:'8 oz'},
+  {id:5, name:'half pint'},
+  {id:6, name:'pint'},
+  {id:7, name:'quart'},
+  {id:8, name:'lb'},
+  {id:9, name:'bunch'},
+  {id:10, name:'bundle'}
 ];
 
 module.exports = function (app) {
@@ -100,7 +113,7 @@ module.exports = function (app) {
     var sql = "SELECT * FROM classifications WHERE parent_id IS NOT NULL ORDER BY parent_id, name";
     db.all(sql, function(err, rows){
       if (!err){
-        res.render('inventory_new_item', { title: "New Inventory Item", classes: rows, grower: growers, yesNo: yesNo });
+        res.render('inventory_new_item', { title: "New Inventory Item", classes: rows, units: units, grower: growers, yesNo: yesNo });
       } 
       else 
       {
