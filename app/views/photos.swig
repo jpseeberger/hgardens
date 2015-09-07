@@ -34,16 +34,12 @@
           <tr>
             <td><a href="/inventory/{{ cps.id }}">edit </a></td>
             <td><a href="/inventory/{{ cps.id }}/delete">delete </a></td>
-            {% for cls2 in allClasses %}
-              {% if cps.cid == cls2.id %}
-                <td>
-                  {{ cls2.name }}
-                </td>
-                <td>
-                  {{ cps.photo_name }}
-                </td>
-              {% endif %}
-            {% endfor %}
+            <td>
+              {{ cps.name }}
+            </td>
+            <td>
+              {{ cps.photo_name }}
+            </td>
           </tr>
         {% endfor %}
       </tbody>

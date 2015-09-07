@@ -219,7 +219,7 @@ function groupLeavesByTopLevel(callback)
 
 module.exports = function (app) {
   // Allow for functions above to access our database connection
-  var db = app.locals.db;
+  db = app.locals.db;
 
   // http://stackoverflow.com/questions/4268272/javascript-capitalization-of-each-word-in-string
   // http://www.mediacollege.com/internet/javascript/text/case-capitalize.html

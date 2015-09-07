@@ -4,21 +4,6 @@ var swig = require('swig');
 var fs = require('fs');
 var path = require('path');
 
-// Insert a row into classification_photo
-/*function createLink(classification, photo){
-  db.run('INSERT INTO classification_photo (classification_id, photo_id) VALUES (?, ?)', [classification, photo]);
-    if (!err)
-    {
-       console.log (classification + "," + photo);
-    }
-    else 
-    {
-      // on error, send nothing
-//          res.json("err": err);
-      console.log('err: ', err);
-    }
-}
-/**/
 
 module.exports = function (app) {
   var db = app.locals.db;
@@ -63,7 +48,7 @@ module.exports = function (app) {
     if (req.userSession.loggedIn)
     {
       getClasses();
-      var sql = 'SELECT photos.*, classification_photo.classification_id AS cid, ';
+      var sql = 'SELECT photos.*, classifications.name, classification_photo.classification_id AS cid, ';
          sql += 'classification_photo.photo_id AS pid ';
          sql += 'FROM classifications, photos, classification_photo ';
          sql += 'WHERE classifications.id = classification_photo.classification_id ';
@@ -71,8 +56,8 @@ module.exports = function (app) {
 
 	  db.all(sql, function(err, rows){
 	    if (!err){
-//          console.log('rows: ', rows);
-          res.render('photos', { title: "Photos", class_photos: rows, allClasses: allClasses });
+          console.log('rows: ', rows);
+          res.render('photos', { title: "Photos", class_photos: rows });
         } 
         else 
         {
