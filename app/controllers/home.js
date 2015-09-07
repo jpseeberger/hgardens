@@ -42,7 +42,7 @@ function getClasses(callback)
     if (!err)
     {
       classes = rows;
-      console.log("classes: ", classes);
+//      console.log("classes: ", classes);
       callback(classes);
     }
     else 
@@ -90,7 +90,7 @@ function getTopLevelClasses(callback)
       {
         topLevelClassesArray[i] = rows[i].id;
       }
-      console.log("topLevelClasses: ", topLevelClasses);
+//      console.log("topLevelClasses: ", topLevelClasses);
       
       callback(classes);
     }
@@ -219,7 +219,7 @@ function groupLeavesByTopLevel(callback)
 
 module.exports = function (app) {
   // Allow for functions above to access our database connection
-  db = app.locals.db;
+  var db = app.locals.db;
 
   // http://stackoverflow.com/questions/4268272/javascript-capitalization-of-each-word-in-string
   // http://www.mediacollege.com/internet/javascript/text/case-capitalize.html
