@@ -16,7 +16,14 @@ li.produceitem {
   border: 1px solid #000;
 }
 
-#available-now, #available-next-week {
+li.produceitemfuture {
+  font-size: 1em;
+  color: #000;
+  background-color: #fff;
+  padding: 0.2em;
+}
+
+#available-now {
   background-color: #DADADA;
 }
 #productMenu p {

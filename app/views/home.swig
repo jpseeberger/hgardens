@@ -66,12 +66,12 @@
       <div class="ui middle aligned stackable grid container">
         <div class="row">
           <div class="eight wide column">
-            <h3 class="ui header">We Believe...</h3>
-              <p>...that the best “Fresh and Local” is something you can get really close to home.
-If you aren’t growing it yourself at your home, your neighbor could be!</p>
-              <p>...that local rainfall and Iowa soil provide the freshest, tastiest vegetables and support nature's ecologically designed food-growing practices</p>
+            <h3 class="ui header" id="weBelieve">We Believe...</h3>
+              <p>...that the best “Fresh and Local” comes from close to home.</p>
+              <p>Local rainfall and Iowa soil produce the freshest, tastiest vegetables and support nature's ecologically designed food-growing practices.</p>
+              <p>If you don’t have time to grow your own veggies at home, your Harvest Lane Gardens neighbor is growing them for you right here in Iowa City!</p>
             <h3 class="ui header">How It Works... </h3>
-              <p>Contact me to start getting the freshest produce available now.  See details below.
+              <p>To start getting the freshest produce available, see contact information below.
 </p>
           </div>
             <div class="six wide right floated column">
@@ -163,11 +163,10 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
       </div>
     </div>
 
-    <h4 class="ui horizontal header divider"></h4>
     <div class="ui vertical stripe segment" id="available-next-week">
       <div class="ui center aligned grid container">
         <div class="column">
-          <h3 class="ui header">Next Week</h3>
+          <div class="ui header">Next Week</div>
           <p>Weather permitting, here's what we expect to have next week.</p>
         </div>
       </div>
@@ -181,42 +180,23 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
             {% for pc in parentClassesNextWeek %}
               {% for item in nextWeek %}
                 {% if loop.first %}
-                  <h2 class="ui icon header">
+                  <h4 class="ui icon header">
                     {{(pc.name).toLowerCase().capitalize()}}  
-                  </h2>
+                  </h4>
                   <ul>
                 {% endif %}
                 {% if (item.parent_id == pc.id) %}
-                  <li class="produceitem">
-                    <div class="ui grid">
-                      <div class="three wide column">
-                        {% for classification in classifications %}
-                          {% if item.classification_id == classification.id %}
-                            {% for parent in classifications %}
-                              {% if (classification.parent_id == parent.id) && parent.parent_id %}
-                                <img class="image" src="/images/{{parent.name}}_640.jpg" height="60" width="80">
-                              {% elseif (classification.parent_id == parent.id) && !parent.parent_id %}
-                                <img class="image" src="/images/{{item.name}}_640.jpg" height="60" width="80">
-                              {% endif %}
-                            {% endfor %}
+                  <li class="produceitemfuture">
+                    {% for classification in classifications %}
+                      {% if item.classification_id == classification.id %}
+                        {% for parent in classifications %}
+                          {% if (classification.parent_id == parent.id) && parent.parent_id %}
+                            {{(parent.name).toLowerCase().capitalize()}}, 
                           {% endif %}
                         {% endfor %}
-                      </div>
-                      <div class="eight wide column">
-                        {% for classification in classifications %}
-                          {% if item.classification_id == classification.id %}
-                            {% for parent in classifications %}
-                              {% if (classification.parent_id == parent.id) && parent.parent_id %}
-                                {{(parent.name).toLowerCase().capitalize()}}, 
-                              {% endif %}
-                            {% endfor %}
-                          {% endif %}
-                        {% endfor %}
-                        {{(item.name).toLowerCase().capitalize()}}
-                      </div>
-                      <div class="five wide column">
-                      </div>
-                    </div>
+                      {% endif %}
+                    {% endfor %}
+                    {{(item.name).toLowerCase().capitalize()}}
                   </li>
                 {% endif %}
                 {% if loop.last %}</ul>{% endif %}
@@ -224,15 +204,16 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
             {% endfor %}
             
           </div>
+          <div class="four wide column">
+          </div>
         </div>
       </div>
   </div>
 
-  <h4 class="ui horizontal header divider"></h4>
   <div class="ui vertical stripe segment" id="full-list">
     <div class="ui center aligned grid container">
       <div class="column">
-        <h3 class="ui header">Our Full List</h3>
+        <div class="ui header">Our Full List</div>
         <p>The complete list of produce we grow at Harvest Lane Gardens.</p>
       </div>
     </div>
@@ -245,13 +226,13 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
             {% for pc in parentClassesFullList %}
               {% for item in fullList %}
                 {% if loop.first %}
-                  <h2 class="ui icon header">
+                  <h4 class="ui icon header">
                     {{(pc.name).toLowerCase().capitalize()}}  
-                  </h2>
+                  </h4>
                   <ul>
                 {% endif %}
                 {% if (item.parent_id == pc.id) %}
-                  <li class="produceitem">
+                  <li class="produceitemfuture">
                     {% for classification in classifications %}
                       {% if item.classification_id == classification.id %}
                         {% for parent in classifications %}
@@ -269,19 +250,13 @@ If you aren’t growing it yourself at your home, your neighbor could be!</p>
             {% endfor %}
             
           </div>
+          <div class="four wide column">
+          </div>
         </div>
       </div>
 
 </div>
 
   <h4 class="ui horizontal header divider">HLG</h4>
-  <div class="ui vertical stripe segment" id="interested">
-    <div class="ui center aligned grid container">
-      <div class="column">
-        <a class="ui large button">Let us know if you're interested</a>
-      </div>
-    </div>
-  </div>
-
     
 {% endblock %}
