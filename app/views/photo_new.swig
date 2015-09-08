@@ -7,7 +7,7 @@
 <div class="ui middle aligned center aligned grid">
   <form class="ui form" method="post" action="/photos/photo_new">
     <div class="fields">
-      <div class="eight wide field">
+      <div class="sixteen wide field">
         <label>Add New Photo Name</label>
         <input type="text" name="photo_name" placeholder="photo name.jpg">
       </div>

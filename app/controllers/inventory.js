@@ -84,8 +84,8 @@ module.exports = function (app) {
 
           db.all(sql, function(err, class_photo_rows){
             if (!err){
-              console.log('items: ', rows);
-              console.log('class_photo_rows: ', class_photo_rows);
+//              console.log('items: ', rows);
+//              console.log('class_photo_rows: ', class_photo_rows);
               res.render('inventory', { title: "Inventory", inventory: rows, class_photos: class_photo_rows });
             } 
             else 
@@ -129,7 +129,6 @@ module.exports = function (app) {
     var sqlNewItem = 'INSERT INTO items (classification_id, grower, price, ';
       sqlNewItem += 'unit, unitsavailable, available_next_week, full_list)';
       sqlNewItem += 'VALUES (?, ?, ?, ?, ?, ?, ?)';
-    console.log('sqlNewItem: ', sqlNewItem);
     db.run(sqlNewItem, [parseInt(req.body.classification, 10), req.body.grower, parseInt(req.body.price, 10), req.body.unit, parseInt(req.body.unitsavailable, 10), req.body.available_next_week, req.body.full_list], function(err, rows) {
       if (!err)
       {
@@ -149,12 +148,11 @@ module.exports = function (app) {
     // Get the item information
     var sqlEdit = "SELECT * FROM items ";
       sqlEdit  += "WHERE classification_id=" + req.params.id;
-    console.log('sqlEdit: ', sqlEdit);
     db.get(sqlEdit, function(err, row) {
       if (!err)
       {
         console.log('rowEdit: ', row);
-        res.render('inventory_edit', { title: "Edit Inventory Item", classes: allClasses, yesNo: yesNo, grower: growers, item: row });
+        res.render('inventory_edit', { title: "Edit Inventory Item", classes: allClasses, units: units, grower: growers, yesNo: yesNo, item: row });
       }
       else 
       {
@@ -175,7 +173,6 @@ module.exports = function (app) {
       sqlUpdate += req.body.unitsavailable + ', available_next_week="';
       sqlUpdate += req.body.nextWeek + '", full_list="';
       sqlUpdate += req.body.full_list + '" WHERE id=' + req.params.id;
-    console.log('sqlUpdate: ', sqlUpdate);
     db.run(sqlUpdate, function(err, rows) {
       if (!err)
       {
@@ -197,7 +194,6 @@ module.exports = function (app) {
     db.get(sql, function(err, row) {
       if (!err)
       {
-        console.log('row: ', row);
         res.render('inventory_delete', { title: "Edit Inventory Item", item: row });
       }
       else 
@@ -212,9 +208,8 @@ module.exports = function (app) {
 
   app.post('/inventory/:id/delete', function (req, res) {
     // Delete inventory item #' + req.params.id + ' body ' + req.body.id);
-    var sqlDelete = 'DELETE FROM items WHERE classification_id=' + req.params.id;
-    //console.log('sqlDelete: ', sqlDelete);
-    db.run(sqlDelete, function(err, rows) {
+    var sql = 'DELETE FROM items WHERE classification_id=' + req.params.id;
+    db.run(sql, function(err, rows) {
       if (!err)
       {
         res.redirect('/inventory');

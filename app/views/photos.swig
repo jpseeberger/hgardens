@@ -32,8 +32,8 @@
       <tbody id="indexedTable">
         {% for cps in class_photos %}
           <tr>
-            <td><a href="/inventory/{{ cps.id }}">edit </a></td>
-            <td><a href="/inventory/{{ cps.id }}/delete">delete </a></td>
+            <td><a href="/photos/{{ cps.cid }}">edit </a></td>
+            <td><a href="/photos/{{ cps.cid }}/delete">delete </a></td>
             <td>
               {{ cps.name }}
             </td>
