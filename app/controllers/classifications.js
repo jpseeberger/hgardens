@@ -7,46 +7,10 @@ var path = require('path');
 module.exports = function (app) {
   var db = app.locals.db;
 
-  // Build classifications table
-  function getClasses() {
-    // Select all items where the parent_id is null.
-    var sqlTopLevel = "SELECT * FROM classifications ";
-      sqlTopLevel  += "WHERE parent_id IS NULL ORDER BY name";
-
-    db.all(sqlTopLevel, function(err, rows) {
-      if (!err)
-      {
-        topLevelClasses = rows;
-      }
-      else 
-      {
-        // on error, send nothing
-//          res.json("err": err);
-        console.log('err: ', err);
-      }
-    });
-    
-    var sqlAllClasses = "SELECT * FROM classifications ORDER BY parent_id, name";
-    db.all(sqlAllClasses, function(err, rows) {
-      if (!err)
-      {
-        allClasses = rows;
-      }
-      else 
-      {
-        // on error, send nothing
-//          res.json("err": err);
-        console.log('err: ', err);
-      }
-    });
-  } //end getClasses() function
-  
-  
   // Add classifications page for displaying existing classifications
   app.get('/classifications', function (req, res) {
     if (req.userSession.loggedIn)
     {
-      getClasses();
       var sql = "SELECT * FROM classifications ORDER BY parent_id, name";
 
       // Why am I doing db.all instead of db.run?  db.run doesn't return data so 
