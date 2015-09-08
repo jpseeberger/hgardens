@@ -116,7 +116,7 @@ module.exports = function (app) {
         db.get(sqlEdit, function(err, row) {
           if (!err)
           {
-            console.log('rowEdit: ', row);
+//            console.log('rowEdit: ', row);
             res.render('inventory_edit', { title: "Edit Inventory Item", classes: allClasses, units: units, grower: growers, yesNo: yesNo, item: row });
           }
           else 

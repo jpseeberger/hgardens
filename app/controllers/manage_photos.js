@@ -85,7 +85,6 @@ module.exports = function (app) {
 
   app.post('/photos/photo_class_new', function (req, res) {
     // Create entry in classification_photo table with params ' + JSON.stringify(req.body));
-        console.log('req.body.classification_id, req.body.photo_id: ', req.body.classification_id, req.body.photo_id);
     var sql = 'INSERT INTO classification_photo (classification_id, photo_id) VALUES (?,?)';
     db.run(sql, [req.body.classification_id, req.body.photo_id], function(err, rows) {
       if (!err)
