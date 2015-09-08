@@ -20,7 +20,13 @@
       </div>
       <div class="two wide field">
         <label>Unit</label>
-        <input type="text" name="unit" value={{item.unit}}>
+        <select name="unit">
+          {% for unit in units %}
+            <option value="{{unit.id}}" {% if item.unit == unit.name %}selected{% endif%}>
+              {{unit.name}}
+            </option>
+          {% endfor %}
+        </select>
       </div>
       <div class="two wide field">
         <label>Price ($10.00 = 1000)</label>
@@ -30,17 +36,11 @@
         <label>Units Available</label>
         <input type="text" name="unitsavailable" value={{item.unitsavailable}}>
       </div>
-<!--       <div class="one wide field">
-        <label>Grower</label>
-        <input type="text" name="grower" value={{item.grower}}>
-      </div>
--->
-
       <div class="two wide field">
         <label>Grower</label>
         <select name="grower">
           {% for gr in grower %}
-            <option value="{{gr.id}}" {% if item.grower == gr.id %}selected{% endif%}>
+            <option value="{{gr.id}}" {% if item.grower == gr.name %}selected{% endif%}>
               {{gr.name}}
             </option>
           {% endfor %}

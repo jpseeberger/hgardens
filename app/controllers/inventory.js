@@ -11,9 +11,9 @@ var yesNo = [
 
 // TEMP: all classifications
 var growers = [
-  {id:1, name:'Rox'},
-  {id:2, name:'Loren'},
-  {id:3, name:'Jon'}
+  {id:1, name:'rox'},
+  {id:2, name:'loren'},
+  {id:3, name:'jon'}
 ];
 
 var units = [
@@ -140,9 +140,10 @@ module.exports = function (app) {
 //    console.log('I will edit an item with id of ' + req.params.id + ', values: ');
   
     var growerName = growers[req.body.grower - 1].name;
+    var unitName = units[req.body.unit - 1].name;
     var sqlUpdate = 'UPDATE items ';
       sqlUpdate += 'SET grower="' + growerName + '", price=' + req.body.price + ', ';
-      sqlUpdate += 'unit="' + req.body.unit + '", unitsavailable=';
+      sqlUpdate += 'unit="' + unitName + '", unitsavailable=';
       sqlUpdate += req.body.unitsavailable + ', available_next_week="';
       sqlUpdate += req.body.nextWeek + '", full_list="';
       sqlUpdate += req.body.full_list + '" WHERE id=' + req.params.id;

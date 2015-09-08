@@ -19,7 +19,13 @@
       </div>
       <div class="two wide field">
         <label>Unit</label>
-        <input type="text" name="unit" placeholder="unit">
+        <select name="unit">
+          {% for un in unit %}
+            <option>
+              {{un.name}}
+            </option>
+          {% endfor %}
+        </select>
       </div>
       <div class="two wide field">
         <label>Price ($10.00 = 1000)</label>
