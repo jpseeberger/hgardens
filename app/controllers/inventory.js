@@ -19,58 +19,19 @@ var growers = [
 var units = [
   {id:1, name:'each'},
   {id:2, name:'3 count'},
-  {id:3, name:'4 oz'},
-  {id:4, name:'8 oz'},
-  {id:5, name:'half pint'},
-  {id:6, name:'pint'},
-  {id:7, name:'quart'},
-  {id:8, name:'lb'},
-  {id:9, name:'bunch'},
-  {id:10, name:'bundle'}
+  {id:3, name:'half pint'},
+  {id:4, name:'pint'},
+  {id:5, name:'quart'},
+  {id:6, name:'lb'},
+  {id:7, name:'bunch'}
 ];
 
 module.exports = function (app) {
   var db = app.locals.db;
 
-  // Build classifications table
-  function getClasses() {
-    // Select all items where the parent_id is null.
-    var sqlTopLevel = "SELECT * FROM classifications ";
-      sqlTopLevel  += "WHERE parent_id IS NULL ORDER BY name";
-
-    db.all(sqlTopLevel, function(err, rows) {
-      if (!err)
-      {
-        topLevelClasses = rows;
-      }
-      else 
-      {
-        // on error, send nothing
-//          res.json("err": err);
-        console.log('err: ', err);
-      }
-    });
-    
-    var sqlAllClasses = "SELECT * FROM classifications ORDER BY parent_id, name";
-    db.all(sqlAllClasses, function(err, rows) {
-      if (!err)
-      {
-        allClasses = rows;
-      }
-      else 
-      {
-        // on error, send nothing
-//          res.json("err": err);
-        console.log('err: ', err);
-      }
-    });
-  } //end getClasses() function
-  
-  
   app.get('/inventory', function (req, res) {
     if (req.userSession.loggedIn)
     {
-      getClasses();
       var sql = "SELECT * FROM items, classifications ";
         sql += "WHERE items.classification_id=classifications.id ORDER BY name";
 
@@ -144,20 +105,32 @@ module.exports = function (app) {
   });
 
   app.get('/inventory/:id', function (req, res) {
-    getClasses();
-    // Get the item information
-    var sqlEdit = "SELECT * FROM items ";
-      sqlEdit  += "WHERE classification_id=" + req.params.id;
-    db.get(sqlEdit, function(err, row) {
+     var sqlAllClasses = "SELECT * FROM classifications ORDER BY parent_id, name";
+    db.all(sqlAllClasses, function(err, rows) {
       if (!err)
       {
-        console.log('rowEdit: ', row);
-        res.render('inventory_edit', { title: "Edit Inventory Item", classes: allClasses, units: units, grower: growers, yesNo: yesNo, item: row });
+        allClasses = rows;
+        // Get the item information
+        var sqlEdit = "SELECT * FROM items ";
+          sqlEdit  += "WHERE classification_id=" + req.params.id;
+        db.get(sqlEdit, function(err, row) {
+          if (!err)
+          {
+            console.log('rowEdit: ', row);
+            res.render('inventory_edit', { title: "Edit Inventory Item", classes: allClasses, units: units, grower: growers, yesNo: yesNo, item: row });
+          }
+          else 
+          {
+            // on error, send nothing
+            //res.json("err": err);
+            console.log('err: ', err);
+          }
+        });
       }
       else 
       {
         // on error, send nothing
-        //res.json("err": err);
+//          res.json("err": err);
         console.log('err: ', err);
       }
     });
