@@ -87,7 +87,7 @@
         <div class="row">
 
 <!-- Start on the fly menu here -->
-          <div class="four wide column">
+          <div class="four wide column" id="mobilemenu">
             <div class="overlay">
               <div class="ui vertical menu">
                 <div id="productMenu">

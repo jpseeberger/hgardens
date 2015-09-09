@@ -43,7 +43,10 @@ semantic/
 semantic.json
 
 .sass-cache/
+sass/_login.scss
 public/css/*.map
+public/skeleton.css
+public/normalize.css
 
 /data
 /public/images
