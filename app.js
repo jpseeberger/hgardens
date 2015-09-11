@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(session({
   cookieName: 'userSession', 
   secret: 'secretpiratekeyforcrypto', 
-  duration: 60 * 60 * 1000
+  duration: 30 * 60 * 1000
 }));
 
 require('./app/controllers/home')(app);
