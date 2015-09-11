@@ -21,6 +21,7 @@
           <a href="/inventory">Inventory Page</a>
           <a href="/classifications">Classifications Page</a>
           <a href="/photos">Manage Photos Page</a>
+          <a href="/class_order">Manage Top Level Order</a>
         </div>
       </div>
     </div>

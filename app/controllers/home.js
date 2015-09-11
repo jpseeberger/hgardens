@@ -22,6 +22,7 @@ var topLevelFullListArray = [];
 var tmpNow = [];
 var tmpNextWeek = [];
 var tmpFullList = [];
+var displayOrder = [];
 
 
 // http://stackoverflow.com/questions/9229645/remove-duplicates-from-javascript-array
@@ -115,97 +116,127 @@ function groupLeavesByTopLevel(callback)
     var topParentFound = 0;
     if (!err)
     {
-      leaves = rows;
-      // Find the top level that each leaf belongs to
-      for (var i = 0; i < leaves.length; i++)
-      {
-        topParentFound = 0;
-        while (!topParentFound)
-        {
-          if(topLevelClassesArray.indexOf(leaves[i].parent_id) > -1)
+      var sql = "SELECT * FROM top_level_order ORDER BY level_order, classification_id";
+      db.all(sql, function(err, level_order_rows){
+        if (!err){
+          console.log("level_order_rows: ", level_order_rows);
+          
+          leaves = rows;
+          // Find the top level that each leaf belongs to
+          for (var i = 0; i < leaves.length; i++)
           {
-            topParentFound = 1;
-          }
-          else
-          {
-            for (var k = 0; k < classes.length; k++)
+            topParentFound = 0;
+            while (!topParentFound)
             {
-              if(leaves[i].parent_id == classes[k].id)
+              if(topLevelClassesArray.indexOf(leaves[i].parent_id) > -1)
               {
-                leaves[i].parent_id = classes[k].parent_id;
-                break;
+                topParentFound = 1;
+              }
+              else
+              {
+                for (var k = 0; k < classes.length; k++)
+                {
+                  if(leaves[i].parent_id == classes[k].id)
+                  {
+                    leaves[i].parent_id = classes[k].parent_id;
+                    break;
+                  }
+                }
               }
             }
           }
-        }
-      }
-      // console.log("leaves: ", leaves);
-     availableNow = [];
-     nextWeek = [];
-     fullList = [];
-     topLevelNow = [];
-     topLevelNextWeek = [];
-     topLevelFullList = [];
-     topLevelNowArray = [];
-     topLevelNextWeekArray = [];
-     topLevelFullListArray = [];
-     tmpNow = [];
-     tmpNextWeek = [];
-     tmpFullList = [];
+          // console.log("leaves: ", leaves);
+          availableNow = [];
+          nextWeek = [];
+          fullList = [];
+          topLevelNow = [];
+          topLevelNextWeek = [];
+          topLevelFullList = [];
+          topLevelNowArray = [];
+          topLevelNextWeekArray = [];
+          topLevelFullListArray = [];
+          tmpNow = [];
+          tmpNextWeek = [];
+          tmpFullList = [];
 
-      // Determine availability of inventory items.
-      for (var j = 0; j < leaves.length; j++)
-      {
-        if(leaves[j].unitsavailable != 0)
-        {
-          availableNow.push(leaves[j]);
-          topLevelNowArray.push(leaves[j].parent_id);
-        }
-        if(leaves[j].available_next_week == 'y')
-        {
-          nextWeek.push(leaves[j]);
-          topLevelNextWeekArray.push(leaves[j].parent_id);
-        }
-        if(leaves[j].full_list == 'y')
-        {
-          fullList.push(leaves[j]);
-          topLevelFullListArray.push(leaves[j].parent_id);
-        }
-      }
-
-      tmpNow = uniq(topLevelNowArray);
-      tmpNextWeek = uniq(topLevelNextWeekArray);
-      tmpFullList = uniq(topLevelFullListArray);
-
-      for (var j = 0; j < topLevelClasses.length; j++)
-      {
-        for (var k = 0; k < tmpNow.length; k++)
-        {
-          if (tmpNow[k] == topLevelClasses[j].id)
+          // Determine availability of inventory items now, next week and full list
+          for (var j = 0; j < leaves.length; j++)
           {
-            topLevelNow.push(topLevelClasses[j]);
+            if(leaves[j].unitsavailable != 0)
+            {
+              availableNow.push(leaves[j]);
+              topLevelNowArray.push(leaves[j].parent_id);
+            }
+            if(leaves[j].available_next_week == 'y')
+            {
+              nextWeek.push(leaves[j]);
+              topLevelNextWeekArray.push(leaves[j].parent_id);
+            }
+            if(leaves[j].full_list == 'y')
+            {
+              fullList.push(leaves[j]);
+              topLevelFullListArray.push(leaves[j].parent_id);
+            }
           }
-        }
-        for (var k = 0; k < tmpNextWeek.length; k++)
-        {
-          if (tmpNextWeek[k] == topLevelClasses[j].id)
-          {
-            topLevelNextWeek.push(topLevelClasses[j]);
-          }
-        }
-        for (var k = 0; k < tmpFullList.length; k++)
-        {
-          if (tmpFullList[k] == topLevelClasses[j].id)
-          {
-            topLevelFullList.push(topLevelClasses[j]);
-          }
-        }
-      }
-//      console.log("topLevelNow: ", topLevelNow);
-//      console.log("topLevelNextWeek: ", topLevelNextWeek);
-//      console.log("topLevelFullList: ", topLevelFullList);
 
-      callback(leaves);
+          // Find the top level classes for each of the following:
+          // available now, available next week and the full list
+          tmpNow = uniq(topLevelNowArray);
+          tmpNextWeek = uniq(topLevelNextWeekArray);
+          tmpFullList = uniq(topLevelFullListArray);
+          for (var j = 0; j < topLevelClasses.length; j++)
+          {
+            for (var k = 0; k < tmpNow.length; k++)
+            {
+              if (tmpNow[k] == topLevelClasses[j].id)
+              {
+                topLevelNow.push(topLevelClasses[j]);
+              }
+            }
+            for (var k = 0; k < tmpNextWeek.length; k++)
+            {
+              if (tmpNextWeek[k] == topLevelClasses[j].id)
+              {
+                topLevelNextWeek.push(topLevelClasses[j]);
+              }
+            }
+            for (var k = 0; k < tmpFullList.length; k++)
+            {
+              if (tmpFullList[k] == topLevelClasses[j].id)
+              {
+                topLevelFullList.push(topLevelClasses[j]);
+              }
+            }
+          }
+          
+          // Now set the order in which to display the available now categories
+          displayOrder = [];
+          for (var jj = 0; jj < level_order_rows.length; jj++)
+          {
+            for (var kk = 0; kk < topLevelNow.length; kk++)
+            {
+              if (topLevelNow[kk].id == level_order_rows[jj].classification_id)
+              {
+                displayOrder.push(topLevelNow[kk]);
+              }
+            }
+          }
+
+          console.log("topLevelNow: ", topLevelNow);
+          console.log("displayOrder: ", displayOrder);
+    //      console.log("topLevelNextWeek: ", topLevelNextWeek);
+    //      console.log("topLevelFullList: ", topLevelFullList);
+
+
+          callback(leaves);
+        } 
+        else 
+        {
+          // on error, send nothing
+          // res.json("err": err);
+          console.log('err: ', err);
+        }
+      });
     }
     else 
     {
@@ -243,6 +274,7 @@ module.exports = function (app) {
             inventory: availableNow, 
             nextWeek: nextWeek, 
             fullList: fullList, 
+            displayOrder: displayOrder, 
             parentClasses: topLevelNow,
             parentClassesNextWeek: topLevelNextWeek,
             parentClassesFullList: topLevelFullList

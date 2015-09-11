@@ -66,16 +66,19 @@
       <div class="ui middle aligned stackable grid container">
         <div class="row">
           <div class="eight wide column">
+            <h3 class="ui header">Who We Are... </h3>
+              <p>Roxane, Loren and Joanne, and Jon are growers right here in Johnson County. They value ecologically sustainable growing practices.</p>
             <h3 class="ui header" id="weBelieve">We Believe...</h3>
               <p>...that the best “Fresh and Local” comes from close to home.</p>
               <p>Local rainfall and Iowa soil produce the freshest, tastiest vegetables and support nature's ecologically designed food-growing practices.</p>
               <p>If you don’t have time to grow your own veggies at home, your Harvest Lane Gardens neighbor is growing them for you right here in Iowa City!</p>
             <h3 class="ui header">How It Works... </h3>
-              <p>To start getting the freshest produce available, see contact information below.
-</p>
+              <p>To start getting the freshest produce available, see contact information below.</p>
           </div>
             <div class="six wide right floated column">
-              <img src="../images/barrel_of_peppers.jpg" class="ui large bordered rounded image">
+              <img src="../images/rox_np.jpg" class="ui medium bordered rounded image">
+              <img src="../images/loren_joanne_np.jpg" class="ui medium bordered rounded image">
+              <img src="../images/jon_fb.png" class="ui medium bordered rounded image">
             </div>
         </div>
       </div>
@@ -112,7 +115,7 @@
             <h2 class="ui icon header">
               What We're Bringing You This Week
             </h2> <br />
-            {% for pc in parentClasses %}
+            {% for pc in displayOrder %}
               {% for item in inventory %}
                 {% if loop.first %}
                   <h2 class="ui icon header"  id="{{pc.name}}">

@@ -23,7 +23,7 @@ module.exports = function(app) {
   app.locals.db = db.serialize(function() {
     db.run("CREATE TABLE IF NOT EXISTS classifications ("+
       "id INTEGER PRIMARY KEY , " +
-      "name TEXT UNIQUE, " +
+      "name TEXT , " +
       "parent_id INTEGER DEFAULT NULL" +
     ");");
 
@@ -58,6 +58,13 @@ module.exports = function(app) {
       "photo_id INTEGER," + 
       "FOREIGN KEY (classification_id) REFERENCES classifications(id)," + 
       "FOREIGN KEY (photo_id) REFERENCES photos(id)" +
+    ");");
+
+    db.run("CREATE TABLE IF NOT EXISTS top_level_order ("+
+      "id INTEGER PRIMARY KEY, " +
+      "classification_id INTEGER, " +
+      "level_order INTEGER," + 
+      "FOREIGN KEY (classification_id) REFERENCES classifications(id)" +
     ");");
 
   });
