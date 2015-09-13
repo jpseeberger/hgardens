@@ -119,7 +119,7 @@ function groupLeavesByTopLevel(callback)
       var sql = "SELECT * FROM top_level_order ORDER BY level_order, classification_id";
       db.all(sql, function(err, level_order_rows){
         if (!err){
-          console.log("level_order_rows: ", level_order_rows);
+//          console.log("level_order_rows: ", level_order_rows);
           
           leaves = rows;
           // Find the top level that each leaf belongs to
@@ -222,8 +222,8 @@ function groupLeavesByTopLevel(callback)
             }
           }
 
-          console.log("topLevelNow: ", topLevelNow);
-          console.log("displayOrder: ", displayOrder);
+//          console.log("topLevelNow: ", topLevelNow);
+//          console.log("displayOrder: ", displayOrder);
     //      console.log("topLevelNextWeek: ", topLevelNextWeek);
     //      console.log("topLevelFullList: ", topLevelFullList);
 
@@ -284,5 +284,31 @@ module.exports = function (app) {
       });
     });
   });
+  
+  
+  
+  
+  
+  app.get('/check_list', function (req, res) {
+    
+    getClasses(function(classes) {
+      getTopLevelClasses(function(classes) {
+      getPhotos(function(class_photos) {
+        groupLeavesByTopLevel(function(leaves) {
+          res.render('check_list', {
+            title: "Harvest Lane Gardens Check List", 
+            classifications: classes,
+            class_photos: class_photos, 
+            inventory: availableNow, 
+            displayOrder: displayOrder, 
+            parentClasses: topLevelNow
+          });
+        });
+      });
+      });
+    });
+  });
+  
+  
 };
 
