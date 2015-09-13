@@ -15,7 +15,6 @@
               {{cls.name}}
             </option>
           {% endfor %}
-          <option>null</option>
         </select>
       </div>
       <div class="eight wide field">
