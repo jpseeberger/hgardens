@@ -312,8 +312,7 @@ function getSeletedLeaves(selectedItemsBody, callback)
             }
           }
 
-          console.log("totalInvoice: ", totalInvoice);
-          console.log("selectedQuantities: ", selectedQuantities);
+//          console.log("selectedQuantities: ", selectedQuantities);
 
           
           leaves = selectedItems;
@@ -482,7 +481,6 @@ module.exports = function (app) {
       getTopLevelClasses(function(classes) {
       getPhotos(function(class_photos) {
         getSeletedLeaves(req.body, function(leaves) {
-    console.log('availableNow: ', availableNow);
           res.render('check_list_finalize', {
             title: "Harvest Lane Gardens Check List", 
             classifications: classes,

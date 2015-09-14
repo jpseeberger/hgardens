@@ -32,7 +32,9 @@
             <p> This is our first week of distribution.  
             Please either copy and clip this information into an email to Roxane, or attach a screenshot of the page to an email to Roxane.</p>
             <p>Your email with the information included on this page will identify the order your will receive at the next pick-up.  Roxane will include payment information in your confirmation email of this order. 
-            </p> <br />
+            </p> 
+            <p>WE WILL NOT SHARE YOUR EMAIL WITH ANYONE. WE RESPECT YOUR PRIVACY</p>            
+            <br />
             
             <h2>Please include all of the information below this line into your email to Roxane.</h2>
             <p>--------------------------------------------------------------------------------------</p>
@@ -87,7 +89,7 @@
             <br />
             <br />
             <p>--------------------------------------------------------------------------------------</p>
-            <h2>Include all of the information below this line into your email to Roxane.</h2>
+            <h2>Include all of the information above this line into your email to Roxane.</h2>
           </div>
         </div>
       </div>
