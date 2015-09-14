@@ -3,7 +3,7 @@
 {% block content %}
 
 
-
+<br /><br />
     <h3 class="ui horizontal header divider">
       <a href="/" class="item">Return to Home Page</a>
     </h3>
@@ -17,7 +17,9 @@
           <div class="eight wide column">
             <h2 class="ui icon header" id="whoWeAre">
               Harvest Lane Gardens Check List
-            </h2> <br />
+            </h2> 
+            <p>Select the number of each item you would like to order.  When you are finished, click the big, blue button at the bottom of the page to check your order total.</p>
+            <br />
             {% for pc in displayOrder %}
               {% for item in inventory %}
                 {% if loop.first %}
@@ -86,5 +88,5 @@
     <h3 class="ui horizontal header divider">
       <a href="/" class="item">Return to Home Page</a>
     </h3>
-    
+<br /><br />    
 {% endblock %}

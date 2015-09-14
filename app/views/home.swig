@@ -78,7 +78,7 @@
               <p>Roxane, Loren and Joanne, and Jon collaborate as neighborhood growers. We create a list of what will be available each week, and you let us know what you want.  We will set aside your order for your designated pick-up day.  We have two pick-up times each week in our neighborhood location in Iowa City (near Chadek Park).</p>  
               <p>Pick-up times are:</p>
               <p>Tuesday and Friday evening, 5:30 - 7:30pm</p>
-              <p>Location and detailed instructions will be sent to you in an email.  At this time, all orders will be placed via email. Our website is still evolving. Please email us with your order.  For your convience, click the button below to faciliate your ordering. Fill it and copy and paste it into an email to us.  We will confirm your order by email, and provide further instructions.</p>
+              <p>Location and detailed instructions will be sent to you in an email.  At this time, all orders will be placed via email. Our website is still evolving. Please email us with your order.  For your convience, click the button below to faciliate your ordering. Fill it in and then copy and paste it into an email to us.  We will confirm your order by email and provide further instructions.</p>
             <a href="/check_list" class="ui basic big button">I'm interested in ordering</a>
 
           </div>

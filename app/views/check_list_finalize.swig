@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="/css/inventory.css" media="screen">
 </head>
 <body>
-
+<br /><br />
     <h3 class="ui horizontal header divider">
       <a href="/" class="item">Return to Home Page</a>
     </h3>
@@ -30,14 +30,15 @@
             </h2> <br />
             <h2>Our website is still evolving.</h2>
             <p> This is our first week of distribution.  
-            Please either copy and clip this information into an email to Roxane, or attach a screenshot of the page to an email to Roxane.</p>
-            <p>Your email with the information included on this page will identify the order your will receive at the next pick-up.  Roxane will include payment information in your confirmation email of this order. 
+            Please either copy and clip the information below into an email to Roxane, or attach a screenshot of the page in your email to Roxane.</p>
+            <p>Your email with the information included on this page will identify the order you will receive at the next pick-up.  Roxane will include payment information in your confirmation email of this order. 
             </p> 
             <p>WE WILL NOT SHARE YOUR EMAIL WITH ANYONE. WE RESPECT YOUR PRIVACY</p>            
             <br />
             
-            <h2>Please include all of the information below this line into your email to Roxane.</h2>
+            <h2>Please include all of the information below this line in your email to Roxane.</h2>
             <p>--------------------------------------------------------------------------------------</p>
+            <h2>Your Order</h2>
 
             {% for pc in displayOrder %}
               {% for item in inventory %}
@@ -89,7 +90,7 @@
             <br />
             <br />
             <p>--------------------------------------------------------------------------------------</p>
-            <h2>Include all of the information above this line into your email to Roxane.</h2>
+            <h2>Include all of the information above this line in your email to Roxane.</h2>
           </div>
         </div>
       </div>
@@ -101,7 +102,7 @@
     <h3 class="ui horizontal header divider">
       <a href="/" class="item">Return to Home Page</a>
     </h3>
-    
+<br /><br />    
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="/semantic.min.js"></script>
 <script src="/js/inventory.js"></script>
