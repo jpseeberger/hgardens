@@ -22,7 +22,6 @@
           <a href="/classifications">Classifications Page</a>
           <a href="/photos">Manage Photos Page</a>
           <a href="/class_order">Manage Top Level Order</a>
-          <a href="/check_list">Create Check List</a>
         </div>
       </div>
     </div>

@@ -1,24 +1,21 @@
-{% extends 'inventory_layout.swig' %}
+{% extends 'layout.swig' %}
 
 {% block content %}
 
 
 
-<!-- Page Contents -->
-<div id="top" class="pusher">
-  <div class="full height">
-
-
-    <!-- Vertical stripe segments -->
-        
-    
-    <div class="ui vertical stripe segment" id="available-now">
-      <div class="ui column divided relaxed stackable grid container">
+    <h3 class="ui horizontal header divider">
+      <a href="/" class="item">Return to Home Page</a>
+    </h3>
+    <div class="ui vertical stripe segment">
+      <div class="ui column divided relaxed grid container">
+  <form class="ui form" method="post" action="/check_list_finalize">
+    <div class="fields">
         <div class="row">
 
 
-          <div class="sixteen wide column">
-            <h2 class="ui icon header" id="check-list">
+          <div class="eight wide column">
+            <h2 class="ui icon header" id="whoWeAre">
               Harvest Lane Gardens Check List
             </h2> <br />
             {% for pc in displayOrder %}
@@ -30,10 +27,20 @@
                   <ul>
                 {% endif %}
                 {% if item.parent_id == pc.id %}
-                  <li class="produceitem" id="check-list-items">
+                  <li class="produceitem">
                     <div class="ui grid">
-                      <div class="sixteen wide column">
-                        <p>
+                      <div class="three wide column">
+                        {% for classification in classifications %}
+                          {% if item.classification_id == classification.id %}
+                             {% for cps in class_photos %}
+                              {% if cps.cid == item.classification_id %}
+                                <img class="image" src="/images/{{cps.photo_name}}" height="60" width="80">
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                      <div class="seven wide column">
                         {% for classification in classifications %}
                           {% if item.classification_id == classification.id %}
                             {% for parent in classifications %}
@@ -43,27 +50,41 @@
                             {% endfor %}
                           {% endif %}
                         {% endfor %}
-                        {{(item.name).toLowerCase().capitalize()}}:  
-                        ${{(item.price/100).toFixed(2)}}    per: {{item.unit}}     
-                        <span>
-                        &ensp; &ensp;
-                        </span>
-                        Order quantity _____ x ${{(item.price/100).toFixed(2)}} = _______
-                        </p>
+        <select name="classification_id">
+          <option value="{{item.classification_id}}">
+                        {{(item.name).toLowerCase().capitalize()}}
+          </option>
+        </select>
+                        <h4>Available Units: {{item.unitsavailable}} </h4>
+                        <h4>Unit:  {{item.unit}}  Price: ${{(item.price/100).toFixed(2)}} </h4>
+                      </div>
+                      <div class="six wide column">
+                        <select name="quantity">
+                          {% for qu in quantity %}
+                            <option value="{{qu.id}}" >
+                              {{qu.name}}
+                        Total: ${{(parseInt(qu.name,10)*item.price/100).toFixed(2)}}
+                            </option>
+                          {% endfor %}
+                        </select>
                       </div>
                     </div>
                   </li>
                 {% endif %}
-                {% if loop.last %} <br /></ul>{% endif %}
+                {% if loop.last %}</ul>{% endif %}
               {% endfor %}
             {% endfor %}
-            <br />Order total: ______
-            
+          </div>
+          <div class="four wide column">
           </div>
         </div>
-      </div>
     </div>
+    <button type="submit" class="ui huge inverted blue button">Check Your Order Total</button>
+  </form>
 
 
+    <h3 class="ui horizontal header divider">
+      <a href="/" class="item">Return to Home Page</a>
+    </h3>
     
 {% endblock %}

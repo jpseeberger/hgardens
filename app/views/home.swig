@@ -66,20 +66,26 @@
       <div class="ui middle aligned stackable grid container">
         <div class="row">
           <div class="eight wide column">
-            <h3 class="ui header">Who We Are... </h3>
-              <p>Roxane, Loren and Joanne, and Jon are growers right here in Johnson County. They value ecologically sustainable growing practices.</p>
-            <h3 class="ui header" id="weBelieve">We Believe...</h3>
-              <p>...that the best “Fresh and Local” comes from close to home.</p>
-              <p>Local rainfall and Iowa soil produce the freshest, tastiest vegetables and support nature's ecologically designed food-growing practices.</p>
-              <p>If you don’t have time to grow your own veggies at home, your Harvest Lane Gardens neighbor is growing them for you right here in Iowa City!</p>
-            <h3 class="ui header">How It Works... </h3>
-              <p>To start getting the freshest produce available, see contact information below.</p>
+            <h3 class="ui header" id="whoWeAre">Who We Are... </h3>
+              <p>Roxane Mitten, Loren and Joanne Leach, and Jon Yagla are growers right here in Iowa City. Harvest Lane Gardens is chemical free and spans the Iowa City-Johnson County border.</p> 
+              <p>We primarily grow garlic, onions and herbs and some vegetables. Jon grows vegetables in his own back yard and in the back yards of some of his neighbors by cooperative neighbor relations!  Roxane and Jon are also beekeepers specializing in small cell beekeeping.  Loren and Joanne (Joy & Laughter Gardens) provide garden planning and maintenance.</p> 
+              <p>We utilize organic practices, using NO non-organically-approved chemicals and fertilizers. We rotate crops, utilize cover crops, and amend our soils with compost and manure to replenish the soil naturally and close the nutrient loop.
+</p>
+            <h3 class="ui header">We Believe...</h3>
+              <p>...that the best “Fresh and Local” comes from close to home, particularly from people you know.</p>
+              <p>...that numerous Iowa City gardeners have surplus quality vegetables...and that they can group together, as we are, to distribute their surplus to those close to them in a way that reduces effort in a busy growing season, keeps food fresh, and utilizes collaborative relationships.</p>
+            <h3 class="ui header">How Harvest Lane Gardens Works... </h3>
+              <p>Roxane, Loren and Joanne, and Jon collaborate as neighborhood growers. We create a list of what will be available each week, and you let us know what you want.  We will set aside your order for your designated pick-up day.  We have two pick-up times each week in our neighborhood location in Iowa City (near Chadek Park).</p>  
+              <p>Pick-up times are:</p>
+              <p>Tuesday and Friday evening, 5:30 - 7:30pm</p>
+              <p>Location and detailed instructions will be sent to you in an email.  At this time, all orders will be placed via email. Our website is still evolving. Please email us with your order.  For your convience a <a href="/check_list">form is available HERE</a> to faciliate your ordering. Fill it and copy and paste it into an email to us.  We will confirm your order by email, and provide further instructions.</p>
+
           </div>
-            <div class="six wide right floated column">
-              <img src="../images/rox_np.jpg" class="ui medium bordered rounded image">
-              <img src="../images/loren_joanne_np.jpg" class="ui medium bordered rounded image">
-              <img src="../images/jon_fb.png" class="ui medium bordered rounded image">
-            </div>
+          <div class="six wide right floated column">
+            <img src="../images/rox_np.jpg" class="ui large bordered rounded image">
+            <img src="../images/loren_joanne_np.jpg" class="ui large bordered rounded image">
+            <img src="../images/jon_fb.png" class="ui large bordered rounded image">
+          </div>
         </div>
       </div>
     </div>

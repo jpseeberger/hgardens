@@ -28,8 +28,8 @@
             <div class="three wide column">
               <h4 class="ui inverted header">About Us</h4>
               <div class="ui inverted link list">
-                <a href="#" class="item">Contact Us</a>
-                <a href="#weBelieve" class="item">What We Believe</a>
+                <a href="/" class="item">Contact Us</a>
+                <a href="#whoWeAre" class="item">Who We Are</a>
               </div>
             </div>
             <div class="seven wide column">
