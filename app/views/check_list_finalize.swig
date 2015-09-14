@@ -38,7 +38,7 @@
             
             <h2>Please include all of the information below this line in your email to Roxane.</h2>
             <p>--------------------------------------------------------------------------------------</p>
-            <h2>Your Order</h2>
+            <h2>Your Order...</h2>
 
             {% for pc in displayOrder %}
               {% for item in inventory %}

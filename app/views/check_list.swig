@@ -83,6 +83,8 @@
     </div>
     <button type="submit" class="ui huge inverted blue button">Check Your Order Total</button>
   </form>
+          </div>
+        </div>
 
 
     <h3 class="ui horizontal header divider">
