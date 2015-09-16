@@ -60,7 +60,7 @@
           </option>
         </select>
                         <h4>Available Units: {{item.unitsavailable}} </h4>
-                        <h4>Unit:  {{item.unit}}  Price: ${{(item.price/100).toFixed(2)}} </h4>
+                        <h4>${{(item.price/100).toFixed(2)}} per {{(item.unit).toLowerCase().capitalize()}}</h4>
                       </div>
                       <div class="six wide column">
                         <select name="quantity">
