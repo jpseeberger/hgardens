@@ -8,15 +8,15 @@
       <a href="/" class="item">Return to Home Page</a>
     </h3>
     <div class="ui vertical stripe segment">
-      <div class="ui column divided relaxed grid container">
+      <div class="ui column divided grid container">
   <form class="ui form" method="post" action="/check_list_finalize">
     <div class="fields">
         <div class="row">
 
 
-          <div class="eight wide column">
+          <div class="tweleve wide column">
             <h2 class="ui icon header" id="whoWeAre">
-              Harvest Lane Gardens Check List
+              Harvest Lane Gardens Order Form
             </h2> 
             <p>Select the number of each item you would like to order.  When you are finished, click the big, blue button at the bottom of the page to check your order total.</p>
             <br />

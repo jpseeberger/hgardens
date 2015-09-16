@@ -79,7 +79,7 @@
               <p>Pick-up times are:</p>
               <p>Tuesday and Friday evening, 5:30 - 7:30pm</p>
               <p>Location and detailed instructions will be sent to you in an email.  At this time, all orders will be placed via email. Our website is still evolving. Please email us with your order.  For your convience, click the button below to faciliate your ordering. Fill it in and then copy and paste it into an email to us.  We will confirm your order by email and provide further instructions.</p>
-            <a href="/check_list" class="ui basic big button">I'm interested in ordering</a>
+            <a href="/check_list" class="ui basic big button">Click to see order form</a>
 
           </div>
           <div class="six wide right floated column">
@@ -121,7 +121,9 @@
           <div class="eight wide column">
             <h2 class="ui icon header">
               What We're Bringing You This Week
-            </h2> <br />
+            </h2> 
+            <a href="/check_list" class="ui big blue button">Click to see order form</a>
+            <br />
             {% for pc in displayOrder %}
               {% for item in inventory %}
                 {% if loop.first %}
@@ -156,7 +158,7 @@
                         {% endfor %}
                         {{(item.name).toLowerCase().capitalize()}}
                         <h4>Available Units: {{item.unitsavailable}} </h4>
-                        <h4>Unit:  {{item.unit}}  Price: ${{(item.price/100).toFixed(2)}} </h4>
+                        <h4>${{(item.price/100).toFixed(2)}} per {{(item.unit).toLowerCase().capitalize()}}</h4>
                       </div>
                       <div class="five wide column">
                       </div>
@@ -166,9 +168,9 @@
                 {% if loop.last %}</ul>{% endif %}
               {% endfor %}
             {% endfor %}
+            <a href="/check_list" class="ui big blue button">Click to see order form</a>
           </div>
           <div class="four wide column">
-            <a href="/check_list" class="ui basic big button">I'm interested in ordering</a>
           </div>
         </div>
       </div>
