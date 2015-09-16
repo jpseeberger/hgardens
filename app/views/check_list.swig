@@ -18,7 +18,9 @@
             <h2 class="ui icon header" id="whoWeAre">
               Harvest Lane Gardens Order Form
             </h2> 
-            <p>Select the number of each item you would like to order.  When you are finished, click the big, blue button at the bottom of the page to check your order total.</p>
+            <p>Select the number of each item you would like to order.  When you are finished, click the big, blue button to check your order total (there is also a button at the bottom of the page for your convenience).</p>
+            <br />
+    <button type="submit" class="ui huge inverted blue button">Check Your Order Total</button>
             <br />
             {% for pc in displayOrder %}
               {% for item in inventory %}
