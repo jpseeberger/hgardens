@@ -22,6 +22,13 @@
             <br />
     <button type="submit" class="ui huge inverted blue button">Check Your Order Total</button>
             <br />
+            <h4 class="ui blue header">
+              New This Week:  Leeks and Butternut Squash!
+            </h4>
+            <h4 class="ui blue header">
+              Peppers: Fall means the last of the Peppers. Get your peppers now.
+            </h4>
+            <br />
             {% for pc in displayOrder %}
               {% for item in inventory %}
                 {% if loop.first %}

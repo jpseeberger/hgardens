@@ -122,6 +122,13 @@
             <h2 class="ui icon header">
               What We're Bringing You This Week
             </h2> 
+            <h4 class="ui blue header">
+              New This Week:  Leeks and Butternut Squash!
+            </h4>
+            <h4 class="ui blue header">
+              Peppers: Fall means the last of the Peppers. Get your peppers now.
+            </h4>
+            <br />
             <a href="/check_list" class="ui big blue button">Click to see order form</a>
             <br />
             {% for pc in displayOrder %}
