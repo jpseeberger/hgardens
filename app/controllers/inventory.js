@@ -23,7 +23,8 @@ var units = [
   {id:4, name:'pint'},
   {id:5, name:'quart'},
   {id:6, name:'lb'},
-  {id:7, name:'bunch'}
+  {id:7, name:'bunch'},
+  {id:8, name:'bundle'}
 ];
 
 module.exports = function (app) {

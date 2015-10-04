@@ -29,7 +29,7 @@
               Harvest Lane Gardens Check Out List
             </h2> <br />
             <h2>Our website is still evolving.</h2>
-            <p> This is our first week of distribution.  
+            <p> For the moment, all orders will be placed via email to Roxane.  
             Please either copy and clip the information below into an email to Roxane, or attach a screenshot of the page in your email to Roxane.</p>
             <p>Your email with the information included on this page will identify the order you will receive at the next pick-up.  Roxane will include payment information in your confirmation email of this order. 
             </p> 
