@@ -51,6 +51,10 @@ var quantity = [
   {id:'19', name:"19"},
   {id:'20', name:"20"}
 ];
+var grower_messages = [
+  {id:'1', name:"The season is coming to a close, but we still have a few items left."},
+  {id:'2', name:"The remaining garlic is smaller, and has a lower price to reflect that.  Bulk price available on request!"}
+]
 
 
 
@@ -446,7 +450,8 @@ module.exports = function (app) {
             displayOrder: displayOrder, 
             parentClasses: topLevelNow,
             parentClassesNextWeek: topLevelNextWeek,
-            parentClassesFullList: topLevelFullList
+            parentClassesFullList: topLevelFullList, 
+            grower_msgs: grower_messages
           });
         });
       });
@@ -471,7 +476,8 @@ module.exports = function (app) {
             inventory: availableNow, 
             quantity: quantity, 
             displayOrder: displayOrder, 
-            parentClasses: topLevelNow
+            parentClasses: topLevelNow, 
+            grower_msgs: grower_messages
           });
         });
       });
